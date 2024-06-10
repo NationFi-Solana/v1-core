@@ -4,10 +4,7 @@ import { Button } from '../shared/ui/button';
 import Stats from './stats';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
 import { SiSolana } from 'react-icons/si';
-import idl from '../../idl/betting_dapp.json';
-import { ConfirmOptions, Connection, PublicKey } from '@solana/web3.js';
-import { Program } from '@coral-xyz/anchor';
-import { useAnchorProvider } from '../solana/solana-provider';
+
 export default function BetCard() {
   const [selection, setSelection] = useState<number | undefined>();
   const wallet = useAnchorWallet();
@@ -15,15 +12,6 @@ export default function BetCard() {
   useEffect(() => {
     const opts = { preflightCommitment: 'processed' };
     const network = 'http://127.0.0.1:8899'; // Adjust for your environment: local, devnet, or mainnet-beta
-
-    const provider = useAnchorProvider();
-
-    console.log(provider);
-    if (provider === null) return;
-    const programID = new PublicKey(idl.address);
-
-    const program = new Program(idl, programID, provider);
-    console.log(program);
   }, []);
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

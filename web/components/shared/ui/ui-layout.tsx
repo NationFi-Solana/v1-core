@@ -7,9 +7,9 @@ import { usePathname } from 'next/navigation';
 
 import { ExplorerLink } from '../../cluster/cluster-ui';
 import toast, { Toaster } from 'react-hot-toast';
-import Header from '../../header';
 import { useAtom } from 'jotai';
 import { isDarkTheme } from '@/app/layout';
+import Header from '@/components/header';
 
 export function UiLayout({
   children,
