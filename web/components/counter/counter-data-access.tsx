@@ -33,15 +33,7 @@ export function useCounterProgram() {
     mutationFn: (keypair: Keypair) =>
       program.methods
         .initialize()
-        .accounts({
-          programStateAccount: programStateAccountPda,
-          splTokenMint: helperFunctions.mint,
-          programTokenAccountForSpl: ownerTokenAddress,
-          userAuthority: keypair.publicKey,
-          programAuthority: programId,
-          userTokenAccount: helperFunctions.tokenAccountforMint,
-          userSplBalance: userSplBalancePda,
-        })
+        .accounts({ counter: keypair.publicKey })
         .signers([keypair])
         .rpc(),
     onSuccess: (signature) => {
