@@ -17,7 +17,7 @@ export default function BetCard() {
     e.preventDefault();
   };
   return (
-    <div className="min-w-[300px] max-w-[420px] lg:min-w-[420px]">
+    <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
       <div className="bg-background-900 p-4 w-full rounded-md ">
         <form onSubmit={onSubmit} className="space-y-2">
           <div className="flex ">

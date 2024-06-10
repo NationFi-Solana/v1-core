@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     return (
       <div className=" px-4 md:px-8">
         <div className=" lg:flex space-y-4 xl:w-[1200px]  2xl:w-[1400px] gap-x-8 justify-between ">
-          <div className="flex-grow ">
+          <div className="flex-grow w-full min-w-[440px]">
             <div className="flex gap-x-6">
               <div className="flex">
                 <Image

@@ -29,7 +29,7 @@ export function UiLayout({
     >
       <Header></Header>
 
-      <div className="flex-grow  flex justify-center mx-auto px-4 py-16">
+      <div className="flex-grow  lg:flex justify-center lg:mx-auto px-4 py-16">
         <Suspense
           fallback={
             <div className="text-center my-32">
