@@ -37,7 +37,7 @@ export function useCounterProgram() {
           programStateAccount: programStateAccountPda,
           splTokenMint: helperFunctions.mint,
           programTokenAccountForSpl: ownerTokenAddress,
-          userAuthority: helperFunctions.signer.publicKey,
+          userAuthority: keypair.publicKey,
           programAuthority: programId,
           userTokenAccount: helperFunctions.tokenAccountforMint,
           userSplBalance: userSplBalancePda,
