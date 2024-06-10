@@ -2,7 +2,9 @@
 import { AnchorProvider, Program } from '@coral-xyz/anchor';
 import { Cluster, PublicKey } from '@solana/web3.js';
 import CounterIDL from '../target/idl/counter.json';
+import BettingIDL from '../target/idl/betting_dapp.json';
 import type { Counter } from '../target/types/counter';
+import { BettingDapp } from '../target/types/betting_dapp';
 
 // Re-export the generated IDL and type
 export { Counter, CounterIDL };
@@ -26,4 +28,8 @@ export function getCounterProgramId(cluster: Cluster) {
     default:
       return COUNTER_PROGRAM_ID;
   }
+}
+
+export function getBettingProgram(provider: AnchorProvider) {
+  return new Program(BettingIDL as BettingDapp, provider);
 }

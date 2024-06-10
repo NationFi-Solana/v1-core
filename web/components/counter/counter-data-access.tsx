@@ -1,6 +1,10 @@
 'use client';
 
-import { getCounterProgram, getCounterProgramId } from '@test/anchor';
+import {
+  getBettingProgram,
+  getCounterProgram,
+  getCounterProgramId,
+} from '@test/anchor';
 import { Program } from '@coral-xyz/anchor';
 import { useConnection } from '@solana/wallet-adapter-react';
 import { Cluster, Keypair, PublicKey } from '@solana/web3.js';
@@ -21,6 +25,7 @@ export function useCounterProgram() {
     [cluster]
   );
   const program = getCounterProgram(provider);
+  const program2 = getBettingProgram(provider);
 
   const accounts = useQuery({
     queryKey: ['counter', 'all', { cluster }],

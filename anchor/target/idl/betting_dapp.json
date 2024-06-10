@@ -1,0 +1,400 @@
+{
+  "address": "83gCS2t7QEqG4EmbPriCPjD7f5qcrDuBEfwqa6H8SwMS",
+  "metadata": {
+    "name": "betting_dapp",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "init_place_spl_bet_a",
+      "discriminator": [
+        75,
+        255,
+        59,
+        163,
+        228,
+        106,
+        9,
+        103
+      ],
+      "accounts": [
+        {
+          "name": "user_spl_balance",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "user_token_account"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  112,
+                  108,
+                  95,
+                  98,
+                  101,
+                  116,
+                  95,
+                  97
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "spl_token_mint",
+          "writable": true
+        },
+        {
+          "name": "user_token_account",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "init_place_spl_bet_b",
+      "discriminator": [
+        212,
+        100,
+        68,
+        158,
+        61,
+        168,
+        71,
+        234
+      ],
+      "accounts": [
+        {
+          "name": "user_spl_balance",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "user_token_account"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  112,
+                  108,
+                  95,
+                  98,
+                  101,
+                  116,
+                  95,
+                  98
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "spl_token_mint",
+          "writable": true
+        },
+        {
+          "name": "user_token_account",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize_program_state",
+      "discriminator": [
+        114,
+        90,
+        170,
+        208,
+        223,
+        41,
+        40,
+        160
+      ],
+      "accounts": [
+        {
+          "name": "program_state_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "place_spl_bet",
+      "discriminator": [
+        60,
+        8,
+        33,
+        15,
+        51,
+        211,
+        67,
+        94
+      ],
+      "accounts": [
+        {
+          "name": "program_state_account",
+          "writable": true
+        },
+        {
+          "name": "spl_token_mint",
+          "writable": true
+        },
+        {
+          "name": "program_token_account_for_spl",
+          "writable": true
+        },
+        {
+          "name": "user_authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "program_authority"
+        },
+        {
+          "name": "user_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_spl_balance",
+          "writable": true
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "is_bet_a",
+          "type": "u8"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "decimals",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "read_program_state",
+      "discriminator": [
+        15,
+        202,
+        151,
+        193,
+        80,
+        198,
+        253,
+        222
+      ],
+      "accounts": [
+        {
+          "name": "program_state_account",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "set_program_state",
+      "discriminator": [
+        203,
+        151,
+        175,
+        121,
+        203,
+        127,
+        188,
+        248
+      ],
+      "accounts": [
+        {
+          "name": "program_state_account",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "bets_closed",
+          "type": "u8"
+        },
+        {
+          "name": "is_bet_a_winner",
+          "type": "u8"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "ProgramState",
+      "discriminator": [
+        77,
+        209,
+        137,
+        229,
+        149,
+        67,
+        167,
+        230
+      ]
+    },
+    {
+      "name": "SignerSPLBalance",
+      "discriminator": [
+        160,
+        246,
+        20,
+        14,
+        38,
+        134,
+        46,
+        128
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "BetOverAndDistributed",
+      "msg": "Bet is already over and winnings have already been distributed"
+    },
+    {
+      "code": 6001,
+      "name": "PDAMismatchProgramTokenAccount",
+      "msg": "An invalid token account was passed for SPL Placement"
+    }
+  ],
+  "types": [
+    {
+      "name": "ProgramState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bets_closed",
+            "type": "u8"
+          },
+          {
+            "name": "is_bet_a_winner",
+            "type": "u8"
+          },
+          {
+            "name": "bet_over_and_distributed",
+            "type": "u8"
+          },
+          {
+            "name": "total_bets",
+            "type": "u64"
+          },
+          {
+            "name": "spl_balances",
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "sol_balances",
+            "type": {
+              "vec": "pubkey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "SignerSPLBalance",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "signer_public_key",
+            "type": "pubkey"
+          },
+          {
+            "name": "signer_token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "spl_token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "is_bet_a",
+            "type": "u8"
+          },
+          {
+            "name": "balance",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ]
+}
