@@ -2,7 +2,7 @@
 
 import { Keypair, PublicKey } from '@solana/web3.js';
 import { useMemo } from 'react';
-import { ellipsify } from '../ui/ui-layout';
+// import { ellipsify } from '../ui/ui-layout';
 import { ExplorerLink } from '../cluster/cluster-ui';
 import {
   useCounterProgram,
@@ -128,7 +128,8 @@ function CounterCard({ account }: { account: PublicKey }) {
             <p>
               <ExplorerLink
                 path={`account/${account}`}
-                label={ellipsify(account.toString())}
+                label={account.toString()}
+                // label={ellipsify(account.toString())}
               />
             </p>
             <button

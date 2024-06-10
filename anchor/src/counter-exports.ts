@@ -33,3 +33,8 @@ export function getCounterProgramId(cluster: Cluster) {
 export function getBettingProgram(provider: AnchorProvider) {
   return new Program(BettingIDL as BettingDapp, provider);
 }
+
+export const BETTING_PROGRAM_ID = new PublicKey(CounterIDL.address);
+export function getBettingProgramId() {
+  return BETTING_PROGRAM_ID;
+}
