@@ -28,13 +28,20 @@ export function useCounterProgram() {
     queryKey: ['get-program-account', { cluster }],
     queryFn: () => connection.getParsedAccountInfo(programId),
   });
-
   const initialize = useMutation({
     mutationKey: ['counter', 'initialize', { cluster }],
     mutationFn: (keypair: Keypair) =>
       program.methods
         .initialize()
-        .accounts({ counter: keypair.publicKey })
+        .accounts({
+          programStateAccount: programStateAccountPda,
+          splTokenMint: helperFunctions.mint,
+          programTokenAccountForSpl: ownerTokenAddress,
+          userAuthority: helperFunctions.signer.publicKey,
+          programAuthority: programId,
+          userTokenAccount: helperFunctions.tokenAccountforMint,
+          userSplBalance: userSplBalancePda,
+        })
         .signers([keypair])
         .rpc(),
     onSuccess: (signature) => {
