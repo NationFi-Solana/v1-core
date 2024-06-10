@@ -11,7 +11,6 @@ export function useBetProgram() {
   const { cluster } = useCluster();
   const provider = useAnchorProvider();
   const programId = useMemo(() => getBettingProgramId(), []);
-  const program = getBettingProgram(provider);
-
+  const program = getBettingProgram(provider, '');
   return {};
 }

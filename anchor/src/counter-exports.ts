@@ -29,9 +29,9 @@ export function getCounterProgramId(cluster: Cluster) {
       return COUNTER_PROGRAM_ID;
   }
 }
-
-export function getBettingProgram(provider: AnchorProvider) {
-  return new Program(BettingIDL as BettingDapp, provider);
+export function getBettingProgram(provider: AnchorProvider, address: string) {
+  const idl = { ...BettingIDL, address };
+  return new Program(idl as BettingDapp, provider);
 }
 
 export const BETTING_PROGRAM_ID = new PublicKey(CounterIDL.address);
