@@ -5,25 +5,17 @@ seeds = false
 skip-lint = false
 
 [programs.localnet]
-counter = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
+counter = "Hr83GxtFmw1Af1QiCkCi4e1wmQ2R8V7cSHTrxZJuiYV7"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "devnet"
+cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
 test = "../node_modules/.bin/nx run anchor:jest"
-init-program-state = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/init-program-state.ts"
-read-program-state = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/read-program-state.ts"
-init-spl-bet-a = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/init-place-spl-bet-a.ts"
-init-spl-bet-b = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/init-place-spl-bet-b.ts"
-init-sol-bet-a = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/init-place-sol-bet-a.ts"
-init-sol-bet-b = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/init-place-sol-bet-b.ts"
-place-spl-bet = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/place-spl-bet.ts"
-place-sol-bet = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/place-sol-bet.ts"
 
 [test]
 startup_wait = 5000
