@@ -1,8 +1,10 @@
 use crate::SignerSPLBalance;
 
-use {anchor_lang::prelude::*, anchor_spl::token};
+use {anchor_lang::prelude::*, anchor_spl::associated_token, anchor_spl::token};
 
 use super::balances::*;
+use super::errors;
+use super::state::*;
 
 pub fn init_place_spl_bet_a(ctx: Context<InitPlaceSPLBetA>) -> Result<()> {
     let signer_spl_balance_account = &mut ctx.accounts.user_spl_balance;
@@ -30,28 +32,6 @@ pub fn init_place_spl_bet_b(ctx: Context<InitPlaceSPLBetB>) -> Result<()> {
     signer_spl_balance_account.signer_token_account = signer_token_account.key();
     signer_spl_balance_account.balance = 0;
     signer_spl_balance_account.is_bet_a = 0;
-
-    Ok(())
-}
-
-pub fn init_place_sol_bet_a(ctx: Context<InitPlaceSOLBetA>) -> Result<()> {
-    let user_authority = &mut ctx.accounts.user_authority;
-    let user_sol_balance = &mut ctx.accounts.user_sol_balance;
-
-    user_sol_balance.is_bet_a = 1;
-    user_sol_balance.balance = 0;
-    user_sol_balance.signer_public_key = user_authority.key();
-
-    Ok(())
-}
-
-pub fn init_place_sol_bet_b(ctx: Context<InitPlaceSOLBetB>) -> Result<()> {
-    let user_authority = &mut ctx.accounts.user_authority;
-    let user_sol_balance = &mut ctx.accounts.user_sol_balance;
-
-    user_sol_balance.is_bet_a = 0;
-    user_sol_balance.balance = 0;
-    user_sol_balance.signer_public_key = user_authority.key();
 
     Ok(())
 }
@@ -96,38 +76,6 @@ pub struct InitPlaceSPLBetB<'info> {
 
     #[account(mut)]
     pub user_token_account: Account<'info, token::TokenAccount>,
-
-    pub system_program: Program<'info, System>,
-}
-
-#[derive(Accounts)]
-pub struct InitPlaceSOLBetA<'info> {
-    #[account(init,
-              payer = user_authority,
-              space=120,
-              seeds = [b"sol_bet_a"],
-              bump
-    )]
-    pub user_sol_balance: Account<'info, SignerSOLBalance>,
-
-    #[account(mut)]
-    pub user_authority: Signer<'info>,
-
-    pub system_program: Program<'info, System>,
-}
-
-#[derive(Accounts)]
-pub struct InitPlaceSOLBetB<'info> {
-    #[account(init,
-              payer = user_authority,
-              space=120,
-              seeds = [b"sol_bet_b"],
-              bump
-    )]
-    pub user_sol_balance: Account<'info, SignerSOLBalance>,
-
-    #[account(mut)]
-    pub user_authority: Signer<'info>,
 
     pub system_program: Program<'info, System>,
 }

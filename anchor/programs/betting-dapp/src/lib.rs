@@ -3,7 +3,6 @@ use anchor_lang::prelude::*;
 pub mod balances;
 pub mod bet_placement;
 pub mod bet_placement_initialization;
-pub mod distribution;
 pub mod errors;
 pub mod state;
 
@@ -12,7 +11,7 @@ use bet_placement::*;
 use bet_placement_initialization::*;
 use state::*;
 
-declare_id!("kN9rxjZdw2YV4at2hY5LW7bGfMEQqDM9HvJTHLL777g");
+declare_id!("83gCS2t7QEqG4EmbPriCPjD7f5qcrDuBEfwqa6H8SwMS");
 
 #[program]
 pub mod betting_dapp {
@@ -40,18 +39,6 @@ pub mod betting_dapp {
 
     pub fn init_place_spl_bet_b(ctx: Context<InitPlaceSPLBetB>) -> Result<()> {
         bet_placement_initialization::init_place_spl_bet_b(ctx)
-    }
-
-    pub fn init_place_sol_bet_a(ctx: Context<InitPlaceSOLBetA>) -> Result<()> {
-        bet_placement_initialization::init_place_sol_bet_a(ctx)
-    }
-
-    pub fn init_place_sol_bet_b(ctx: Context<InitPlaceSOLBetB>) -> Result<()> {
-        bet_placement_initialization::init_place_sol_bet_b(ctx)
-    }
-
-    pub fn place_sol_bet(ctx: Context<PlaceSOLBet>, is_bet_a: u8, sol_amount: u64) -> Result<()> {
-        bet_placement::place_sol_bet(ctx, is_bet_a, sol_amount)
     }
 
     pub fn place_spl_bet(

@@ -18,11 +18,13 @@ pub struct SignerSOLBalance {
 
 #[account]
 pub struct BetTotalSPL {
+    pub is_bet_a: u8,
     pub total: u64,
     pub spl_token_mint: Pubkey,
 }
 
 #[account]
 pub struct BetTotalSOL {
+    pub is_bet_a: u8,
     pub total: u64,
 }
