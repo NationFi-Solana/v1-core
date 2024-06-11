@@ -1,4 +1,4 @@
-import * as anchor from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import { BettingDapp } from "../target/types/betting_dapp";
 import { helpers } from "./helpers";
 
@@ -12,7 +12,7 @@ describe("betting-dapp", () => {
   const programId = program.programId;
 
   it("Successfully place SPL Bet B", async () => {
-    let [userSplBalancePda, _] = anchor.web3.PublicKey.findProgramAddressSync(
+    const [userSplBalancePda, _] = anchor.web3.PublicKey.findProgramAddressSync(
       [
         helperFunctions.tokenAccountforMint.toBuffer(),
         Buffer.from("spl_bet_b"),
@@ -23,7 +23,6 @@ describe("betting-dapp", () => {
     const tx = await program.methods
       .initPlaceSplBetB()
       .accounts({
-        userSplBalance: userSplBalancePda,
         userAuthority: helperFunctions.signer.publicKey,
         splTokenMint: helperFunctions.mint,
         userTokenAccount: helperFunctions.tokenAccountforMint,
