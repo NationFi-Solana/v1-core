@@ -1,234 +1,265 @@
 {
-  "address": "GMCxWLo8S5gcksJQC2C8Z7WziPdDgDp89KHkdgcULxxb",
-  "metadata": {
-    "name": "betting_dapp",
-    "version": "0.1.0",
-    "spec": "0.1.0",
-    "description": "Created with Anchor"
-  },
+  "version": "0.1.0",
+  "name": "betting_dapp",
   "instructions": [
     {
-      "name": "init_place_spl_bet_a",
-      "discriminator": [
-        75,
-        255,
-        59,
-        163,
-        228,
-        106,
-        9,
-        103
-      ],
+      "name": "initializeProgramState",
       "accounts": [
         {
-          "name": "user_spl_balance",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "account",
-                "path": "user_token_account"
-              },
-              {
-                "kind": "const",
-                "value": [
-                  115,
-                  112,
-                  108,
-                  95,
-                  98,
-                  101,
-                  116,
-                  95,
-                  97
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "name": "user_authority",
-          "writable": true,
-          "signer": true
-        },
-        {
-          "name": "spl_token_mint",
-          "writable": true
-        },
-        {
-          "name": "user_token_account",
-          "writable": true
-        },
-        {
-          "name": "system_program",
-          "address": "11111111111111111111111111111111"
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "init_place_spl_bet_b",
-      "discriminator": [
-        212,
-        100,
-        68,
-        158,
-        61,
-        168,
-        71,
-        234
-      ],
-      "accounts": [
-        {
-          "name": "user_spl_balance",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "account",
-                "path": "user_token_account"
-              },
-              {
-                "kind": "const",
-                "value": [
-                  115,
-                  112,
-                  108,
-                  95,
-                  98,
-                  101,
-                  116,
-                  95,
-                  98
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "name": "user_authority",
-          "writable": true,
-          "signer": true
-        },
-        {
-          "name": "spl_token_mint",
-          "writable": true
-        },
-        {
-          "name": "user_token_account",
-          "writable": true
-        },
-        {
-          "name": "system_program",
-          "address": "11111111111111111111111111111111"
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "initialize_program_state",
-      "discriminator": [
-        114,
-        90,
-        170,
-        208,
-        223,
-        41,
-        40,
-        160
-      ],
-      "accounts": [
-        {
-          "name": "program_state_account",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115,
-                  116,
-                  97,
-                  116,
-                  101
-                ]
-              }
-            ]
-          }
+          "name": "programStateAccount",
+          "isMut": true,
+          "isSigner": false
         },
         {
           "name": "signer",
-          "writable": true,
-          "signer": true
+          "isMut": true,
+          "isSigner": true
         },
         {
-          "name": "system_program",
-          "address": "11111111111111111111111111111111"
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
         }
       ],
       "args": []
     },
     {
-      "name": "place_spl_bet",
-      "discriminator": [
-        60,
-        8,
-        33,
-        15,
-        51,
-        211,
-        67,
-        94
-      ],
+      "name": "readProgramState",
       "accounts": [
         {
-          "name": "program_state_account",
-          "writable": true
-        },
+          "name": "programStateAccount",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "setProgramState",
+      "accounts": [
         {
-          "name": "spl_token_mint",
-          "writable": true
-        },
-        {
-          "name": "program_token_account_for_spl",
-          "writable": true
-        },
-        {
-          "name": "user_authority",
-          "writable": true,
-          "signer": true
-        },
-        {
-          "name": "program_authority"
-        },
-        {
-          "name": "user_token_account",
-          "writable": true
-        },
-        {
-          "name": "user_spl_balance",
-          "writable": true
-        },
-        {
-          "name": "rent",
-          "address": "SysvarRent111111111111111111111111111111111"
-        },
-        {
-          "name": "system_program",
-          "address": "11111111111111111111111111111111"
-        },
-        {
-          "name": "token_program",
-          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
-        },
-        {
-          "name": "associated_token_program",
-          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+          "name": "programStateAccount",
+          "isMut": true,
+          "isSigner": false
         }
       ],
       "args": [
         {
-          "name": "is_bet_a",
+          "name": "betsClosed",
+          "type": "u8"
+        },
+        {
+          "name": "isBetAWinner",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "initPlaceSplBetA",
+      "accounts": [
+        {
+          "name": "userSplBalance",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "splTokenMint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initPlaceSplBetB",
+      "accounts": [
+        {
+          "name": "userSplBalance",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "splTokenMint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initPlaceSolBetA",
+      "accounts": [
+        {
+          "name": "userSolBalance",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initPlaceSolBetB",
+      "accounts": [
+        {
+          "name": "userSolBalance",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "placeSolBet",
+      "accounts": [
+        {
+          "name": "programStateAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "userSolBalance",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "programFundsAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "isBetA",
+          "type": "u8"
+        },
+        {
+          "name": "solAmount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "placeSplBet",
+      "accounts": [
+        {
+          "name": "programStateAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "splTokenMint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "programTokenAccountForSpl",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "programAuthority",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userSplBalance",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "isBetA",
           "type": "u8"
         },
         {
@@ -240,83 +271,120 @@
           "type": "u8"
         }
       ]
-    },
-    {
-      "name": "read_program_state",
-      "discriminator": [
-        15,
-        202,
-        151,
-        193,
-        80,
-        198,
-        253,
-        222
-      ],
-      "accounts": [
-        {
-          "name": "program_state_account",
-          "writable": true
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "set_program_state",
-      "discriminator": [
-        203,
-        151,
-        175,
-        121,
-        203,
-        127,
-        188,
-        248
-      ],
-      "accounts": [
-        {
-          "name": "program_state_account",
-          "writable": true
-        }
-      ],
-      "args": [
-        {
-          "name": "bets_closed",
-          "type": "u8"
-        },
-        {
-          "name": "is_bet_a_winner",
-          "type": "u8"
-        }
-      ]
     }
   ],
   "accounts": [
     {
-      "name": "ProgramState",
-      "discriminator": [
-        77,
-        209,
-        137,
-        229,
-        149,
-        67,
-        167,
-        230
-      ]
+      "name": "SignerSPLBalance",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "signerPublicKey",
+            "type": "publicKey"
+          },
+          {
+            "name": "signerTokenAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "splTokenMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "isBetA",
+            "type": "u8"
+          },
+          {
+            "name": "balance",
+            "type": "u64"
+          }
+        ]
+      }
     },
     {
-      "name": "SignerSPLBalance",
-      "discriminator": [
-        160,
-        246,
-        20,
-        14,
-        38,
-        134,
-        46,
-        128
-      ]
+      "name": "SignerSOLBalance",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "signerPublicKey",
+            "type": "publicKey"
+          },
+          {
+            "name": "isBetA",
+            "type": "u8"
+          },
+          {
+            "name": "balance",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BetTotalSPL",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "total",
+            "type": "u64"
+          },
+          {
+            "name": "splTokenMint",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BetTotalSOL",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "total",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProgramState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "betsClosed",
+            "type": "u8"
+          },
+          {
+            "name": "isBetAWinner",
+            "type": "u8"
+          },
+          {
+            "name": "betOverAndDistributed",
+            "type": "u8"
+          },
+          {
+            "name": "totalBets",
+            "type": "u64"
+          },
+          {
+            "name": "splBalances",
+            "type": {
+              "vec": "publicKey"
+            }
+          },
+          {
+            "name": "solBalances",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
     }
   ],
   "errors": [
@@ -327,74 +395,31 @@
     },
     {
       "code": 6001,
-      "name": "PDAMismatchProgramTokenAccount",
-      "msg": "An invalid token account was passed for SPL Placement"
-    }
-  ],
-  "types": [
-    {
-      "name": "ProgramState",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "bets_closed",
-            "type": "u8"
-          },
-          {
-            "name": "is_bet_a_winner",
-            "type": "u8"
-          },
-          {
-            "name": "bet_over_and_distributed",
-            "type": "u8"
-          },
-          {
-            "name": "total_bets",
-            "type": "u64"
-          },
-          {
-            "name": "spl_balances",
-            "type": {
-              "vec": "pubkey"
-            }
-          },
-          {
-            "name": "sol_balances",
-            "type": {
-              "vec": "pubkey"
-            }
-          }
-        ]
-      }
+      "name": "TotalsInvalidLogic",
+      "msg": "Totals Error!"
     },
     {
-      "name": "SignerSPLBalance",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "signer_public_key",
-            "type": "pubkey"
-          },
-          {
-            "name": "signer_token_account",
-            "type": "pubkey"
-          },
-          {
-            "name": "spl_token_mint",
-            "type": "pubkey"
-          },
-          {
-            "name": "is_bet_a",
-            "type": "u8"
-          },
-          {
-            "name": "balance",
-            "type": "u64"
-          }
-        ]
-      }
+      "code": 6002,
+      "name": "PDAMismatchProgramTokenAccount",
+      "msg": "An invalid token account was passed for SPL Placement"
+    },
+    {
+      "code": 6003,
+      "name": "PDAMismatchProgramFunds",
+      "msg": "An invalid account for the program was passed for SOL Placement"
+    },
+    {
+      "code": 6004,
+      "name": "SignerSolBalanceInvalidOwnership",
+      "msg": "User's SignerSolBalance is not owned by program"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidProgramId",
+      "msg": "Invalid Program ID"
     }
-  ]
+  ],
+  "metadata": {
+    "address": "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
+  }
 }

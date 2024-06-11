@@ -1,10 +1,9 @@
-import * as anchor from '@project-serum/anchor';
+import * as anchor from "@project-serum/anchor";
 
 export const helpers = () => {
   function deriveProgramStateAccountPda(programId: anchor.web3.PublicKey) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [pda, _] = anchor.web3.PublicKey.findProgramAddressSync(
-      [Buffer.from('state')],
+    let [pda, _] = anchor.web3.PublicKey.findProgramAddressSync(
+      [Buffer.from("state")],
       programId
     );
     return pda;
@@ -14,7 +13,7 @@ export const helpers = () => {
     programId: anchor.web3.PublicKey,
     mintId: anchor.web3.PublicKey
   ) {
-    const [pda, _] = anchor.web3.PublicKey.findProgramAddressSync(
+    let [pda, _] = anchor.web3.PublicKey.findProgramAddressSync(
       [mintId.toBuffer()],
       programId
     );
@@ -44,10 +43,10 @@ export const helpers = () => {
     signer,
     secondSigner,
     mint: new anchor.web3.PublicKey(
-      '3yZEgJVK41MvLuWKvHh6bpaLwqynaQG7BYwB4bPdCnFj'
+      "3yZEgJVK41MvLuWKvHh6bpaLwqynaQG7BYwB4bPdCnFj"
     ),
     tokenAccountforMint: new anchor.web3.PublicKey(
-      'C5r3YfGioRAziHonypJDpMG9qa94yLSN8qXwNjmcjwTs'
+      "C5r3YfGioRAziHonypJDpMG9qa94yLSN8qXwNjmcjwTs"
     ),
   };
 };
