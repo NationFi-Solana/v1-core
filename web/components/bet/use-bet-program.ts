@@ -18,8 +18,16 @@ export function useBetProgram() {
   const program = getBettingProgram(provider, '');
   const mint = new PublicKey('3yZEgJVK41MvLuWKvHh6bpaLwqynaQG7BYwB4bPdCnFj')
   const tokenAccountForMint = new PublicKey('C5r3YfGioRAziHonypJDpMG9qa94yLSN8qXwNjmcjwTs')
-
-  const placeBet = useMutation({
+  const placeSolBet = useMutation({
+    mutationKey: ['placebet'],
+    mutationFn: () => {
+      return program.methods.placeSolBet(0, new BN(1000)).accounts({
+        userSolBalance: '',
+        programStateAccount: ''
+      }).signers([]).rpc()
+    }
+  })
+  const placeSplBet = useMutation({
     mutationKey: ['placebet'],
     mutationFn: () => {
       const ownerTokenAddress = token.associatedAddress({
@@ -44,7 +52,7 @@ export function useBetProgram() {
         .rpc()
     }
   });
-  return { placeBet };
+  return { placeSplBet, placeSolBet };
 }
 
 

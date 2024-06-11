@@ -1,5 +1,5 @@
 {
-  "address": "GMCxWLo8S5gcksJQC2C8Z7WziPdDgDp89KHkdgcULxxb",
+  "address": "kN9rxjZdw2YV4at2hY5LW7bGfMEQqDM9HvJTHLL777g",
   "metadata": {
     "name": "betting_dapp",
     "version": "0.1.0",
@@ -7,6 +7,100 @@
     "description": "Created with Anchor"
   },
   "instructions": [
+    {
+      "name": "init_place_sol_bet_a",
+      "discriminator": [
+        88,
+        46,
+        71,
+        114,
+        175,
+        162,
+        174,
+        116
+      ],
+      "accounts": [
+        {
+          "name": "user_sol_balance",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  111,
+                  108,
+                  95,
+                  98,
+                  101,
+                  116,
+                  95,
+                  97
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "init_place_sol_bet_b",
+      "discriminator": [
+        69,
+        105,
+        187,
+        47,
+        23,
+        46,
+        100,
+        137
+      ],
+      "accounts": [
+        {
+          "name": "user_sol_balance",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  111,
+                  108,
+                  95,
+                  98,
+                  101,
+                  116,
+                  95,
+                  98
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
     {
       "name": "init_place_spl_bet_a",
       "discriminator": [
@@ -169,6 +263,74 @@
       "args": []
     },
     {
+      "name": "place_sol_bet",
+      "discriminator": [
+        160,
+        21,
+        21,
+        124,
+        17,
+        65,
+        59,
+        178
+      ],
+      "accounts": [
+        {
+          "name": "program_state_account",
+          "writable": true
+        },
+        {
+          "name": "user_authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_sol_balance",
+          "writable": true
+        },
+        {
+          "name": "program_funds_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  103,
+                  114,
+                  97,
+                  109,
+                  45,
+                  102,
+                  117,
+                  110,
+                  100,
+                  115
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "is_bet_a",
+          "type": "u8"
+        },
+        {
+          "name": "sol_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
       "name": "place_spl_bet",
       "discriminator": [
         60,
@@ -306,6 +468,19 @@
       ]
     },
     {
+      "name": "SignerSOLBalance",
+      "discriminator": [
+        122,
+        27,
+        240,
+        221,
+        113,
+        56,
+        192,
+        45
+      ]
+    },
+    {
       "name": "SignerSPLBalance",
       "discriminator": [
         160,
@@ -327,8 +502,28 @@
     },
     {
       "code": 6001,
+      "name": "TotalsInvalidLogic",
+      "msg": "Totals Error!"
+    },
+    {
+      "code": 6002,
       "name": "PDAMismatchProgramTokenAccount",
       "msg": "An invalid token account was passed for SPL Placement"
+    },
+    {
+      "code": 6003,
+      "name": "PDAMismatchProgramFunds",
+      "msg": "An invalid account for the program was passed for SOL Placement"
+    },
+    {
+      "code": 6004,
+      "name": "SignerSolBalanceInvalidOwnership",
+      "msg": "User's SignerSolBalance is not owned by program"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidProgramId",
+      "msg": "Invalid Program ID"
     }
   ],
   "types": [
@@ -364,6 +559,26 @@
             "type": {
               "vec": "pubkey"
             }
+          }
+        ]
+      }
+    },
+    {
+      "name": "SignerSOLBalance",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "signer_public_key",
+            "type": "pubkey"
+          },
+          {
+            "name": "is_bet_a",
+            "type": "u8"
+          },
+          {
+            "name": "balance",
+            "type": "u64"
           }
         ]
       }
