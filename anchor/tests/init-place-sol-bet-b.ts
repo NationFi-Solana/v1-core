@@ -11,22 +11,17 @@ describe("betting-dapp", () => {
 
   const programId = program.programId;
 
-  it("Initialize PlaceSPLBet For Bet A", async () => {
-    let [userSplBalancePda, _] = anchor.web3.PublicKey.findProgramAddressSync(
-      [
-        helperFunctions.tokenAccountforMint.toBuffer(),
-        Buffer.from("spl_bet_a"),
-      ],
+  it("Initialize PlaceSOLBet For Bet B", async () => {
+    let [userSolBalanceBPda, _] = anchor.web3.PublicKey.findProgramAddressSync(
+      [Buffer.from("sol_bet_b")],
       programId
     );
 
     const tx = await program.methods
-      .initPlaceSplBetA()
+      .initPlaceSolBetB()
       .accounts({
-        userSplBalance: userSplBalancePda,
+        userSolBalance: userSolBalanceBPda,
         userAuthority: helperFunctions.signer.publicKey,
-        splTokenMint: helperFunctions.mint,
-        userTokenAccount: helperFunctions.tokenAccountforMint,
       })
       .signers([helperFunctions.signer])
       .rpc();
