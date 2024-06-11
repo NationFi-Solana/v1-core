@@ -1,21 +1,22 @@
 'use client';
-import { FormEvent, useEffect, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import { Button } from '../shared/ui/button';
 import Stats from './stats';
-import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
+import { useWallet } from '@solana/wallet-adapter-react';
 import { SiSolana } from 'react-icons/si';
+import { useBetProgram } from './use-bet-program';
 
 export default function BetCard() {
   const [selection, setSelection] = useState<number | undefined>();
-  const wallet = useAnchorWallet();
+
   const { connected } = useWallet();
-  useEffect(() => {
-    const opts = { preflightCommitment: 'processed' };
-    const network = 'http://127.0.0.1:8899'; // Adjust for your environment: local, devnet, or mainnet-beta
-  }, []);
+
+  const { placeBet } = useBetProgram();
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    placeBet.mutate();
   };
+
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
       <div className="bg-background-900 p-4 w-full rounded-md ">
