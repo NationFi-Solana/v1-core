@@ -11,10 +11,10 @@ export default function BetCard() {
 
   const { connected } = useWallet();
 
-  const { placeBet } = useBetProgram();
+  const { placeSolBet } = useBetProgram();
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    placeBet.mutate();
+    placeSolBet.mutate();
   };
 
   return (
