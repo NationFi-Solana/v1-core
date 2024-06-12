@@ -1,16 +1,22 @@
 import { TMarkets } from '@/app/page';
 import MarketCard from './market-card';
+import Link from 'next/link';
+import { FaRegStar } from 'react-icons/fa';
 
 export default function HomePage({ markets }: { markets: TMarkets }) {
   return (
     <div className="px-4">
-      <div className="flex gap-x-4">
-        <div className="bg-background-600 p-2 rounded-lg transition-all cursor-pointer border-2 border-primary/0 hover:border-primary">
-          Olympics
-        </div>
-        <div className="bg-background-600 p-2 rounded-lg transition-all cursor-pointer border-2 border-primary/0 hover:border-primary">
-          EURO
-        </div>
+      <div className="flex gap-x-4 items-center">
+        <Link
+          href="/"
+          className="bg-background-600 items-center gap-x-2 p-2 flex rounded-lg transition-all cursor-pointer border-2 border-primary/0 hover:border-primary"
+        >
+          <span>Featured</span>
+          <FaRegStar className="text-primary" />
+        </Link>
+
+        <CategoryCard title={'Olympics'} slug={''} />
+        <CategoryCard title={'EURO2024'} slug={''} />
       </div>
 
       <br></br>
@@ -27,6 +33,18 @@ export default function HomePage({ markets }: { markets: TMarkets }) {
           );
         })}
       </div>
+    </div>
+  );
+}
+function CategoryCard({ title }: { title: string; slug: string }) {
+  return (
+    <div>
+      <Link
+        href="/"
+        className="bg-background-600 p-2 rounded-lg transition-all cursor-pointer border-2 border-primary/0 hover:border-primary"
+      >
+        {title}
+      </Link>
     </div>
   );
 }

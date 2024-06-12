@@ -72,7 +72,7 @@ export default function BetCard() {
               }`}
               variant="cyan"
             >
-              Vote Yes
+              Vote Germany
             </Button>
             <Button
               type="button"
@@ -85,7 +85,7 @@ export default function BetCard() {
               }`}
               variant="cyan"
             >
-              Vote No
+              Vote Ukraine
             </Button>
           </div>
           <div className="pt-1"></div>

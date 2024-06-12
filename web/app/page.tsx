@@ -15,10 +15,15 @@ const marketSchema = z.object({
 });
 const marketsSchema = z.array(marketSchema);
 export type TMarkets = z.infer<typeof marketsSchema>;
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
   const result = await client.fetch(getMarkets);
   const safeResult = marketsSchema.safeParse(result);
-
+  const category = searchParams?.['category'];
+  console.log(category, 'CATEGORY');
   console.log({ result: result[0].slug, safeResult });
   let markets: TMarkets = [];
   if (safeResult.success) {
