@@ -25,12 +25,17 @@ export default function Card({ slug, title, imageUrl }: Props) {
         <br />
 
         <div className="flex gap-x-2 ">
-          <Button className="basis-1/2" variant="cyan">
-            Vote Yes
-          </Button>
-          <Button className="basis-1/2" variant="cyan">
-            Vote No
-          </Button>
+          <Link href={`/bet/${slug}?vote=yes`}>
+            <Button role="link" className="basis-1/2" variant="cyan">
+              Vote Yes
+            </Button>
+          </Link>
+
+          <Link href={`/bet/${slug}?vote=no`}>
+            <Button className="basis-1/2" variant="cyan">
+              Vote No
+            </Button>
+          </Link>
         </div>
         <div className="flex justify-between pt-3 text-muted-foreground">
           <div>
