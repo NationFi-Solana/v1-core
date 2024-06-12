@@ -5,7 +5,7 @@ import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js';
 import { IconRefresh } from '@tabler/icons-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
-import { AppModal, ellipsify } from '../ui/ui-layout';
+
 import { useCluster } from '../cluster/cluster-data-access';
 import { ExplorerLink } from '../cluster/cluster-ui';
 import {
@@ -173,20 +173,20 @@ export function AccountTokens({ address }: { address: PublicKey }) {
                     <td>
                       <div className="flex space-x-2">
                         <span className="font-mono">
-                          <ExplorerLink
+                          {/* <ExplorerLink
                             label={ellipsify(pubkey.toString())}
-                            path={`account/${pubkey.toString()}`}
-                          />
+                            />
+                            path={`account/${pubkey.toString()}`} */}
                         </span>
                       </div>
                     </td>
                     <td>
                       <div className="flex space-x-2">
                         <span className="font-mono">
-                          <ExplorerLink
-                            label={ellipsify(account.data.parsed.info.mint)}
+                          {/* <ExplorerLink
+                            // label={ellipsify(account.data.parsed.info.mint)}
                             path={`account/${account.data.parsed.info.mint.toString()}`}
-                          />
+                          /> */}
                         </span>
                       </div>
                     </td>
@@ -268,10 +268,10 @@ export function AccountTransactions({ address }: { address: PublicKey }) {
                 {items?.map((item) => (
                   <tr key={item.signature}>
                     <th className="font-mono">
-                      <ExplorerLink
+                      {/* <ExplorerLink
                         path={`tx/${item.signature}`}
                         label={ellipsify(item.signature, 8)}
-                      />
+                      /> */}
                     </th>
                     <td className="font-mono text-right">
                       <ExplorerLink
@@ -333,10 +333,10 @@ function ModalReceive({
   address: PublicKey;
 }) {
   return (
-    <AppModal title="Receive" hide={hide} show={show}>
-      <p>Receive assets by sending them to your public key:</p>
-      <code>{address.toString()}</code>
-    </AppModal>
+    // <AppModal title="Receive" hide={hide} show={show}>
+    //   <p>Receive assets by sending them to your public key:</p>
+    //   <code>{address.toString()}</code>
+    // </AppModal>
   );
 }
 
@@ -353,25 +353,26 @@ function ModalAirdrop({
   const [amount, setAmount] = useState('2');
 
   return (
-    <AppModal
-      hide={hide}
-      show={show}
-      title="Airdrop"
-      submitDisabled={!amount || mutation.isPending}
-      submitLabel="Request Airdrop"
-      submit={() => mutation.mutateAsync(parseFloat(amount)).then(() => hide())}
-    >
-      <input
-        disabled={mutation.isPending}
-        type="number"
-        step="any"
-        min="1"
-        placeholder="Amount"
-        className="input input-bordered w-full"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-      />
-    </AppModal>
+    <></>
+    // <AppModal
+    //   hide={hide}
+    //   show={show}
+    //   title="Airdrop"
+    //   submitDisabled={!amount || mutation.isPending}
+    //   submitLabel="Request Airdrop"
+    //   submit={() => mutation.mutateAsync(parseFloat(amount)).then(() => hide())}
+    // >
+    //   <input
+    //     disabled={mutation.isPending}
+    //     type="number"
+    //     step="any"
+    //     min="1"
+    //     placeholder="Amount"
+    //     className="input input-bordered w-full"
+    //     value={amount}
+    //     onChange={(e) => setAmount(e.target.value)}
+    //   />
+    // </AppModal>
   );
 }
 
@@ -394,39 +395,40 @@ function ModalSend({
   }
 
   return (
-    <AppModal
-      hide={hide}
-      show={show}
-      title="Send"
-      submitDisabled={!destination || !amount || mutation.isPending}
-      submitLabel="Send"
-      submit={() => {
-        mutation
-          .mutateAsync({
-            destination: new PublicKey(destination),
-            amount: parseFloat(amount),
-          })
-          .then(() => hide());
-      }}
-    >
-      <input
-        disabled={mutation.isPending}
-        type="text"
-        placeholder="Destination"
-        className="input input-bordered w-full"
-        value={destination}
-        onChange={(e) => setDestination(e.target.value)}
-      />
-      <input
-        disabled={mutation.isPending}
-        type="number"
-        step="any"
-        min="1"
-        placeholder="Amount"
-        className="input input-bordered w-full"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-      />
-    </AppModal>
+    <></>
+    // <AppModal
+    //   hide={hide}
+    //   show={show}
+    //   title="Send"
+    //   submitDisabled={!destination || !amount || mutation.isPending}
+    //   submitLabel="Send"
+    //   submit={() => {
+    //     mutation
+    //       .mutateAsync({
+    //         destination: new PublicKey(destination),
+    //         amount: parseFloat(amount),
+    //       })
+    //       .then(() => hide());
+    //   }}
+    // >
+    //   <input
+    //     disabled={mutation.isPending}
+    //     type="text"
+    //     placeholder="Destination"
+    //     className="input input-bordered w-full"
+    //     value={destination}
+    //     onChange={(e) => setDestination(e.target.value)}
+    //   />
+    //   <input
+    //     disabled={mutation.isPending}
+    //     type="number"
+    //     step="any"
+    //     min="1"
+    //     placeholder="Amount"
+    //     className="input input-bordered w-full"
+    //     value={amount}
+    //     onChange={(e) => setAmount(e.target.value)}
+    //   />
+    // </AppModal>
   );
 }
