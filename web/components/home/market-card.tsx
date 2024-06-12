@@ -35,13 +35,13 @@ export default function Card({
         <div className="grid grid-cols-2 gap-x-2 font-inter ">
           <Link href={`/bet/${slug}?vote=yes`}>
             <Button role="link" className="w-full" variant="cyan">
-              Vote {optionb}
+              VOTE {optionb.toUpperCase()}
             </Button>
           </Link>
 
           <Link href={`/bet/${slug}?vote=no`}>
             <Button className="w-full" variant="cyan">
-              Vote {optionb}
+              VOTE {optionb.toUpperCase()}
             </Button>
           </Link>
         </div>

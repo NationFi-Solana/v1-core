@@ -8,7 +8,7 @@ function HowTo({ num, desc }: { num: number; desc: string }) {
       <div className="h-14 w-14 absolute -left-2 border-2 border-white  bg-primary  rounded-full flex items-center justify-center text-xl">
         {num}
       </div>
-      <h2 className="pl-14 h-14 pr-3 flex items-center rounded-md bg-background-900 whitespace-pre-wrap text-sm w-[340px]">
+      <h2 className="pl-14 h-14 pr-3 ml-2 flex items-center rounded-md bg-background-900 whitespace-pre-wrap text-sm w-[340px]">
         {desc}
       </h2>
     </div>
