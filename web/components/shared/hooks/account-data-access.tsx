@@ -13,7 +13,7 @@ import {
 } from '@solana/web3.js';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { useTransactionToast } from '../ui/ui-layout';
+// import { useTransactionToast } from '../ui/ui-layout';
 
 export function useGetBalance({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
@@ -57,7 +57,7 @@ export function useGetTokenAccounts({ address }: { address: PublicKey }) {
 
 export function useTransferSol({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
-  const transactionToast = useTransactionToast();
+  // const transactionToast = useTransactionToast();
   const wallet = useWallet();
   const client = useQueryClient();
 
@@ -95,7 +95,7 @@ export function useTransferSol({ address }: { address: PublicKey }) {
     },
     onSuccess: (signature) => {
       if (signature) {
-        transactionToast(signature);
+        // transactionToast(signature);
       }
       return Promise.all([
         client.invalidateQueries({
@@ -120,11 +120,12 @@ export function useTransferSol({ address }: { address: PublicKey }) {
 
 export function useRequestAirdrop({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
-  const transactionToast = useTransactionToast();
+  // const transactionToast = useTransactionToast();
   const client = useQueryClient();
 
   return useMutation({
     mutationKey: ['airdrop', { endpoint: connection.rpcEndpoint, address }],
+    // eslint-disable-next-line @typescript-eslint/no-inferrable-types
     mutationFn: async (amount: number = 1) => {
       const [latestBlockhash, signature] = await Promise.all([
         connection.getLatestBlockhash(),
@@ -138,7 +139,7 @@ export function useRequestAirdrop({ address }: { address: PublicKey }) {
       return signature;
     },
     onSuccess: (signature) => {
-      transactionToast(signature);
+      // transactionToast(signature);
       return Promise.all([
         client.invalidateQueries({
           queryKey: [
