@@ -26,7 +26,7 @@ export default function BetCard() {
   const { connection } = useConnection();
   const router = useRouter();
   const bal = useQuery({
-    queryKey: ['solBal'],
+    queryKey: ['solBal', publicKey],
     queryFn: async () => {
       if (publicKey) {
         const balance = await connection.getBalance(publicKey);
@@ -46,7 +46,10 @@ export default function BetCard() {
     [searchParams]
   );
   const pathname = usePathname();
-  const { isValid } = useSubmitValid();
+  const { isValid, errorMessage } = useSubmitValid({
+    deposit,
+    balance: bal.data,
+  });
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
       <div className="bg-background-900 p-4 w-full rounded-md ">
@@ -120,6 +123,7 @@ export default function BetCard() {
               BUY
             </Button>
           )}
+          <p className="text-red-400 text-sm">{errorMessage}</p>
           {!connected && (
             <Button
               onClick={() => walletModal.setVisible(true)}
