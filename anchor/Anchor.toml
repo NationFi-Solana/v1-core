@@ -6,13 +6,13 @@ skip-lint = false
 
 [programs.localnet]
 counter = "Hr83GxtFmw1Af1QiCkCi4e1wmQ2R8V7cSHTrxZJuiYV7"
-
+betting-dap = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
 cluster = "Localnet"
-wallet = "~/.config/solana/id.json"
+wallet = "./betting-dapp_keypair.json"
 
 [scripts]
 test = "../node_modules/.bin/nx run anchor:jest"
