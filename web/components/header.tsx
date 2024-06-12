@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { WalletButton } from './solana/solana-provider';
 import React from 'react';
+import { ClusterUiSelect } from './cluster/cluster-ui';
 
 export default function Header() {
   return (
@@ -23,7 +24,7 @@ export default function Header() {
         </div>
         <WalletButton className="bg-primary" style={{ color: '#e6f9af' }} />
 
-        {/* <ClusterUiSelect /> */}
+        <ClusterUiSelect />
       </div>
     </div>
   );
