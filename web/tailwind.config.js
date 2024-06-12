@@ -36,6 +36,7 @@ module.exports = {
         ['background-900']: 'hsl(var(--background-900),<alpha-value>)',
         ['background-700']: 'hsl(var(--background-700),<alpha-value>)',
         ['background-600']: 'hsl(var(--background-600),<alpha-value>)',
+        ['background-500']: 'hsl(var(--background-500),<alpha-value>)',
         foreground: 'hsl(var(--foreground),<alpha-value>)',
         primary: {
           DEFAULT: 'hsl(var(--primary),<alpha-value>)',

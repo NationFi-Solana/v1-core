@@ -1,7 +1,10 @@
-import { TMarkets } from '@/app/page';
+import { TCategories, TMarkets } from '@/app/page';
 import MarketCard from './market-card';
 import Link from 'next/link';
 import { FaRegStar } from 'react-icons/fa';
+
+import { CategoryCard } from './category-card';
+
 function HowTo({ num, desc }: { num: number; desc: string }) {
   return (
     <div className="flex relative items-center ml-2">
@@ -14,13 +17,21 @@ function HowTo({ num, desc }: { num: number; desc: string }) {
     </div>
   );
 }
-export default function HomePage({ markets }: { markets: TMarkets }) {
+export default function HomePage({
+  markets,
+  categories,
+}: {
+  markets: TMarkets;
+  categories: TCategories;
+}) {
   return (
     <div className="px-4 font-archivo">
       <div className="">
         <h1 className="text-3xl text-center">HOW IT WORKS.</h1>
         <br />
-        <div className=" grid md:grid-cols-2 lg:grid-cols-1 gap-y-5 ">
+        <br />
+
+        <div className=" grid md:grid-cols-2 lg:grid-cols-1 gap-y-10 ">
           <div className="flex flex-col lg:flex-row gap-x-3  gap-y-4 justify-between">
             <HowTo desc="CONNECT YOUR WALLET" num={1}></HowTo>
             <HowTo
@@ -50,6 +61,8 @@ export default function HomePage({ markets }: { markets: TMarkets }) {
       <br />
       <br />
       <br />
+      <br />
+      <br />
       <div className="flex gap-x-4 items-center">
         <Link
           href="/"
@@ -58,38 +71,23 @@ export default function HomePage({ markets }: { markets: TMarkets }) {
           <span>Featured</span>
           <FaRegStar className="text-primary" />
         </Link>
-
-        <CategoryCard title={'Olympics'} slug={''} />
-        <CategoryCard title={'EURO2024'} slug={''} />
+        {categories?.map((c) => {
+          return (
+            <CategoryCard
+              key={c.slug?.current}
+              title={c.title}
+              slug={c.slug?.current}
+            />
+          );
+        })}
+        {/* <CategoryCard title={'EURO2024'} slug={''} /> */}
       </div>
       <br></br>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
         {markets.map((m) => {
-          return (
-            <MarketCard
-              optiona={m.optiona?.current ?? 'Vote Yes'}
-              optionb={m.optionb?.current ?? 'Vote No'}
-              imageUrl={m.thumb}
-              title={m.title}
-              id={m._id}
-              slug={m.slug.current}
-              key={m.title}
-            />
-          );
+          return <MarketCard key={m._id} {...m} />;
         })}
       </div>
-    </div>
-  );
-}
-function CategoryCard({ title }: { title: string; slug: string }) {
-  return (
-    <div>
-      <Link
-        href="/"
-        className="bg-background-600 p-2 rounded-lg transition-all cursor-pointer border-2 border-primary/0 hover:border-primary"
-      >
-        {title}
-      </Link>
     </div>
   );
 }
