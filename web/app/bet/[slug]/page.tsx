@@ -45,7 +45,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <h4 className="text-gray-400 text-sm flex items-center gap-x-1">
                   <MdAccessTime size={18} /> {timestamp}
                 </h4>
-                <h1 className="text-2xl">{safeMarket.data.title}</h1>
+                <h1 className="text-2xl font-archivo">
+                  {safeMarket.data.title}
+                </h1>
                 <h3 className="whitespace-pre-wrap text-gray-400">
                   {safeMarket.data.description}
                 </h3>

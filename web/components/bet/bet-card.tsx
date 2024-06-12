@@ -55,7 +55,7 @@ export default function BetCard() {
       <div className="bg-background-900 p-4 w-full rounded-md ">
         <form onSubmit={onSubmit} className="space-y-2">
           <div className="flex ">
-            <label htmlFor="choice" className=" text-center">
+            <label htmlFor="choice" className="font-archivo text-center">
               Outcome{' '}
             </label>
           </div>
@@ -90,7 +90,7 @@ export default function BetCard() {
           </div>
           <div className="pt-1"></div>
           <div>
-            <label htmlFor="amount" className="">
+            <label htmlFor="amount" className="font-archivo">
               Amount
             </label>
           </div>

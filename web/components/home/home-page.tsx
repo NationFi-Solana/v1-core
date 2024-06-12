@@ -67,6 +67,8 @@ export default function HomePage({ markets }: { markets: TMarkets }) {
         {markets.map((m) => {
           return (
             <MarketCard
+              optiona={m.optiona?.current ?? 'Vote Yes'}
+              optionb={m.optionb?.current ?? 'Vote No'}
               imageUrl={m.thumb}
               title={m.title}
               id={m._id}

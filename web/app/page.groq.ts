@@ -7,7 +7,7 @@ export const getMarkets = groq`
     "thumb": thumbnail.asset->url,
     slug, 
     _id,
-    option_a,
-    option_b
+    optiona,
+    optionb
 }
 `;

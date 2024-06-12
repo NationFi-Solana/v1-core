@@ -7,8 +7,16 @@ interface Props {
   slug: string;
   title: string;
   imageUrl: string;
+  optiona: string;
+  optionb: string;
 }
-export default function Card({ slug, title, imageUrl }: Props) {
+export default function Card({
+  slug,
+  title,
+  imageUrl,
+  optiona,
+  optionb,
+}: Props) {
   return (
     <Link href={`/bet/${slug}`}>
       <div className="bg-background-900 p-6 min-w-[300px] rounded-md ">
@@ -24,16 +32,16 @@ export default function Card({ slug, title, imageUrl }: Props) {
         </div>
         <br />
 
-        <div className="grid grid-cols-2 gap-x-2 ">
+        <div className="grid grid-cols-2 gap-x-2 font-inter ">
           <Link href={`/bet/${slug}?vote=yes`}>
             <Button role="link" className="w-full" variant="cyan">
-              Vote Yes
+              Vote {optionb}
             </Button>
           </Link>
 
           <Link href={`/bet/${slug}?vote=no`}>
             <Button className="w-full" variant="cyan">
-              Vote No
+              Vote {optionb}
             </Button>
           </Link>
         </div>
