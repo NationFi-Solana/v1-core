@@ -5,10 +5,10 @@ export default function HomePage({ markets }: { markets: TMarkets }) {
   return (
     <div className="px-4">
       <div className="flex gap-x-4">
-        <div className="bg-background-600 p-2 rounded-lg transition-all cursor-pointer border border-primary/0 hover:border-primary">
+        <div className="bg-background-600 p-2 rounded-lg transition-all cursor-pointer border-2 border-primary/0 hover:border-primary">
           Olympics
         </div>
-        <div className="bg-background-600 p-2 rounded-lg transition-all cursor-pointer border border-primary/0 hover:border-primary">
+        <div className="bg-background-600 p-2 rounded-lg transition-all cursor-pointer border-2 border-primary/0 hover:border-primary">
           EURO
         </div>
       </div>
