@@ -1,4 +1,4 @@
-import * as anchor from '@project-serum/anchor';
+import * as anchor from '@coral-xyz/anchor';
 import { BettingDapp } from '../target/types/betting_dapp';
 import { helpers } from './helpers';
 
@@ -21,7 +21,7 @@ describe('betting-dapp', () => {
       owner: programId,
     });
 
-    const [userSplBalancePda, _] = anchor.web3.PublicKey.findProgramAddressSync(
+    const [userSplBalancePda,] = anchor.web3.PublicKey.findProgramAddressSync(
       [
         helperFunctions.tokenAccountforMint.toBuffer(),
         Buffer.from('spl_bet_b'),
