@@ -1,4 +1,4 @@
-import * as anchor from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor"
 import { BettingDapp } from "../target/types/betting_dapp";
 import { helpers } from "./helpers";
 
@@ -18,7 +18,7 @@ describe("betting-dapp", () => {
       .initializeProgramState()
       .accounts({
         signer: helperFunctions.signer.publicKey,
-        programStateAccount: programStateAccountPda,
+        // programStateAccount: programStateAccountPda,
       })
       .signers([helperFunctions.signer])
       .rpc();
