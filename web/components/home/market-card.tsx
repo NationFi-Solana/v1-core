@@ -24,15 +24,15 @@ export default function Card({ slug, title, imageUrl }: Props) {
         </div>
         <br />
 
-        <div className="flex gap-x-2 ">
+        <div className="grid grid-cols-2 gap-x-2 ">
           <Link href={`/bet/${slug}?vote=yes`}>
-            <Button role="link" className="basis-1/2" variant="cyan">
+            <Button role="link" className="w-full" variant="cyan">
               Vote Yes
             </Button>
           </Link>
 
           <Link href={`/bet/${slug}?vote=no`}>
-            <Button className="basis-1/2" variant="cyan">
+            <Button className="w-full" variant="cyan">
               Vote No
             </Button>
           </Link>
