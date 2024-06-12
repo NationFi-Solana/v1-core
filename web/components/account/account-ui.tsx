@@ -333,6 +333,7 @@ function ModalReceive({
   address: PublicKey;
 }) {
   return (
+    <></>
     // <AppModal title="Receive" hide={hide} show={show}>
     //   <p>Receive assets by sending them to your public key:</p>
     //   <code>{address.toString()}</code>
