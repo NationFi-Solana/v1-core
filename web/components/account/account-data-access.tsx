@@ -93,8 +93,6 @@ export function useTransferSol({ address }: { address: PublicKey }) {
       }
     },
     onSuccess: (signature) => {
-      if (signature) {
-      }
       return Promise.all([
         client.invalidateQueries({
           queryKey: [
@@ -137,7 +135,6 @@ export function useRequestAirdrop({ address }: { address: PublicKey }) {
       return signature;
     },
     onSuccess: (signature) => {
-      transactionToast(signature);
       return Promise.all([
         client.invalidateQueries({
           queryKey: [
