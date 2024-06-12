@@ -98,11 +98,17 @@ export default function BetCard() {
             id="amount"
             className="w-full bg-background py-2 px-2 rounded-md border border-gray-600"
             placeholder="$0.00"
-            type="number"
-            min="-1"
+            type="text"
+            minLength={1}
+            step="any"
+            pattern="^[0-9]*[.,]?[0-9]*$"
+            autoComplete="off"
+            inputMode="decimal"
             value={deposit}
             onChange={(e) => {
-              setDeposit(e.target.value);
+              const pattern = /^[0-9]*[.,]?[0-9]*$/;
+              if (pattern.test(e.target.value))
+                return setDeposit(e.target.value);
             }}
           />
 
