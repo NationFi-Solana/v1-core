@@ -18,7 +18,7 @@ export default function Card({ slug, title, imageUrl }: Props) {
             width={40}
             height={40}
             src={imageUrl}
-            className="h-10 w-10 rounded-full"
+            className="h-12 w-12 rounded-full  border-2"
           />
           <h1 className="font-semibold">{title}</h1>
         </div>
@@ -37,7 +37,7 @@ export default function Card({ slug, title, imageUrl }: Props) {
             </Button>
           </Link>
         </div>
-        <div className="flex justify-between pt-3 text-muted-foreground">
+        <div className="flex justify-between font-inter pt-3 text-muted-foreground">
           <div>
             <h3 className="text-sm ">6.5m Bet</h3>
           </div>

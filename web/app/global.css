@@ -8,9 +8,10 @@ body {
 }
 
 .wallet-adapter-button-trigger {
-  background: rgb(100, 26, 230) !important;
+  background: rgb(245, 184, 0) !important;
   border-radius: 8px !important;
   padding-left: 16px !important;
+  color: white !important;
   padding-right: 16px !important;
 }
 .wallet-adapter-dropdown-list,
@@ -19,38 +20,6 @@ body {
 }
 
 @layer base {
-  :root {
-    --background: 0, 0%, 100%;
-    --background-900: 0, 0%, 97%;
-    --foreground: 0, 0%, 0%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 31, 54%, 88%;
-    --primary-foreground: 0, 0%, 0%;
-
-    --secondary: 240, 3%, 93%;
-    --secondary-foreground: 360, 100%, 100%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 220, 34%, 44%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 345, 68%, 52%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-  }
   .dark {
     --background: 212, 56%, 14%;
     --background-600: 212, 56%, 20%;

@@ -4,7 +4,7 @@ import { ClusterProvider } from '@/components/cluster/cluster-data-access';
 import { SolanaProvider } from '@/components/solana/solana-provider';
 import { ReactQueryProvider } from './react-query-provider';
 
-import { Inter } from 'next/font/google';
+import { Inter, Archivo_Black } from 'next/font/google';
 import { atom } from 'jotai';
 // export const metadata = {
 //   title: 'betting-nationfi',
@@ -17,7 +17,12 @@ const links: { label: string; path: string }[] = [
 ];
 
 // If loading a variable font, you don't need to specify the font weight
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const arc = Archivo_Black({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-archivo',
+});
 export const isDarkTheme = atom(true);
 export default function RootLayout({
   children,
@@ -26,7 +31,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className + ' dark bg-background text-foreground'}>
+      <body
+        className={`
+          dark bg-background text-foreground ${arc.variable} ${inter.variable} font-archivo`}
+      >
         <ReactQueryProvider>
           <ClusterProvider>
             <SolanaProvider>
