@@ -6,8 +6,8 @@ import { MdAccessTime } from 'react-icons/md';
 import { getMarket } from './bet.groq';
 import { z } from 'zod';
 import { formatUnixTimestamp } from '@/lib/utils';
-import { slugSchema } from '@/app/page';
 import { Metadata, ResolvingMetadata } from 'next';
+import { slugSchema } from '@/lib/schemas';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
