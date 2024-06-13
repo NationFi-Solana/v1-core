@@ -60,7 +60,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     alt={safeMarket.data.title}
                     height={100}
                     width={100}
+<<<<<<< HEAD
                     className="rounded-md border"
+=======
+                    className="rounded-md"
+>>>>>>> 01bb402 (feat: landing styles)
                   />
                   {/* <div className="min-w-[6rem] h-[6rem]  rounded-md bg-primary"></div> */}
                 </div>

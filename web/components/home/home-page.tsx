@@ -21,15 +21,33 @@ export default function HomePage({
   category: string | string[] | undefined;
 }) {
   return (
-    <div className="px-4 font-archivo">
+    <div className=" font-archivo relative">
       <BgSvg />
-      <div className="rounded-md ">
-        <div className="mx-auto px-20  relative ">
-          <div className="z-10 relative py-">
-            <div className="flex z-10">
-              <h1 className="text-5xl w-[350px] text-transparent bg-gradient-to-r via-primary-100 from-white to-primary  bg-clip-text">
-                LOREM IPSUM HERO TEXT.
-              </h1>
+      <div className="rounded-md min-h-screen relative ">
+        <Header />
+        <div className="max-w-[800px] mx-auto py-8 relative">
+          <div className="relative ">
+            <div className="z-10 relative py-3">
+              <div className="flex z-10">
+                <h1 className="text-5xl w-[400px] text-transparent bg-gradient-to-r via-primary-100 from-white to-primary  bg-clip-text">
+                  VOTE FOR YOUR NATION.
+                </h1>
+              </div>
+              <br />
+              <div className="w-[540px] z-10 font-inter font-semibold text-[18px]">
+                <h2>
+                  Contrary to popular belief, Lorem Ipsum is not simply random
+                  text. It has roots in a piece of classical.
+                </h2>
+                <h3 className="text-gray-300 text-[12px] pt-2">
+                  LOREM IPSUM TEXT HERE!
+                </h3>
+              </div>
+              <div className="pt-4"></div>
+              <div>
+                <Button variant="primary">VOTE NOW</Button>
+              </div>
+              <br />
             </div>
           </div>
 
@@ -43,7 +61,11 @@ export default function HomePage({
               <HowTo desc="CONNECT YOUR WALLET" num={1}>
                 <MdOutlineAccountBalanceWallet />
               </HowTo>
+<<<<<<< HEAD
               <HowTo desc="PLACE YOUR WAGER" num={2}>
+=======
+              <HowTo desc="PLACE YOUR VOTE" num={2}>
+>>>>>>> 01bb402 (feat: landing styles)
                 <FaVoteYea />
               </HowTo>
               <HowTo desc="REWARDS DISTRIBUTED" num={3}>
@@ -53,7 +75,11 @@ export default function HomePage({
           </div>
         </div>
       </div>
+<<<<<<< HEAD
       <div id="markets" className=" relative max-w-[1200px] px-4 py-20 mx-auto">
+=======
+      <div className=" relative max-w-[1200px] py-20 mx-auto">
+>>>>>>> 01bb402 (feat: landing styles)
         <div className="flex gap-x-4 items-center">
           <Link
             href="/"
@@ -77,7 +103,11 @@ export default function HomePage({
           {/* <CategoryCard title={'EURO2024'} slug={''} /> */}
         </div>
         <br></br>
+<<<<<<< HEAD
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4  gap-4">
+=======
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
+>>>>>>> 01bb402 (feat: landing styles)
           {markets.map((m) => {
             return <MarketCard key={m._id} {...m} />;
           })}

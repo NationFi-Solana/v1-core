@@ -3,7 +3,15 @@ import bullseye from '@/public/bullseye-gradient.png';
 export function BgSvg() {
   return (
     <div className="absolute right-0 top-0 left-0 w-full h-full z-0">
+<<<<<<< HEAD
       <Image src={bullseye} alt="" className="object-cover  h-full w-full" />
+=======
+      <Image
+        src={bullseye}
+        alt=""
+        className="object-cover opacity-60 h-full w-full"
+      />
+>>>>>>> 01bb402 (feat: landing styles)
     </div>
   );
 }
