@@ -34,6 +34,7 @@ module.exports = {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background),<alpha-value>)',
         ['background-900']: 'hsl(var(--background-900),<alpha-value>)',
+        ['background-800']: 'hsl(var(--background-800),<alpha-value>)',
         ['background-700']: 'hsl(var(--background-700),<alpha-value>)',
         ['background-600']: 'hsl(var(--background-600),<alpha-value>)',
         ['background-500']: 'hsl(var(--background-500),<alpha-value>)',
