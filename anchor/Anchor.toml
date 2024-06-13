@@ -6,21 +6,20 @@ skip-lint = false
 
 [programs.localnet]
 counter = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
-betting_dapp = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
+betting_dapp = "EsLLsztAmMrXdmGv7hRjdp2MdtSStEErGakmwrLretXQ"
 
 [programs.devnet]
 counter = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
-betting_dapp = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
+betting_dapp = "EsLLsztAmMrXdmGv7hRjdp2MdtSStEErGakmwrLretXQ"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
 cluster = "localnet"
-wallet = "/home/sam/.config/solana/id.json"
+wallet = "~/Users/travistarpley/.config/solana/id.json"
 
 [scripts]
-init-program-state = "../node_modules/.bin/nx run anchor:jest ./tests/init-program-state.spec.ts"
 test = "../node_modules/.bin/nx run anchor:jest"
 
 [test]

@@ -1,8 +1,8 @@
-import * as anchor from "@coral-xyz/anchor"
-import { BettingDapp } from "../target/types/betting_dapp";
-import { helpers } from "./helpers";
+import * as anchor from '@coral-xyz/anchor';
+import { BettingDapp } from '../target/types/betting_dapp';
+import { helpers } from './helpers';
 
-describe("betting-dapp", () => {
+describe('betting-dapp', () => {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
@@ -13,7 +13,7 @@ describe("betting-dapp", () => {
     program.programId
   );
 
-  it("Successfully initialize program state account", async () => {
+  it('Successfully initialize program state account', async () => {
     const tx = await program.methods
       .initializeProgramState()
       .accounts({
@@ -22,6 +22,6 @@ describe("betting-dapp", () => {
       })
       .signers([helperFunctions.signer])
       .rpc();
-    console.log("Your transaction signature", tx);
+    console.log('Your transaction signature', tx);
   });
 });

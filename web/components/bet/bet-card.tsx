@@ -21,9 +21,10 @@ export default function BetCard({
   const { connected } = useWallet();
   const searchParams = useSearchParams();
   const vote = searchParams.get('vote');
-  const { placeSolBet } = useSolBet({ isABet: true, amount: 333 });
+  const { placeSolBet, initProgram } = useSolBet({ isABet: true, amount: 333 });
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // initProgram.mutate();
     placeSolBet.mutate();
   };
   const walletModal = useWalletModal();

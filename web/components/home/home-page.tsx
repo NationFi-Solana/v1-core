@@ -25,7 +25,7 @@ export default function HomePage({
       <BgSvg />
       <div className="rounded-md min-h-screen relative ">
         <Header />
-        <div className="max-w-[800px] mx-auto py-8 relative px-4">
+        <div className="max-w-[800px] mx-auto py-4 relative px-4">
           <div className="relative ">
             <div className="z-10 relative py-3">
               <div className="flex z-10">
