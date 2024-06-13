@@ -18,8 +18,8 @@ export default function Card({
   const [days, hours, minutes, seconds] = useCountdown(unixTimestamp * 1000);
 
   return (
-    <Link href={`/bet/${slug.current}`}>
-      <div className="bg-background-700 p-6 min-w-[300px] rounded-md ">
+    <Link href={`/bet/${slug.current}`} className="">
+      <div className="bg-background-700 p-2 md:p-6 min-w-[250px]  rounded-md ">
         <div className="flex items-center gap-x-2">
           <Image
             alt={title}
@@ -37,7 +37,7 @@ export default function Card({
             href={`/bet/${slug.current}?vote=${optiona?.current.toLowerCase()}`}
           >
             <Button role="link" className="w-full" variant="primary">
-              VOTE {optiona?.current.toUpperCase()}
+              {optiona?.current.toUpperCase()}
             </Button>
           </Link>
 
@@ -45,7 +45,7 @@ export default function Card({
             href={`/bet/${slug.current}?vote=${optionb?.current.toLowerCase()}`}
           >
             <Button className="w-full" variant="primary">
-              VOTE {optionb?.current.toUpperCase()}
+              {optionb?.current.toUpperCase()}
             </Button>
           </Link>
         </div>

@@ -1,12 +1,12 @@
 use anchor_lang::solana_program::{native_token::LAMPORTS_PER_SOL, system_instruction};
 
 use crate::{SignerSOLBalance, SignerSPLBalance};
-use anchor_spl::associated_token::AssociatedToken;
-use anchor_spl::token::Token;
-use {anchor_lang::prelude::*, anchor_spl::associated_token, anchor_spl::token};
 
 use super::errors;
 use super::state::*;
+use anchor_spl::associated_token::AssociatedToken;
+use anchor_spl::token::Token;
+use {anchor_lang::prelude::*, anchor_spl::associated_token, anchor_spl::token};
 
 pub fn place_sol_bet(ctx: Context<PlaceSOLBet>, is_bet_a: u8, sol_amount: u64) -> Result<()> {
     let program_state_account = &mut ctx.accounts.program_state_account;

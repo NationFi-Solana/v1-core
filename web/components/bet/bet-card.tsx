@@ -21,9 +21,10 @@ export default function BetCard({
   const { connected } = useWallet();
   const searchParams = useSearchParams();
   const vote = searchParams.get('vote');
-  const { placeSolBet } = useSolBet({ isABet: true, amount: 333 });
+  const { placeSolBet, initProgram } = useSolBet({ isABet: true, amount: 333 });
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // initProgram.mutate();
     placeSolBet.mutate();
   };
   const walletModal = useWalletModal();
@@ -59,7 +60,7 @@ export default function BetCard({
   });
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
-      <div className="bg-background-900 p-4 w-full rounded-md ">
+      <div className="bg-background-800 p-4 w-full rounded-md ">
         <form onSubmit={onSubmit} className="space-y-2">
           <div className="flex ">
             <label htmlFor="choice" className="text-center font-semibold">
@@ -79,9 +80,9 @@ export default function BetCard({
                 );
               }}
               className={`basis-1/2 ${
-                vote === sluga?.toLowerCase() && 'bg-cyan-400 text-black'
+                vote === sluga?.toLowerCase() && 'bg-primary text-black'
               } font-archivo`}
-              variant="cyan"
+              variant="primary"
             >
               VOTE {sluga?.toUpperCase()}
             </Button>
@@ -96,9 +97,9 @@ export default function BetCard({
                 );
               }}
               className={`basis-1/2 ${
-                vote === slugb?.toLowerCase() && 'bg-cyan-400 text-black'
+                vote === slugb?.toLowerCase() && 'bg-primary text-black'
               } font-archivo`}
-              variant="cyan"
+              variant="primary"
             >
               VOTE {slugb?.toUpperCase()}
             </Button>
@@ -131,7 +132,7 @@ export default function BetCard({
             <h3 className="text-gray-500">Balance</h3>
             <h3 className="flex items-center gap-x-1">
               {bal.data ? bal.data / 10 ** 9 : '0'}{' '}
-              <SiSolana className="text-cyan-400"></SiSolana>
+              <SiSolana className="text-primary"></SiSolana>
             </h3>
           </div>
           <div className="pt-1"></div>
@@ -139,7 +140,10 @@ export default function BetCard({
             <Button
               disabled={!isValid}
               type="submit"
-              className="flex justify-center disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer w-full text-white py-2 bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 from-cyan-500 to-blue-500 rounded-md   font-bold"
+              className={
+                'flex justify-center disabled:cursor-not-allowed transition-colors duration-300' +
+                ' cursor-pointer w-full text-white py-2 bg-gradient-to-r hover:bg-opacity-70 from-primary to-primary-100 hover:from-primary/60 hover:to-primary-100/30 to rounded-md   font-bold'
+              }
             >
               BUY
             </Button>
