@@ -7,7 +7,7 @@ import logo from '@/public/nation-logo.webp';
 import Image from 'next/image';
 export default function Header() {
   return (
-    <div className="flex justify-between bg-background-900 py-4 bg-base-300 text-neutral-content  space-y-2 md:space-y-0  px-10">
+    <div className="flex relative justify-between py-4 bg-transparent text-neutral-content  space-y-2 md:space-y-0  px-10">
       <div className="flex items-center">
         <Link
           className="flex items-center gap-x-2 normal-case text-xl"

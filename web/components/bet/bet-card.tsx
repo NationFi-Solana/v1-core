@@ -59,7 +59,7 @@ export default function BetCard({
   });
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
-      <div className="bg-background-900 p-4 w-full rounded-md ">
+      <div className="bg-background-600 p-4 w-full rounded-md ">
         <form onSubmit={onSubmit} className="space-y-2">
           <div className="flex ">
             <label htmlFor="choice" className="text-center font-semibold">
@@ -81,7 +81,7 @@ export default function BetCard({
               className={`basis-1/2 ${
                 vote === sluga?.toLowerCase() && 'bg-cyan-400 text-black'
               } font-archivo`}
-              variant="cyan"
+              variant="primary"
             >
               VOTE {sluga?.toUpperCase()}
             </Button>
@@ -98,7 +98,7 @@ export default function BetCard({
               className={`basis-1/2 ${
                 vote === slugb?.toLowerCase() && 'bg-cyan-400 text-black'
               } font-archivo`}
-              variant="cyan"
+              variant="primary"
             >
               VOTE {slugb?.toUpperCase()}
             </Button>
@@ -139,7 +139,7 @@ export default function BetCard({
             <Button
               disabled={!isValid}
               type="submit"
-              className="flex justify-center disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer w-full text-white py-2 bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 from-cyan-500 to-blue-500 rounded-md   font-bold"
+              className="flex justify-center disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer w-full text-white py-2 bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 from-primary to-primary-100 rounded-md   font-bold"
             >
               BUY
             </Button>

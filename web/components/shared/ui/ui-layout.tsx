@@ -27,9 +27,9 @@ export function UiLayout({
         ` ${isDark ? 'dark' : ''} `
       }
     >
-      <Header></Header>
+      {/* <Header></Header> */}
 
-      <div className="flex-grow  lg:flex justify-center lg:mx-auto px-4 py-10">
+      <div className="flex-grow">
         <Suspense
           fallback={
             <div className="text-center my-32">

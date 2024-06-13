@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { formatUnixTimestamp } from '@/lib/utils';
 import { Metadata, ResolvingMetadata } from 'next';
 import { slugSchema } from '@/lib/schemas';
+import Header from '@/components/header';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -47,61 +48,64 @@ export default async function Page({ params }: { params: { slug: string } }) {
   } else {
     const timestamp = formatUnixTimestamp(safeMarket.data.unixTimestamp);
     return (
-      <div className=" px-4 md:px-8">
-        <div className=" lg:flex space-y-4 xl:w-[1200px]  2xl:w-[1400px] gap-x-8 justify-between ">
-          <div className="flex-grow w-full min-w-[440px]">
-            <div className="flex gap-x-6">
-              <div className="flex">
-                <Image
-                  src={safeMarket.data.thumb}
-                  alt={safeMarket.data.title}
-                  height={100}
-                  width={100}
-                  className="rounded-md"
-                />
-                {/* <div className="min-w-[6rem] h-[6rem]  rounded-md bg-primary"></div> */}
-              </div>
-              <div className="space-y-2">
-                <h4 className="text-gray-400 text-sm flex items-center gap-x-1">
-                  <MdAccessTime size={18} /> {timestamp}
-                </h4>
-                <h1 className="text-2xl font-archivo">
-                  {safeMarket.data.title}
-                </h1>
-                <h3 className="whitespace-pre-wrap text-gray-400">
-                  {safeMarket.data.description}
-                </h3>
-              </div>
-            </div>
-
-            <br />
-            <div className="grid grid-cols-2">
-              <div className="col-span-2">
-                <div className="py-2 space-y-1 pl-1">
-                  <h2 className="text-gray-400">Yes</h2>
-                  <h3 className="text-2xl">$30</h3>
-                </div>
-                <div className="w-full">
-                  <LineChart
-                    data={[
-                      { time: '2018-12-12', value: 14 },
-                      { time: '2018-12-13', value: 16 },
-                      { time: '2018-12-14', value: 16 },
-                      { time: '2018-12-15', value: 8 },
-                      { time: '2018-12-16', value: 11 },
-                    ]}
-                    dataTwo={[]}
-                    colors={undefined}
+      <div>
+        <Header />
+        <div className=" px-4 md:px-8 py-10 max-w-[1300px] mx-auto">
+          <div className=" lg:flex space-y-4 xl:w-[1200px]  2xl:w-[1400px] gap-x-8 justify-between ">
+            <div className="flex-grow w-full min-w-[440px]">
+              <div className="flex gap-x-6">
+                <div className="flex">
+                  <Image
+                    src={safeMarket.data.thumb}
+                    alt={safeMarket.data.title}
+                    height={100}
+                    width={100}
+                    className="rounded-md"
                   />
+                  {/* <div className="min-w-[6rem] h-[6rem]  rounded-md bg-primary"></div> */}
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-gray-400 text-sm flex items-center gap-x-1">
+                    <MdAccessTime size={18} /> {timestamp}
+                  </h4>
+                  <h1 className="text-2xl font-archivo">
+                    {safeMarket.data.title}
+                  </h1>
+                  <h3 className="whitespace-pre-wrap text-gray-400">
+                    {safeMarket.data.description}
+                  </h3>
+                </div>
+              </div>
+
+              <br />
+              <div className="grid grid-cols-2">
+                <div className="col-span-2">
+                  <div className="py-2 space-y-1 pl-1">
+                    <h2 className="text-gray-400">Yes</h2>
+                    <h3 className="text-2xl">$30</h3>
+                  </div>
+                  <div className="w-full">
+                    <LineChart
+                      data={[
+                        { time: '2018-12-12', value: 14 },
+                        { time: '2018-12-13', value: 16 },
+                        { time: '2018-12-14', value: 16 },
+                        { time: '2018-12-15', value: 8 },
+                        { time: '2018-12-16', value: 11 },
+                      ]}
+                      dataTwo={[]}
+                      colors={undefined}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="">
-            <BetCard
-              sluga={safeMarket.data.optiona?.current}
-              slugb={safeMarket.data.optionb?.current}
-            />
+            <div className="">
+              <BetCard
+                sluga={safeMarket.data.optiona?.current}
+                slugb={safeMarket.data.optionb?.current}
+              />
+            </div>
           </div>
         </div>
       </div>
