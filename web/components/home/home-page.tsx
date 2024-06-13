@@ -21,7 +21,7 @@ export default function HomePage({
         <br />
         <br />
 
-        <div className=" grid md:grid-cols-2 lg:grid-cols-1 gap-y-10 ">
+        <div className="flex flex-col items-center md:grid md:grid-cols-2 lg:grid-cols-1 gap-y-10 ">
           <div className="flex flex-col lg:flex-row gap-x-3  gap-y-4 justify-between">
             <HowTo desc="CONNECT YOUR WALLET" num={1}></HowTo>
             <HowTo
