@@ -18,10 +18,10 @@ export default function HomePage({
 }) {
   return (
     <div className="px-4 font-archivo">
+      <BgSvg />
       <div className="rounded-md ">
-        <div className="mx-auto px-20 relative ">
-          <BgSvg />
-          <div className="z-10 relative py-3">
+        <div className="mx-auto px-20  relative ">
+          <div className="z-10 relative py-">
             <div className="flex z-10">
               <h1 className="text-5xl w-[350px] text-transparent bg-gradient-to-r via-primary-100 from-white to-primary  bg-clip-text">
                 LOREM IPSUM HERO TEXT.
