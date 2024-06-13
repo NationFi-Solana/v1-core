@@ -19,7 +19,7 @@ export default function Card({
 
   return (
     <Link href={`/bet/${slug.current}`}>
-      <div className="bg-background-900 p-6 min-w-[300px] rounded-md ">
+      <div className="bg-background-700 p-6 min-w-[300px] rounded-md ">
         <div className="flex items-center gap-x-2">
           <Image
             alt={title}

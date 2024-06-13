@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { FaRegStar } from 'react-icons/fa';
 
 import { CategoryCard } from './category-card';
+import { Button } from '../shared/ui/button';
+import { BgSvg } from '../shared/svgs/bg';
 
 export default function HomePage({
   markets,
@@ -16,12 +18,39 @@ export default function HomePage({
 }) {
   return (
     <div className="px-4 font-archivo">
-      <div className="">
-        <h1 className="text-3xl text-center">HOW IT WORKS.</h1>
+      <div className="rounded-md ">
+        <div className="mx-auto px-20 relative ">
+          <BgSvg />
+          <div className="z-10 relative py-3">
+            <div className="flex z-10">
+              <h1 className="text-5xl w-[350px] text-transparent bg-gradient-to-r via-primary-100 from-white to-primary  bg-clip-text">
+                LOREM IPSUM HERO TEXT.
+              </h1>
+            </div>
+            <br />
+            <div className="w-[540px] z-10 font-inter font-semibold text-[18px]">
+              <h2>
+                Contrary to popular belief, Lorem Ipsum is not simply random
+                text. It has roots in a piece of classical.
+              </h2>
+              <h3 className="text-gray-300 text-[12px] pt-2">
+                LOREM IPSUM TEXT HERE!
+              </h3>
+            </div>
+            <div className="pt-4"></div>
+            <div>
+              <Button variant="primary">VOTE NOW</Button>
+            </div>
+            <br />
+          </div>
+        </div>
+
+        <br />
         <br />
         <br />
 
         <div className="flex flex-col items-center md:grid md:grid-cols-2 lg:grid-cols-1 gap-y-10 ">
+          <h1 className="text-3xl text-center">HOW IT WORKS.</h1>
           <div className="flex flex-col lg:flex-row gap-x-3  gap-y-4 justify-between">
             <HowTo desc="CONNECT YOUR WALLET" num={1}></HowTo>
             <HowTo

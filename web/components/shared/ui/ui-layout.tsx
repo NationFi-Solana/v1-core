@@ -23,13 +23,13 @@ export function UiLayout({
   return (
     <div
       className={
-        ' flex min-h-screen flex-col bg-gradient-to-r from-background to-background-700  font-inter text-foreground ' +
+        ' flex min-h-screen flex-col bg-background-900  font-inter text-foreground ' +
         ` ${isDark ? 'dark' : ''} `
       }
     >
       <Header></Header>
 
-      <div className="flex-grow  lg:flex justify-center lg:mx-auto px-4 py-16">
+      <div className="flex-grow  lg:flex justify-center lg:mx-auto px-4 py-10">
         <Suspense
           fallback={
             <div className="text-center my-32">

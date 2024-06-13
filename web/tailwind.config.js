@@ -40,6 +40,7 @@ module.exports = {
         foreground: 'hsl(var(--foreground),<alpha-value>)',
         primary: {
           DEFAULT: 'hsl(var(--primary),<alpha-value>)',
+          100: 'hsl(var(--primary-100),<alpha-value>)',
           foreground: 'hsl(var(--primary-foreground),<alpha-value>)',
         },
         secondary: {
