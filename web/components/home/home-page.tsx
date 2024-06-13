@@ -21,35 +21,15 @@ export default function HomePage({
   category: string | string[] | undefined;
 }) {
   return (
-    <div className=" font-archivo relative">
+    <div className="px-4 font-archivo">
       <BgSvg />
-      <div className="rounded-md min-h-screen relative ">
-        <Header />
-        <div className="max-w-[800px] mx-auto py-4 relative px-4">
-          <div className="relative ">
-            <div className="z-10 relative py-3">
-              <div className="flex z-10">
-                <h1 className="text-5xl w-[400px] text-transparent bg-gradient-to-r via-primary-100 from-white to-primary  bg-clip-text">
-                  VOTE FOR YOUR NATION.
-                </h1>
-              </div>
-              <br />
-              <div className="w-[540px] z-10 font-inter font-semibold text-[18px]">
-                <h2>
-                  Predict who{"'"}s going to win for the Teams you support!
-                  Higher Odds equals higher rewards, get your ballots in!
-                </h2>
-                <h3 className="text-gray-400 text-[12px] pt-2">
-                  GOOD LUCK VOTING.
-                </h3>
-              </div>
-              <div className="pt-4"></div>
-              <div>
-                <Link href="#markets">
-                  <Button variant="primary">VOTE NOW</Button>
-                </Link>
-              </div>
-              <br />
+      <div className="rounded-md ">
+        <div className="mx-auto px-20  relative ">
+          <div className="z-10 relative py-">
+            <div className="flex z-10">
+              <h1 className="text-5xl w-[350px] text-transparent bg-gradient-to-r via-primary-100 from-white to-primary  bg-clip-text">
+                LOREM IPSUM HERO TEXT.
+              </h1>
             </div>
           </div>
 
