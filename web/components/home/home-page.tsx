@@ -36,16 +36,18 @@ export default function HomePage({
               <br />
               <div className="w-[540px] z-10 font-inter font-semibold text-[18px]">
                 <h2>
-                  Contrary to popular belief, Lorem Ipsum is not simply random
-                  text. It has roots in a piece of classical.
+                  Predict who{"'"}s going to win for the Teams you support!
+                  Higher Odds equals higher rewards, get your ballots in!
                 </h2>
-                <h3 className="text-gray-300 text-[12px] pt-2">
-                  LOREM IPSUM TEXT HERE!
+                <h3 className="text-gray-400 text-[12px] pt-2">
+                  GOOD LUCK VOTING.
                 </h3>
               </div>
               <div className="pt-4"></div>
               <div>
-                <Button variant="primary">VOTE NOW</Button>
+                <Link href="#markets">
+                  <Button variant="primary">VOTE NOW</Button>
+                </Link>
               </div>
               <br />
             </div>
@@ -71,7 +73,7 @@ export default function HomePage({
           </div>
         </div>
       </div>
-      <div className=" relative max-w-[1200px] py-20 mx-auto">
+      <div id="markets" className=" relative max-w-[1200px] py-20 mx-auto">
         <div className="flex gap-x-4 items-center">
           <Link
             href="/"

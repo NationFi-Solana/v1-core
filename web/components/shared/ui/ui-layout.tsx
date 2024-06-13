@@ -23,7 +23,7 @@ export function UiLayout({
   return (
     <div
       className={
-        ' flex min-h-screen flex-col bg-background-900  font-inter text-foreground ' +
+        ' flex min-h-screen flex-col bg-background-900 scroll-smooth  font-inter text-foreground ' +
         ` ${isDark ? 'dark' : ''} `
       }
     >
