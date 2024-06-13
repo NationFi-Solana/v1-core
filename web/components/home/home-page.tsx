@@ -5,24 +5,14 @@ import { FaRegStar } from 'react-icons/fa';
 
 import { CategoryCard } from './category-card';
 
-function HowTo({ num, desc }: { num: number; desc: string }) {
-  return (
-    <div className="flex relative items-center ml-2">
-      <div className="h-14 w-14 absolute -left-2 border-2 border-white  bg-primary  rounded-full flex items-center justify-center text-xl">
-        {num}
-      </div>
-      <h2 className="pl-14 h-14 pr-3 ml-2 flex items-center rounded-md bg-background-900 whitespace-pre-wrap text-sm w-[340px]">
-        {desc}
-      </h2>
-    </div>
-  );
-}
 export default function HomePage({
   markets,
   categories,
+  category,
 }: {
   markets: TMarkets;
   categories: TCategories;
+  category: string | string[] | undefined;
 }) {
   return (
     <div className="px-4 font-archivo">
@@ -62,11 +52,12 @@ export default function HomePage({
       <br />
       <br />
       <br />
-      <br />
       <div className="flex gap-x-4 items-center">
         <Link
           href="/"
-          className="bg-background-600 items-center gap-x-2 p-2 flex rounded-lg transition-all cursor-pointer border-2 border-primary/0 hover:border-primary"
+          className={`bg-background-600 items-center gap-x-2 p-2 flex rounded-lg transition-all cursor-pointer border-2 ${
+            category ? 'border-primary/0' : 'border-primary'
+          } hover:border-primary`}
         >
           <span>Featured</span>
           <FaRegStar className="text-primary" />
@@ -88,6 +79,19 @@ export default function HomePage({
           return <MarketCard key={m._id} {...m} />;
         })}
       </div>
+    </div>
+  );
+}
+
+function HowTo({ num, desc }: { num: number; desc: string }) {
+  return (
+    <div className="flex relative items-center ml-2">
+      <div className="h-14 w-14 absolute -left-2 border-2 border-white  bg-primary  rounded-full flex items-center justify-center text-xl">
+        {num}
+      </div>
+      <h2 className="pl-14 h-14 pr-3 ml-2 flex items-center rounded-md bg-background-900 whitespace-pre-wrap text-sm w-[340px]">
+        {desc}
+      </h2>
     </div>
   );
 }

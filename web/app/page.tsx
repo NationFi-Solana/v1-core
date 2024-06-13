@@ -50,5 +50,5 @@ export default async function Page({
   if (safeCats.success) {
     cats = safeCats.data;
   }
-  return <HomePage categories={cats} markets={markets} />;
+  return <HomePage category={category} categories={cats} markets={markets} />;
 }
