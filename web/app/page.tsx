@@ -2,12 +2,10 @@ import HomePage from '@/components/home/home-page';
 import { getCategories, getMarkets, getMarketsByCategory } from './page.groq';
 import { client } from '@/lib/sanity';
 import { z } from 'zod';
+import { slugSchema } from '@/lib/schemas';
 export const metadata = {
   title: 'NATIONFI VOTE',
 };
-export const slugSchema = z
-  .object({ _type: z.string(), current: z.string() })
-  .nullable();
 
 const marketSchema = z.object({
   unixTimestamp: z.number(),

@@ -23,7 +23,7 @@ describe('betting-dapp', () => {
     const tx = await program.methods
       .initPlaceSplBetA()
       .accounts({
-        userSplBalance: userSplBalancePda,
+        // userSplBalance: userSplBalancePda,
         userAuthority: helperFunctions.signer.publicKey,
         splTokenMint: helperFunctions.mint,
         userTokenAccount: helperFunctions.tokenAccountforMint,
