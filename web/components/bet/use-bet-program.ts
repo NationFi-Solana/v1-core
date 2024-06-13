@@ -1,6 +1,6 @@
 'use client';
-import { useMemo } from 'react';
-import { getBettingProgram, getBettingProgramId } from '@test/anchor';
+
+import { getBettingProgram, } from '@test/anchor';
 import { useAnchorProvider } from '../solana/solana-provider';
 import { useMutation } from '@tanstack/react-query';
 import { BN } from '@coral-xyz/anchor';

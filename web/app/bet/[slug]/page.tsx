@@ -60,7 +60,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     alt={safeMarket.data.title}
                     height={100}
                     width={100}
-                    className="rounded-md"
+                    className="rounded-md border"
                   />
                   {/* <div className="min-w-[6rem] h-[6rem]  rounded-md bg-primary"></div> */}
                 </div>

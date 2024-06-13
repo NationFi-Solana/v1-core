@@ -80,7 +80,7 @@ export default function BetCard({
                 );
               }}
               className={`basis-1/2 ${
-                vote === sluga?.toLowerCase() && 'bg-cyan-400 text-black'
+                vote === sluga?.toLowerCase() && 'bg-primary text-black'
               } font-archivo`}
               variant="primary"
             >
@@ -97,7 +97,7 @@ export default function BetCard({
                 );
               }}
               className={`basis-1/2 ${
-                vote === slugb?.toLowerCase() && 'bg-cyan-400 text-black'
+                vote === slugb?.toLowerCase() && 'bg-primary text-black'
               } font-archivo`}
               variant="primary"
             >
@@ -132,7 +132,7 @@ export default function BetCard({
             <h3 className="text-gray-500">Balance</h3>
             <h3 className="flex items-center gap-x-1">
               {bal.data ? bal.data / 10 ** 9 : '0'}{' '}
-              <SiSolana className="text-cyan-400"></SiSolana>
+              <SiSolana className="text-primary"></SiSolana>
             </h3>
           </div>
           <div className="pt-1"></div>
@@ -140,7 +140,10 @@ export default function BetCard({
             <Button
               disabled={!isValid}
               type="submit"
-              className="flex justify-center disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer w-full text-white py-2 bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 from-primary to-primary-100 rounded-md   font-bold"
+              className={
+                'flex justify-center disabled:cursor-not-allowed transition-colors duration-300' +
+                ' cursor-pointer w-full text-white py-2 bg-gradient-to-r hover:bg-opacity-70 from-primary to-primary-100 hover:from-primary/60 hover:to-primary-100/30 to rounded-md   font-bold'
+              }
             >
               BUY
             </Button>
