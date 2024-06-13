@@ -12,7 +12,7 @@ use bet_placement::*;
 use bet_placement_initialization::*;
 use state::*;
 
-declare_id!("7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf");
+declare_id!("EsLLsztAmMrXdmGv7hRjdp2MdtSStEErGakmwrLretXQ");
 
 #[program]
 pub mod betting_dapp {
