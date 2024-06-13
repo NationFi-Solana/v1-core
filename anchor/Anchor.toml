@@ -5,16 +5,22 @@ seeds = false
 skip-lint = false
 
 [programs.localnet]
-counter = "Hr83GxtFmw1Af1QiCkCi4e1wmQ2R8V7cSHTrxZJuiYV7"
+counter = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
 betting_dapp = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
+
+[programs.devnet]
+counter = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
+betting_dapp = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
+
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
-wallet = "./betting-dapp_keypair.json"
+cluster = "devnet"
+wallet = "/home/sam/.config/solana/id.json"
 
 [scripts]
+init-program-state = "../node_modules/.bin/nx run anchor:jest ./tests/init-program-state.spec.ts"
 test = "../node_modules/.bin/nx run anchor:jest"
 
 [test]
