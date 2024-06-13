@@ -55,6 +55,7 @@ export default function HomePage({
       <div className="flex gap-x-4 items-center">
         <Link
           href="/"
+          scroll={false}
           className={`bg-background-600 items-center gap-x-2 p-2 flex rounded-lg transition-all cursor-pointer border-2 ${
             category ? 'border-primary/0' : 'border-primary'
           } hover:border-primary`}

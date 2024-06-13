@@ -16,6 +16,7 @@ export function CategoryCard({
     <div>
       <Link
         href={`?category=${slug}`}
+        scroll={false}
         className={
           'bg-background-600 p-2 rounded-lg transition-all' +
           ` cursor-pointer border-2 ${

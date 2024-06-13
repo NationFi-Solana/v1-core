@@ -10,7 +10,13 @@ import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useSubmitValid } from './hooks/isSubmitValid';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 
-export default function BetCard() {
+export default function BetCard({
+  sluga,
+  slugb,
+}: {
+  sluga: string | undefined;
+  slugb: string | undefined;
+}) {
   const [deposit, setDeposit] = useState('');
   const { connected } = useWallet();
   const searchParams = useSearchParams();
@@ -65,27 +71,35 @@ export default function BetCard() {
               role="checkbox"
               type="button"
               onClick={() => {
-                router.push(pathname + '?' + createQueryString('vote', 'yes'));
+                router.push(
+                  pathname +
+                    '?' +
+                    createQueryString('vote', sluga?.toLowerCase() ?? 'yes')
+                );
               }}
               className={`basis-1/2 ${
-                vote === 'yes' && 'bg-cyan-400 text-black'
+                vote === sluga?.toLowerCase() && 'bg-cyan-400 text-black'
               }`}
               variant="cyan"
             >
-              Vote Germany
+              VOTE {sluga?.toUpperCase()}
             </Button>
             <Button
               type="button"
               role="checkbox"
               onClick={() => {
-                router.push(pathname + '?' + createQueryString('vote', 'no'));
+                router.push(
+                  pathname +
+                    '?' +
+                    createQueryString('vote', slugb?.toLowerCase() ?? 'no')
+                );
               }}
               className={`basis-1/2 ${
-                vote === 'no' && 'bg-cyan-400 text-black'
+                vote === slugb?.toLowerCase() && 'bg-cyan-400 text-black'
               }`}
               variant="cyan"
             >
-              Vote Ukraine
+              VOTE {slugb?.toUpperCase()}
             </Button>
           </div>
           <div className="pt-1"></div>

@@ -6,16 +6,17 @@ import { MdAccessTime } from 'react-icons/md';
 import { getMarket } from './bet.groq';
 import { z } from 'zod';
 import { formatUnixTimestamp } from '@/lib/utils';
+import { slugSchema } from '@/app/page';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
   thumb: z.string(),
   description: z.string(),
+  optiona: slugSchema,
+  optionb: slugSchema,
 });
 export default async function Page({ params }: { params: { slug: string } }) {
-  console.log(params);
   const marketReq = await client.fetch(getMarket, { slug: params.slug });
-  console.log({ marketReq });
   const safeMarket = marketSchema.safeParse(marketReq[0]);
 
   if (!safeMarket.success) {
@@ -78,7 +79,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </div>
           </div>
           <div className="">
-            <BetCard />
+            <BetCard sluga={safeMarket.data.optiona?.current} slugb={safeMarket.data.optionb?.current} />
           </div>
         </div>
       </div>

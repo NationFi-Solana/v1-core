@@ -15,7 +15,7 @@ export default function Card({
   optionb,
 }: TMarket) {
   const timestamp = formatUnixTimestamp(unixTimestamp);
-  const [days, hours, minutes, seconds] = useCountdown(unixTimestamp * 1000 );
+  const [days, hours, minutes, seconds] = useCountdown(unixTimestamp * 1000);
 
   return (
     <Link href={`/bet/${slug.current}`}>
@@ -32,13 +32,18 @@ export default function Card({
         </div>
         <br />
         <div className="grid grid-cols-2 gap-x-2 font-inter ">
-          <Link scroll={false} href={`/bet/${slug.current}?vote=yes`}>
+          <Link
+            scroll={false}
+            href={`/bet/${slug.current}?vote=${optiona?.current.toLowerCase()}`}
+          >
             <Button role="link" className="w-full" variant="primary">
               VOTE {optiona?.current.toUpperCase()}
             </Button>
           </Link>
 
-          <Link href={`/bet/${slug.current}?vote=no`}>
+          <Link
+            href={`/bet/${slug.current}?vote=${optionb?.current.toLowerCase()}`}
+          >
             <Button className="w-full" variant="primary">
               VOTE {optionb?.current.toUpperCase()}
             </Button>
