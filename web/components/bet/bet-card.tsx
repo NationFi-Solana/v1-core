@@ -60,11 +60,7 @@ export default function BetCard({
   });
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
-<<<<<<< HEAD
       <div className="bg-background-800 p-4 w-full rounded-md ">
-=======
-      <div className="bg-background-600 p-4 w-full rounded-md ">
->>>>>>> 01bb402 (feat: landing styles)
         <form onSubmit={onSubmit} className="space-y-2">
           <div className="flex ">
             <label htmlFor="choice" className="text-center font-semibold">

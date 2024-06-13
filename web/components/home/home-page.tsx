@@ -61,11 +61,7 @@ export default function HomePage({
               <HowTo desc="CONNECT YOUR WALLET" num={1}>
                 <MdOutlineAccountBalanceWallet />
               </HowTo>
-<<<<<<< HEAD
               <HowTo desc="PLACE YOUR WAGER" num={2}>
-=======
-              <HowTo desc="PLACE YOUR VOTE" num={2}>
->>>>>>> 01bb402 (feat: landing styles)
                 <FaVoteYea />
               </HowTo>
               <HowTo desc="REWARDS DISTRIBUTED" num={3}>
@@ -75,11 +71,7 @@ export default function HomePage({
           </div>
         </div>
       </div>
-<<<<<<< HEAD
       <div id="markets" className=" relative max-w-[1200px] px-4 py-20 mx-auto">
-=======
-      <div className=" relative max-w-[1200px] py-20 mx-auto">
->>>>>>> 01bb402 (feat: landing styles)
         <div className="flex gap-x-4 items-center">
           <Link
             href="/"
@@ -103,11 +95,7 @@ export default function HomePage({
           {/* <CategoryCard title={'EURO2024'} slug={''} /> */}
         </div>
         <br></br>
-<<<<<<< HEAD
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4  gap-4">
-=======
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
->>>>>>> 01bb402 (feat: landing styles)
           {markets.map((m) => {
             return <MarketCard key={m._id} {...m} />;
           })}
