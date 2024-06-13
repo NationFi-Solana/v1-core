@@ -25,7 +25,7 @@ export default function HomePage({
       <BgSvg />
       <div className="rounded-md min-h-screen relative ">
         <Header />
-        <div className="max-w-[800px] mx-auto py-8 relative">
+        <div className="max-w-[800px] mx-auto py-8 relative px-4">
           <div className="relative ">
             <div className="z-10 relative py-3">
               <div className="flex z-10">
@@ -63,7 +63,7 @@ export default function HomePage({
               <HowTo desc="CONNECT YOUR WALLET" num={1}>
                 <MdOutlineAccountBalanceWallet />
               </HowTo>
-              <HowTo desc="PLACE YOUR VOTE" num={2}>
+              <HowTo desc="PLACE YOUR WAGER" num={2}>
                 <FaVoteYea />
               </HowTo>
               <HowTo desc="REWARDS DISTRIBUTED" num={3}>
@@ -73,7 +73,7 @@ export default function HomePage({
           </div>
         </div>
       </div>
-      <div id="markets" className=" relative max-w-[1200px] py-20 mx-auto">
+      <div id="markets" className=" relative max-w-[1200px] px-4 py-20 mx-auto">
         <div className="flex gap-x-4 items-center">
           <Link
             href="/"
@@ -97,7 +97,7 @@ export default function HomePage({
           {/* <CategoryCard title={'EURO2024'} slug={''} /> */}
         </div>
         <br></br>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4  gap-4">
           {markets.map((m) => {
             return <MarketCard key={m._id} {...m} />;
           })}
