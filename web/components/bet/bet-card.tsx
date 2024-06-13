@@ -55,14 +55,15 @@ export default function BetCard({
   const { isValid, errorMessage } = useSubmitValid({
     deposit,
     balance: bal.data,
+    vote,
   });
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
       <div className="bg-background-900 p-4 w-full rounded-md ">
         <form onSubmit={onSubmit} className="space-y-2">
           <div className="flex ">
-            <label htmlFor="choice" className="font-archivo text-center">
-              Outcome{' '}
+            <label htmlFor="choice" className="text-center font-semibold">
+              Choose Outcome{' '}
             </label>
           </div>
 
@@ -79,7 +80,7 @@ export default function BetCard({
               }}
               className={`basis-1/2 ${
                 vote === sluga?.toLowerCase() && 'bg-cyan-400 text-black'
-              }`}
+              } font-archivo`}
               variant="cyan"
             >
               VOTE {sluga?.toUpperCase()}
@@ -96,7 +97,7 @@ export default function BetCard({
               }}
               className={`basis-1/2 ${
                 vote === slugb?.toLowerCase() && 'bg-cyan-400 text-black'
-              }`}
+              } font-archivo`}
               variant="cyan"
             >
               VOTE {slugb?.toUpperCase()}
@@ -104,8 +105,8 @@ export default function BetCard({
           </div>
           <div className="pt-1"></div>
           <div>
-            <label htmlFor="amount" className="font-archivo">
-              Amount
+            <label htmlFor="amount" className="font-semibold">
+              Enter Amount
             </label>
           </div>
           <input
@@ -143,7 +144,6 @@ export default function BetCard({
               BUY
             </Button>
           )}
-          <p className="text-red-400 text-sm">{errorMessage}</p>
           {!connected && (
             <Button
               onClick={() => walletModal.setVisible(true)}
@@ -153,6 +153,7 @@ export default function BetCard({
             </Button>
           )}
 
+          {connected && <p className="text-red-400 text-sm">{errorMessage}</p>}
           <Stats />
         </form>
       </div>
