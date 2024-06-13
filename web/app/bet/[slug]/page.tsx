@@ -7,6 +7,7 @@ import { getMarket } from './bet.groq';
 import { z } from 'zod';
 import { formatUnixTimestamp } from '@/lib/utils';
 import { slugSchema } from '@/app/page';
+import { Metadata, ResolvingMetadata } from 'next';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -15,6 +16,24 @@ const marketSchema = z.object({
   optiona: slugSchema,
   optionb: slugSchema,
 });
+
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+
+  const slug = params.slug;
+
+  return {
+    title: `NATIONFI - ${slug}`,
+  };
+}
 export default async function Page({ params }: { params: { slug: string } }) {
   const marketReq = await client.fetch(getMarket, { slug: params.slug });
   const safeMarket = marketSchema.safeParse(marketReq[0]);
@@ -79,7 +98,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </div>
           </div>
           <div className="">
-            <BetCard sluga={safeMarket.data.optiona?.current} slugb={safeMarket.data.optionb?.current} />
+            <BetCard
+              sluga={safeMarket.data.optiona?.current}
+              slugb={safeMarket.data.optionb?.current}
+            />
           </div>
         </div>
       </div>

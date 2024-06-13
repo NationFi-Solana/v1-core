@@ -3,7 +3,7 @@ import { getCategories, getMarkets, getMarketsByCategory } from './page.groq';
 import { client } from '@/lib/sanity';
 import { z } from 'zod';
 export const metadata = {
-  title: 'Nationfi Voting',
+  title: 'NATIONFI VOTE',
 };
 export const slugSchema = z
   .object({ _type: z.string(), current: z.string() })
