@@ -1,9 +1,17 @@
 
+
 interface Props {
-    deposit: string
+    deposit: string | undefined
     balance: number | undefined
+    vote: string | null
 }
-export const useSubmitValid = ({ deposit, balance }: Props) => {
+export const useSubmitValid = ({ deposit, balance, vote }: Props) => {
+    if (!vote) {
+        return { isValid: false, errorMessage: "" }
+    }
+    if (parseFloat(deposit) <= 0 || !deposit) {
+        return { isValid: false, errorMessage: "" }
+    }
     const amount = parseFloat(deposit)
     if (!balance) {
         return { isValid: false, errorMessage: 'Failed to fetch balance.' }
