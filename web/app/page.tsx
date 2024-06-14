@@ -33,9 +33,13 @@ export default async function Page({
 }) {
   const category = searchParams?.['category'];
   const result = category
-    ? await client.fetch(getMarketsByCategory, { category })
-    : await client.fetch(getMarkets);
-
+    ? await client.fetch(
+        getMarketsByCategory,
+        { category },
+        { next: { revalidate: 5 } }
+      )
+    : await client.fetch(getMarkets, {}, { next: { revalidate: 5 } });
+  console.log(result, 'RESULT');
   const categories = await client.fetch(getCategories);
   const safeCats = categoriesSchema.safeParse(categories);
 

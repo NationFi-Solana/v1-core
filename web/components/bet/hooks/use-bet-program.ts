@@ -1,7 +1,7 @@
 'use client';
 
 import { getBettingProgram, } from '@test/anchor';
-import { useAnchorProvider } from '../solana/solana-provider';
+import { useAnchorProvider } from '../../solana/solana-provider';
 import { useMutation } from '@tanstack/react-query';
 import { BN } from '@coral-xyz/anchor';
 import * as anchor from '@coral-xyz/anchor';

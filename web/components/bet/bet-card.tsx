@@ -1,14 +1,19 @@
 'use client';
-import { type FormEvent, useState, useCallback } from 'react';
+import { type FormEvent, useState, useCallback, useEffect } from 'react';
 import { Button } from '../shared/ui/button';
 import Stats from './stats';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { SiSolana } from 'react-icons/si';
-import { useSolBet } from './use-bet-program';
+
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useSubmitValid } from './hooks/isSubmitValid';
+import { useSubmitValid } from './hooks/is-submit-valid';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import { useSolBet } from './hooks/use-bet-program';
+import { useGetBetProgram } from '../shared/hooks/get-bet-program';
+import { PublicKey } from '@solana/web3.js';
+
+import BetProgressAlert from './bet-progress-alert';
 
 export default function BetCard({
   sluga,
@@ -21,17 +26,19 @@ export default function BetCard({
   const { connected } = useWallet();
   const searchParams = useSearchParams();
   const vote = searchParams.get('vote');
-  const { placeSolBet, initProgram } = useSolBet({ isABet: true, amount: 333 });
+  const { placeSolBet } = useSolBet({ isABet: true, amount: 333 });
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // initProgram.mutate();
     placeSolBet.mutate();
   };
+
   const walletModal = useWalletModal();
 
   const { publicKey } = useWallet();
   const { connection } = useConnection();
   const router = useRouter();
+
   const bal = useQuery({
     queryKey: ['solBal', publicKey],
     queryFn: async () => {
@@ -43,6 +50,7 @@ export default function BetCard({
       }
     },
   });
+
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -52,14 +60,57 @@ export default function BetCard({
     },
     [searchParams]
   );
+
   const pathname = usePathname();
+
   const { isValid, errorMessage } = useSubmitValid({
     deposit,
     balance: bal.data,
     vote,
   });
+  const { programId, program } = useGetBetProgram();
+  const [userSolBalanceBPda] = PublicKey.findProgramAddressSync(
+    [Buffer.from('sol_bet_b')],
+    programId
+  );
+  useEffect(() => {
+    if (publicKey) {
+      const a = async () => {
+        const balance = await program.account.signerSolBalance.fetch(
+          userSolBalanceBPda
+        );
+        console.log(balance.balance.toString());
+      };
+      a();
+    }
+  }, [
+    connection,
+    program.account.signerSolBalance,
+    publicKey,
+    userSolBalanceBPda,
+  ]);
+  const userPosition = useQuery({
+    queryKey: ['userPosition', publicKey],
+    queryFn: async () => {
+      console.log(publicKey, 'PUBLIC KEY');
+      if (publicKey !== null) {
+        const balance = await program.account.signerSolBalance.fetch(publicKey);
+        console.log(balance, 'BALANCE');
+        return balance;
+      } else {
+        console.log('ERROR');
+        throw new Error('Not connected');
+      }
+    },
+  });
+
+  console.log({ userPosition });
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
+      <BetProgressAlert
+        waitForSign={placeSolBet.isPending}
+        isTxPending={false}
+      ></BetProgressAlert>
       <div className="bg-background-800 p-4 w-full rounded-md ">
         <form onSubmit={onSubmit} className="space-y-2">
           <div className="flex ">
@@ -113,7 +164,7 @@ export default function BetCard({
           <input
             id="amount"
             className="w-full bg-background py-2 px-2 rounded-md border border-gray-600"
-            placeholder="$0.00"
+            placeholder="0.00"
             type="text"
             minLength={1}
             step="any"
@@ -137,23 +188,19 @@ export default function BetCard({
           </div>
           <div className="pt-1"></div>
           {connected && (
-            <Button
-              disabled={!isValid}
-              type="submit"
-              className={
-                'flex justify-center disabled:cursor-not-allowed transition-colors duration-300' +
-                ' cursor-pointer w-full text-white py-2 bg-gradient-to-r hover:bg-opacity-70 from-primary to-primary-100 hover:from-primary/60 hover:to-primary-100/30 to rounded-md   font-bold'
-              }
-            >
-              BUY
+            <Button disabled={!isValid} type="submit" variant="submit">
+              <span className=" drop-shadow-[0_35px_35px_rgba(0,0,0,0.8)]  text-lg">
+                BUY
+              </span>
             </Button>
           )}
           {!connected && (
             <Button
               onClick={() => walletModal.setVisible(true)}
-              className="flex justify-center disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer w-full text-white py-2 bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 from-cyan-500 to-blue-500 rounded-md   font-bold"
+              variant="submit"
+              type="button"
             >
-              Connect
+              <span className="">CONNECT</span>
             </Button>
           )}
 

@@ -15,6 +15,7 @@
   "dependencies": {
     "@coral-xyz/anchor": "^0.30.0",
     "@project-serum/anchor": "^0.26.0",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@sanity/client": "^6.20.0",

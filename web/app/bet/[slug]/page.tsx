@@ -1,14 +1,15 @@
 import BetCard from '@/components/bet/bet-card';
-import { LineChart } from '@/components/bet/line-chart';
+
 import { client } from '@/lib/sanity';
 import Image from 'next/image';
 import { MdAccessTime } from 'react-icons/md';
 import { getMarket } from './bet.groq';
 import { z } from 'zod';
 import { formatUnixTimestamp } from '@/lib/utils';
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 import { slugSchema } from '@/lib/schemas';
 import Header from '@/components/header';
+import { Button } from '@/components/shared/ui/button';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -23,10 +24,7 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
 
   const slug = params.slug;
@@ -47,6 +45,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
     );
   } else {
     const timestamp = formatUnixTimestamp(safeMarket.data.unixTimestamp);
+    const optionb = safeMarket.data.optionb?.current.toUpperCase();
+    const optiona = safeMarket.data.optiona?.current.toUpperCase();
     return (
       <div>
         <Header />
@@ -80,22 +80,35 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <br />
               <div className="grid grid-cols-2">
                 <div className="col-span-2">
-                  <div className="py-2 space-y-1 pl-1">
-                    <h2 className="text-gray-400">Yes</h2>
-                    <h3 className="text-2xl">$30</h3>
-                  </div>
-                  <div className="w-full">
-                    <LineChart
-                      data={[
-                        { time: '2018-12-12', value: 14 },
-                        { time: '2018-12-13', value: 16 },
-                        { time: '2018-12-14', value: 16 },
-                        { time: '2018-12-15', value: 8 },
-                        { time: '2018-12-16', value: 11 },
-                      ]}
-                      dataTwo={[]}
-                      colors={undefined}
-                    />
+                  <div className="w-full relative z-0 ">
+                    <div className="flex font-archivo text-2xl justify-between ">
+                      <h1>{optiona}</h1>
+                      <h2>{optionb}</h2>
+                    </div>
+                    <div className="pt-2"></div>
+                    <div className="flex ">
+                      <div className="h-2 bg-primary w-[60%]"></div>
+                      <div className="h-2 w-[40%] bg-primary-100 "></div>
+                    </div>
+                    <div className="flex justify-between font-semibold pt-4 text-lg">
+                      <h3>60%</h3>
+                      <h3>40%</h3>
+                    </div>
+                    <br />
+                    <div className="bg-background-800 p-4 border border-gray-800 rounded-md">
+                      <h1 className="font-bold text-xl">Your Positions</h1>
+                      <div>
+                        {/* <h2 className="text-center text-gray-200 font-bold">
+                          Connect Wallet.
+                        </h2> */}
+                        <br />
+                        <div className="grid grid-cols-2 gap-x-4">
+                          <Position option={optiona} />
+                          <Position option={optionb} />
+                        </div>
+                      </div>
+                      <br />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -111,4 +124,16 @@ export default async function Page({ params }: { params: { slug: string } }) {
       </div>
     );
   }
+}
+ function Position({ option }: { option: string | undefined }) {
+  return (
+    <div className="flex border-b border-gray-600 pb-1 items-center  justify-between">
+      <h1 className="font-archivo ">{option}</h1>
+      <div className="flex items-center gap-x-2">
+        <h1 className="">2 SOL</h1>
+
+        <Button variant="destructive">Withdraw</Button>
+      </div>
+    </div>
+  );
 }
