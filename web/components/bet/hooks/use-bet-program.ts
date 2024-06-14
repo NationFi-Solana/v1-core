@@ -7,6 +7,7 @@ import { BN } from '@coral-xyz/anchor';
 import * as anchor from '@coral-xyz/anchor';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey } from '@solana/web3.js';
+import { useGetBetProgram } from '@/components/shared/hooks/get-bet-program';
 interface Props {
   isABet: boolean;
   amount: number;
@@ -23,10 +24,10 @@ export function useSolBet({ isABet, amount }: Props) {
     [Buffer.from('sol_bet_b')],
     programId
   );
-  const [programStateAccount] = anchor.web3.PublicKey.findProgramAddressSync(
-    [Buffer.from('state')],
-    programId
-  );
+  // const [programStateAccount] = anchor.web3.PublicKey.findProgramAddressSync(
+  //   [Buffer.from('state')],
+  //   programId
+  // );
   const wallet = useWallet();
   const initProgram = useMutation({
     mutationKey: [''],
@@ -42,7 +43,7 @@ export function useSolBet({ isABet, amount }: Props) {
           .placeSolBet(0, new BN(1))
           .accounts({
             userSolBalance: userSolBalanceBPda,
-            programStateAccount: programStateAccount,
+            // programStateAccount: programStateAccount,
             // userAuthority: wallet.publicKey,
           })
           .signers([])
@@ -59,4 +60,61 @@ export function useSolBet({ isABet, amount }: Props) {
     },
   });
   return { placeSolBet, initProgram };
+}
+
+
+export function useCancelBet() {
+  const wallet = useWallet()
+  const { program, programId } = useGetBetProgram()
+  const [userSolBalanceBPda] = anchor.web3.PublicKey.findProgramAddressSync(
+    [Buffer.from('sol_bet_b'), wallet.publicKey?.toBuffer() ?? Buffer.from('')],
+    programId
+  );
+  const cashOut = useMutation({
+    mutationKey: [''],
+    mutationFn: () => {
+      if (wallet.publicKey) {
+        return program.methods.cashoutBet(1).accounts({ userSolBalance: userSolBalanceBPda })
+          .signers([])
+          .rpc();
+      } else {
+        throw Error('No wallet provided');
+      }
+    },
+    onError: (e) => {
+      console.log(e, 'ERROR');
+    },
+    onSuccess: (s) => {
+      console.log(s);
+    },
+  });
+  return { cashOut }
+}
+
+export function useCollectWinnings() {
+  const wallet = useWallet()
+  const { program, programId } = useGetBetProgram()
+  const [userSolBalanceBPda] = anchor.web3.PublicKey.findProgramAddressSync(
+    [Buffer.from('sol_bet_b'), wallet.publicKey?.toBuffer() ?? Buffer.from('')],
+    programId
+  );
+  const cashOut = useMutation({
+    mutationKey: [''],
+    mutationFn: () => {
+      if (wallet.publicKey) {
+        return program.methods.cashoutWinnings(1).accounts({ userSolBalance: userSolBalanceBPda })
+          .signers([])
+          .rpc();
+      } else {
+        throw Error('No wallet provided');
+      }
+    },
+    onError: (e) => {
+      console.log(e, 'ERROR');
+    },
+    onSuccess: (s) => {
+      console.log(s);
+    },
+  });
+  return { cashOut }
 }
