@@ -6,7 +6,7 @@ import { MdAccessTime } from 'react-icons/md';
 import { getMarket } from './bet.groq';
 import { z } from 'zod';
 import { formatUnixTimestamp } from '@/lib/utils';
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 import { slugSchema } from '@/lib/schemas';
 import Header from '@/components/header';
 const marketSchema = z.object({
@@ -23,10 +23,7 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
 
   const slug = params.slug;
