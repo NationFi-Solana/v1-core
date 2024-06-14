@@ -77,12 +77,31 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <br />
               <div className="grid grid-cols-2">
                 <div className="col-span-2">
-                  <div className="py-2 space-y-1 pl-1">
-                    <h2 className="text-gray-400">Yes</h2>
-                    <h3 className="text-2xl">$30</h3>
-                  </div>
-                  <div className="w-full relative z-0">
-                    <LineChart
+                  <div className="w-full relative z-0 ">
+                    <div className="flex font-archivo text-2xl justify-between ">
+                      <h1>GERMANY</h1>
+                      <h2>UKRAINE</h2>
+                    </div>
+                    <div className="pt-2"></div>
+                    <div className="flex ">
+                      <div className="h-2 bg-primary w-[60%]"></div>
+                      <div className="h-2 w-[40%] bg-primary-100"></div>
+                    </div>
+                    <div className="flex justify-between font-semibold pt-4 text-lg">
+                      <h3>60%</h3>
+                      <h3>40%</h3>
+                    </div>
+                    <br />
+                    <div className="bg-background-800 p-4 border border-gray-800 rounded-md">
+                      <h1 className="font-bold text-xl">Your Position</h1>
+                      <div>
+                        <h2 className="text-center text-gray-200 font-bold">
+                          Connect Wallet.
+                        </h2>
+                      </div>
+                      <br />
+                    </div>
+                    {/* <LineChart
                       data={[
                         { time: '2018-12-12', value: 14 },
                         { time: '2018-12-13', value: 16 },
@@ -92,7 +111,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                       ]}
                       dataTwo={[]}
                       colors={undefined}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
