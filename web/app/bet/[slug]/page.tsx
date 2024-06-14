@@ -84,7 +84,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     <h2 className="text-gray-400">Yes</h2>
                     <h3 className="text-2xl">$30</h3>
                   </div>
-                  <div className="w-full">
+                  <div className="w-full relative z-0">
                     <LineChart
                       data={[
                         { time: '2018-12-12', value: 14 },

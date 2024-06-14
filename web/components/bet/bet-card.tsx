@@ -1,14 +1,19 @@
 'use client';
-import { type FormEvent, useState, useCallback } from 'react';
+import { type FormEvent, useState, useCallback, useEffect } from 'react';
 import { Button } from '../shared/ui/button';
 import Stats from './stats';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { SiSolana } from 'react-icons/si';
-import { useSolBet } from './use-bet-program';
+
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useSubmitValid } from './hooks/isSubmitValid';
+import { useSubmitValid } from './hooks/is-submit-valid';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import { useSolBet } from './hooks/use-bet-program';
+import { useGetBetProgram } from '../shared/hooks/get-bet-program';
+import { Account, PublicKey } from '@solana/web3.js';
+import { AlertDialog } from '../shared/ui/alert-dialog';
+import BetProgressAlert from './bet-progress-alert';
 
 export default function BetCard({
   sluga,
@@ -21,17 +26,19 @@ export default function BetCard({
   const { connected } = useWallet();
   const searchParams = useSearchParams();
   const vote = searchParams.get('vote');
-  const { placeSolBet, initProgram } = useSolBet({ isABet: true, amount: 333 });
+  const { placeSolBet } = useSolBet({ isABet: true, amount: 333 });
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // initProgram.mutate();
     placeSolBet.mutate();
   };
+
   const walletModal = useWalletModal();
 
   const { publicKey } = useWallet();
   const { connection } = useConnection();
   const router = useRouter();
+
   const bal = useQuery({
     queryKey: ['solBal', publicKey],
     queryFn: async () => {
@@ -43,6 +50,7 @@ export default function BetCard({
       }
     },
   });
+
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -52,14 +60,56 @@ export default function BetCard({
     },
     [searchParams]
   );
+
   const pathname = usePathname();
+
   const { isValid, errorMessage } = useSubmitValid({
     deposit,
     balance: bal.data,
     vote,
   });
+  const { programId, program } = useGetBetProgram();
+  const [userSolBalanceBPda] = PublicKey.findProgramAddressSync(
+    [Buffer.from('sol_bet_b')],
+    programId
+  );
+  useEffect(() => {
+    if (publicKey) {
+      const a = async () => {
+        const balance = await program.account.signerSolBalance.fetch(
+          userSolBalanceBPda
+        );
+        console.log(balance.balance.toString());
+      };
+      a();
+    }
+  }, [
+    connection,
+    program.account.signerSolBalance,
+    publicKey,
+    userSolBalanceBPda,
+  ]);
+  const userPosition = useQuery({
+    queryKey: ['userPosition', publicKey],
+    queryFn: async () => {
+      console.log(publicKey, 'PUBLIC KEY');
+      if (publicKey !== null) {
+        const balance = await program.account.signerSolBalance.fetch(publicKey);
+        console.log(balance, 'BALANCE');
+        return balance;
+      } else {
+        console.log('ERROR');
+        throw new Error('Not connected');
+      }
+    },
+  });
+  console.log({ userPosition });
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
+      <BetProgressAlert
+        waitForSign={placeSolBet.isPending}
+        isTxPending={false}
+      ></BetProgressAlert>
       <div className="bg-background-800 p-4 w-full rounded-md ">
         <form onSubmit={onSubmit} className="space-y-2">
           <div className="flex ">
@@ -113,7 +163,7 @@ export default function BetCard({
           <input
             id="amount"
             className="w-full bg-background py-2 px-2 rounded-md border border-gray-600"
-            placeholder="$0.00"
+            placeholder="0.00"
             type="text"
             minLength={1}
             step="any"
