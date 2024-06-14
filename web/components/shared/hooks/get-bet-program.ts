@@ -10,7 +10,7 @@ export function useGetBetProgram() {
     const addr = addressId;
     const programId = new PublicKey(addr);
     const program = useMemo(() => {
-        getBettingProgram(provider, addr)
+        return getBettingProgram(provider, addr)
     }, [provider, addr]);
     return { program, programId }
 }
