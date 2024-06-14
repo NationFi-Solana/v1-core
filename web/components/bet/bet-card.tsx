@@ -11,8 +11,8 @@ import { useSubmitValid } from './hooks/is-submit-valid';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useSolBet } from './hooks/use-bet-program';
 import { useGetBetProgram } from '../shared/hooks/get-bet-program';
-import { Account, PublicKey } from '@solana/web3.js';
-import { AlertDialog } from '../shared/ui/alert-dialog';
+import { PublicKey } from '@solana/web3.js';
+
 import BetProgressAlert from './bet-progress-alert';
 
 export default function BetCard({
@@ -103,6 +103,7 @@ export default function BetCard({
       }
     },
   });
+
   console.log({ userPosition });
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">

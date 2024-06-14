@@ -13,7 +13,7 @@ export const getMarkets = groq`
 `;
 
 export const getMarketsByCategory = groq`
-*[_type == 'market' && category.current == $category]{
+*[_type == 'market' && category == $category]{
     unixTimestamp, 
     title, 
     "thumb": thumbnail.asset->url,

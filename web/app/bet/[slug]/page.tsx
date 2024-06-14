@@ -1,5 +1,5 @@
 import BetCard from '@/components/bet/bet-card';
-import { LineChart } from '@/components/bet/line-chart';
+
 import { client } from '@/lib/sanity';
 import Image from 'next/image';
 import { MdAccessTime } from 'react-icons/md';
@@ -44,6 +44,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
     );
   } else {
     const timestamp = formatUnixTimestamp(safeMarket.data.unixTimestamp);
+    const optionb = safeMarket.data.optionb?.current.toUpperCase();
+    const optiona = safeMarket.data.optiona?.current.toUpperCase();
     return (
       <div>
         <Header />
@@ -79,8 +81,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <div className="col-span-2">
                   <div className="w-full relative z-0 ">
                     <div className="flex font-archivo text-2xl justify-between ">
-                      <h1>GERMANY</h1>
-                      <h2>UKRAINE</h2>
+                      <h1>{optiona}</h1>
+                      <h2>{optionb}</h2>
                     </div>
                     <div className="pt-2"></div>
                     <div className="flex ">
@@ -93,25 +95,26 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     </div>
                     <br />
                     <div className="bg-background-800 p-4 border border-gray-800 rounded-md">
-                      <h1 className="font-bold text-xl">Your Position</h1>
+                      <h1 className="font-bold text-xl">Your Positions</h1>
                       <div>
-                        <h2 className="text-center text-gray-200 font-bold">
+                        {/* <h2 className="text-center text-gray-200 font-bold">
                           Connect Wallet.
-                        </h2>
+                        </h2> */}
+                        <br />
+                        <div className="grid grid-cols-2 gap-x-4">
+                          <div className="flex border-b border-gray-600 pb-1  justify-between">
+                            <h1 className="font-archivo ">{optiona}</h1>
+                            <h1 className="">2 SOL</h1>
+                          </div>
+
+                          <div className="flex border-b border-gray-600 pb-1  justify-between">
+                            <h1 className="font-archivo ">{optionb}</h1>
+                            <h1 className="">2 SOL</h1>
+                          </div>
+                        </div>
                       </div>
                       <br />
                     </div>
-                    {/* <LineChart
-                      data={[
-                        { time: '2018-12-12', value: 14 },
-                        { time: '2018-12-13', value: 16 },
-                        { time: '2018-12-14', value: 16 },
-                        { time: '2018-12-15', value: 8 },
-                        { time: '2018-12-16', value: 11 },
-                      ]}
-                      dataTwo={[]}
-                      colors={undefined}
-                    /> */}
                   </div>
                 </div>
               </div>
