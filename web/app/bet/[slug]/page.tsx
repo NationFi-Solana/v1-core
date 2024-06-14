@@ -125,7 +125,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     );
   }
 }
-export function Position({ option }: { option: string | undefined }) {
+ function Position({ option }: { option: string | undefined }) {
   return (
     <div className="flex border-b border-gray-600 pb-1 items-center  justify-between">
       <h1 className="font-archivo ">{option}</h1>
