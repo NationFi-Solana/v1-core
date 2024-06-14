@@ -6,11 +6,13 @@ import { MdAccessTime } from 'react-icons/md';
 import { getMarket } from './bet.groq';
 import { z } from 'zod';
 import { formatUnixTimestamp } from '@/lib/utils';
-import { Metadata } from 'next';
 import { slugSchema } from '@/lib/schemas';
 import Header from '@/components/header';
 import { ProgramProvider } from '@/components/providers/program-provider';
 import { UserPositionsContainer } from '@/components/bet/user-positions-container';
+import { getBettingProgram } from '@test/anchor';
+import { useGetBetProgram } from '../shared/hooks/get-bet-program';
+import { BetPercents } from './bet-percents';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -79,14 +81,8 @@ export default async function BetPage({
                         <h2>{optionb}</h2>
                       </div>
                       <div className="pt-2"></div>
-                      <div className="flex ">
-                        <div className="h-2 bg-primary w-[60%]"></div>
-                        <div className="h-2 w-[40%] bg-primary-100 "></div>
-                      </div>
-                      <div className="flex justify-between font-semibold pt-4 text-lg">
-                        <h3>60%</h3>
-                        <h3>40%</h3>
-                      </div>
+
+                      <BetPercents />
                       <br />
                       <UserPositionsContainer
                         optiona={optiona}
