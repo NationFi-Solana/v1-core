@@ -45,7 +45,9 @@ export default function HomePage({
               </div>
               <div className="pt-4"></div>
               <div>
-                <Button variant="primary">VOTE NOW</Button>
+                <Link href="#markets">
+                  <Button variant="primary">VOTE NOW</Button>
+                </Link>
               </div>
               <br />
             </div>
@@ -95,7 +97,7 @@ export default function HomePage({
           {/* <CategoryCard title={'EURO2024'} slug={''} /> */}
         </div>
         <br></br>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4  gap-4">
+        <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4  gap-4">
           {markets.map((m) => {
             return <MarketCard key={m._id} {...m} />;
           })}
