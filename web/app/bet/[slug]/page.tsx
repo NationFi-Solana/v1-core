@@ -12,6 +12,7 @@ import Header from '@/components/header';
 import { Button } from '@/components/shared/ui/button';
 import { ProgramProvider } from '@/components/providers/program-provider';
 import { UserPosition } from '@/components/bet/user-position';
+import { UserPositionsContainer } from '@/components/bet/user-positions-container';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -99,20 +100,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
                         <h3>40%</h3>
                       </div>
                       <br />
-                      <div className="bg-background-800 p-4 border border-gray-800 rounded-md">
-                        <h1 className="font-bold text-xl">Your Positions</h1>
-                        <div>
-                          {/* <h2 className="text-center text-gray-200 font-bold">
-                          Connect Wallet.
-                        </h2> */}
-                          <br />
-                          <div className="grid grid-cols-2 gap-x-4">
-                            <UserPosition isBetA={true} option={optiona} />
-                            <UserPosition isBetA={false} option={optionb} />
-                          </div>
-                        </div>
-                        <br />
-                      </div>
+                      <UserPositionsContainer
+                        optiona={optiona}
+                        optionb={optionb}
+                      />
                     </div>
                   </div>
                 </div>
