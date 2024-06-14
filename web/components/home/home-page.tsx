@@ -1,4 +1,3 @@
-import { TCategories, TMarkets } from '@/app/page';
 import MarketCard from './market-card';
 import Link from 'next/link';
 import { FaRegStar } from 'react-icons/fa';
@@ -10,6 +9,7 @@ import { MdOutlineAccountBalanceWallet } from 'react-icons/md';
 import { FaVoteYea } from 'react-icons/fa';
 import { FaMoneyBillWaveAlt } from 'react-icons/fa';
 import Header from '../header';
+import { TCategories, TMarkets } from '@/lib/schemas';
 
 export default function HomePage({
   markets,
