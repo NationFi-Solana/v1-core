@@ -32,7 +32,6 @@ export function getCounterProgramId(cluster: Cluster) {
 
 export function getBettingProgram(provider: AnchorProvider, address: string) {
   const idl = { ...BettingIDL, address };
-  console.log(idl, "IDL")
   return new Program(idl as BettingDapp, provider);
 }
 

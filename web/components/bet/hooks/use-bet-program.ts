@@ -45,7 +45,7 @@ export function useSolBet({ isBetA, amount }: Props) {
       if (wallet.publicKey) {
         if (data) {
           return program.methods
-            .placeSolBet(isBetA ? 1 : 0, new BN(amount))
+            .placeSolBet(getBetNum({ isBetA }), new BN(amount))
             .accounts({
               userSolBalance: userSolBalancePda,
             })
@@ -53,11 +53,11 @@ export function useSolBet({ isBetA, amount }: Props) {
             .rpc();
         } else {
           if (isBetA) {
-            return await program.methods.placeSolBet(isBetA ? 1 : 0, new BN(amount))
+            return await program.methods.placeSolBet(getBetNum({ isBetA }), new BN(amount))
               .accounts({ userSolBalance: userSolBalancePda })
               .preInstructions([await program.methods.initPlaceSolBetA().instruction()]).rpc()
           } else {
-            return await program.methods.placeSolBet(isBetA ? 1 : 0, new BN(amount))
+            return await program.methods.placeSolBet(getBetNum({ isBetA }), new BN(amount))
               .accounts({ userSolBalance: userSolBalancePda })
               .preInstructions([await program.methods.initPlaceSolBetB().instruction()]).rpc()
           }
@@ -86,7 +86,7 @@ export function useCancelBet({ isBetA }: { isBetA: boolean }) {
     mutationKey: [''],
     mutationFn: () => {
       if (wallet.publicKey) {
-        return program.methods.cashoutBet(isBetA ? 0 : 1).accounts({ userSolBalance: userSolBalancePda })
+        return program.methods.cashoutBet(getBetNum({ isBetA })).accounts({ userSolBalance: userSolBalancePda })
           .signers([])
           .rpc();
       } else {
@@ -111,7 +111,7 @@ export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
     mutationKey: [''],
     mutationFn: () => {
       if (wallet.publicKey) {
-        return program.methods.cashoutWinnings(isBetA ? 0 : 1).accounts({ userSolBalance: userSolBalancePda })
+        return program.methods.cashoutWinnings(getBetNum({ isBetA })).accounts({ userSolBalance: userSolBalancePda })
           .signers([])
           .rpc();
       } else {
@@ -126,4 +126,12 @@ export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
     },
   });
   return { cashOut }
+}
+
+export function getBetNum({ isBetA }: { isBetA: boolean }) {
+  if (isBetA) {
+    return 1
+  } else {
+    return 0
+  }
 }
