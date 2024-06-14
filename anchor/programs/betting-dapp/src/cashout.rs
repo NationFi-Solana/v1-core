@@ -70,13 +70,13 @@ pub fn cashout_bet(ctx: Context<CashoutBet>, is_bet_a: u8) -> Result<()> {
         &[&[&pda_seed_word.as_bytes(), &[program_funds_bump]]],
     )?;
 
-    user_sol_balance.balance = 0;
-
     if is_bet_a != 0 {
         program_state_account.total_sol_a -= user_sol_balance.balance;
     } else {
         program_state_account.total_sol_b -= user_sol_balance.balance;
     }
+
+    user_sol_balance.balance = 0;
 
     return Ok(());
 }
