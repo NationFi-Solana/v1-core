@@ -27,7 +27,7 @@ export function UserPosition({
         <h1 className="font-archivo ">{option}</h1>
         <div className="flex items-center gap-x-2">
           <h1 className="flex items-center gap-x-2 pr-4">
-            {data?.balance.toString() ?? '0'}{' '}
+            {parseInt(data?.balance.toString() ?? '0') / 10 ** 9}{' '}
             <SiSolana size={15} className="text-primary" />
           </h1>
 
