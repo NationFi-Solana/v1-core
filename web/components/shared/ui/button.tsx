@@ -13,10 +13,13 @@ const buttonVariants = cva(
         cyan: ' hover:text-black border-cyan-400 hover:bg-cyan-300 border font-bold rounded-md transition-colors',
         primary:
           ' hover:text-black border-primary border-[3px] hover:bg-primary  font-bold rounded-md transition-colors',
-        blue: '   border-cyan-400 hover:bg-green-500  border font-bold  rounded-md  ',
-        red: '    border-cyan-400 hover:bg-red-400 border font-bold  rounded-md  ',
+        submit:
+          'flex justify-center disabled:cursor-not-allowed transition-colors duration-300' +
+          ' cursor-pointer w-full text-white py-2 bg-gradient-to-r hover:bg-opacity-70 from-primary-800  to-primary hover:from-primary-800/80 hover:to-primary/80 to rounded-md font-bold',
+        blue: 'border-cyan-400 hover:bg-green-500  border font-bold  rounded-md  ',
+        red: 'border-cyan-400 hover:bg-red-400 border font-bold  rounded-md  ',
         destructive:
-          'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+          'border-red-500 border-[3px] text-destructive-foreground hover:bg-red-500/90',
         outline:
           'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
         secondary:

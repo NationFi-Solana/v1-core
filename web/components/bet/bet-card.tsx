@@ -188,23 +188,19 @@ export default function BetCard({
           </div>
           <div className="pt-1"></div>
           {connected && (
-            <Button
-              disabled={!isValid}
-              type="submit"
-              className={
-                'flex justify-center disabled:cursor-not-allowed transition-colors duration-300' +
-                ' cursor-pointer w-full text-white py-2 bg-gradient-to-r hover:bg-opacity-70 from-primary to-primary-100 hover:from-primary/60 hover:to-primary-100/30 to rounded-md   font-bold'
-              }
-            >
-              BUY
+            <Button disabled={!isValid} type="submit" variant="submit">
+              <span className=" drop-shadow-[0_35px_35px_rgba(0,0,0,0.8)]  text-lg">
+                BUY
+              </span>
             </Button>
           )}
           {!connected && (
             <Button
               onClick={() => walletModal.setVisible(true)}
-              className="flex justify-center disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer w-full text-white py-2 bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 from-cyan-500 to-blue-500 rounded-md   font-bold"
+              variant="submit"
+              type="button"
             >
-              Connect
+              <span className="">CONNECT</span>
             </Button>
           )}
 

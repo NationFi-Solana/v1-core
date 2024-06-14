@@ -9,6 +9,7 @@ import { formatUnixTimestamp } from '@/lib/utils';
 import { Metadata } from 'next';
 import { slugSchema } from '@/lib/schemas';
 import Header from '@/components/header';
+import { Button } from '@/components/shared/ui/button';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -87,7 +88,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     <div className="pt-2"></div>
                     <div className="flex ">
                       <div className="h-2 bg-primary w-[60%]"></div>
-                      <div className="h-2 w-[40%] bg-primary-100"></div>
+                      <div className="h-2 w-[40%] bg-primary-100 "></div>
                     </div>
                     <div className="flex justify-between font-semibold pt-4 text-lg">
                       <h3>60%</h3>
@@ -102,15 +103,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
                         </h2> */}
                         <br />
                         <div className="grid grid-cols-2 gap-x-4">
-                          <div className="flex border-b border-gray-600 pb-1  justify-between">
-                            <h1 className="font-archivo ">{optiona}</h1>
-                            <h1 className="">2 SOL</h1>
-                          </div>
-
-                          <div className="flex border-b border-gray-600 pb-1  justify-between">
-                            <h1 className="font-archivo ">{optionb}</h1>
-                            <h1 className="">2 SOL</h1>
-                          </div>
+                          <Position option={optiona} />
+                          <Position option={optionb} />
                         </div>
                       </div>
                       <br />
@@ -130,4 +124,16 @@ export default async function Page({ params }: { params: { slug: string } }) {
       </div>
     );
   }
+}
+export function Position({ option }: { option: string }) {
+  return (
+    <div className="flex border-b border-gray-600 pb-1 items-center  justify-between">
+      <h1 className="font-archivo ">{option}</h1>
+      <div className="flex items-center gap-x-2">
+        <h1 className="">2 SOL</h1>
+
+        <Button variant="destructive">Withdraw</Button>
+      </div>
+    </div>
+  );
 }
