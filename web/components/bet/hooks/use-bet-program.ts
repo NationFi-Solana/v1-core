@@ -1,34 +1,32 @@
 'use client';
 
-import { getBettingProgram, } from '@test/anchor';
-import { useAnchorProvider } from '../../solana/solana-provider';
+
 import { useMutation } from '@tanstack/react-query';
 import { BN } from '@coral-xyz/anchor';
 import * as anchor from '@coral-xyz/anchor';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey } from '@solana/web3.js';
 import { useGetBetProgram } from '@/components/shared/hooks/get-bet-program';
+
 interface Props {
-  isABet: boolean;
+  isBetA: boolean;
   amount: number;
 }
+function getSolPDA({ isBetA, user, programId }: { isBetA: boolean, user: PublicKey | null, programId: PublicKey }) {
 
-export function useSolBet({ isABet, amount }: Props) {
-  const provider = useAnchorProvider();
-  const addr = 'EsLLsztAmMrXdmGv7hRjdp2MdtSStEErGakmwrLretXQ';
-  // const programId = useMemo(() => getBettingProgramId(), []);
-  const programId = new PublicKey(addr);
-  const program = getBettingProgram(provider, addr);
-
-  const [userSolBalanceBPda] = anchor.web3.PublicKey.findProgramAddressSync(
-    [Buffer.from('sol_bet_b')],
+  const [userSolBalancePda] = anchor.web3.PublicKey.findProgramAddressSync(
+    [Buffer.from(isBetA ? 'sol_bet_a' : 'sol_bet_b'), user?.toBuffer() ?? Buffer.from('')],
     programId
   );
-  // const [programStateAccount] = anchor.web3.PublicKey.findProgramAddressSync(
-  //   [Buffer.from('state')],
-  //   programId
-  // );
+  return { userSolBalancePda }
+}
+export function useSolBet({ isBetA, amount }: Props) {
+
+  const { program, programId } = useGetBetProgram()
+
   const wallet = useWallet();
+  const { userSolBalancePda } = getSolPDA({ isBetA, programId, user: wallet.publicKey })
+
   const initProgram = useMutation({
     mutationKey: [''],
     mutationFn: () => {
@@ -40,11 +38,10 @@ export function useSolBet({ isABet, amount }: Props) {
     mutationFn: () => {
       if (wallet.publicKey) {
         return program.methods
-          .placeSolBet(0, new BN(1))
+          .placeSolBet(isBetA ? 1 : 0, new BN(amount))
           .accounts({
-            userSolBalance: userSolBalanceBPda,
-            // programStateAccount: programStateAccount,
-            // userAuthority: wallet.publicKey,
+            userSolBalance: userSolBalancePda,
+
           })
           .signers([])
           .rpc();
@@ -63,18 +60,16 @@ export function useSolBet({ isABet, amount }: Props) {
 }
 
 
-export function useCancelBet() {
+export function useCancelBet({ isBetA }: { isBetA: boolean }) {
   const wallet = useWallet()
   const { program, programId } = useGetBetProgram()
-  const [userSolBalanceBPda] = anchor.web3.PublicKey.findProgramAddressSync(
-    [Buffer.from('sol_bet_b'), wallet.publicKey?.toBuffer() ?? Buffer.from('')],
-    programId
-  );
+
+  const { userSolBalancePda } = getSolPDA({ isBetA, programId, user: wallet.publicKey })
   const cashOut = useMutation({
     mutationKey: [''],
     mutationFn: () => {
       if (wallet.publicKey) {
-        return program.methods.cashoutBet(1).accounts({ userSolBalance: userSolBalanceBPda })
+        return program.methods.cashoutBet(isBetA ? 0 : 1).accounts({ userSolBalance: userSolBalancePda })
           .signers([])
           .rpc();
       } else {
@@ -91,18 +86,15 @@ export function useCancelBet() {
   return { cashOut }
 }
 
-export function useCollectWinnings() {
+export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
   const wallet = useWallet()
   const { program, programId } = useGetBetProgram()
-  const [userSolBalanceBPda] = anchor.web3.PublicKey.findProgramAddressSync(
-    [Buffer.from('sol_bet_b'), wallet.publicKey?.toBuffer() ?? Buffer.from('')],
-    programId
-  );
+  const { userSolBalancePda } = getSolPDA({ user: wallet.publicKey, programId, isBetA })
   const cashOut = useMutation({
     mutationKey: [''],
     mutationFn: () => {
       if (wallet.publicKey) {
-        return program.methods.cashoutWinnings(1).accounts({ userSolBalance: userSolBalanceBPda })
+        return program.methods.cashoutWinnings(isBetA ? 0 : 1).accounts({ userSolBalance: userSolBalancePda })
           .signers([])
           .rpc();
       } else {
