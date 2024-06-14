@@ -3,9 +3,10 @@ import { Button } from '../shared/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatUnixTimestamp } from '@/lib/utils';
-import { TMarket } from '@/app/page';
+
 import { MdAccessTime } from 'react-icons/md';
 import { useCountdown } from '../shared/hooks/countdown';
+import { TMarket } from '@/lib/schemas';
 export default function Card({
   slug,
   unixTimestamp,
