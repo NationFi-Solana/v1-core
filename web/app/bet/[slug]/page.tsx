@@ -11,6 +11,7 @@ import { slugSchema } from '@/lib/schemas';
 import Header from '@/components/header';
 import { Button } from '@/components/shared/ui/button';
 import { ProgramProvider } from '@/components/providers/program-provider';
+import { UserPosition } from '@/components/bet/user-position';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -106,8 +107,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
                         </h2> */}
                           <br />
                           <div className="grid grid-cols-2 gap-x-4">
-                            <Position option={optiona} />
-                            <Position option={optionb} />
+                            <UserPosition isBetA={true} option={optiona} />
+                            <UserPosition isBetA={false} option={optionb} />
                           </div>
                         </div>
                         <br />
@@ -128,16 +129,4 @@ export default async function Page({ params }: { params: { slug: string } }) {
       </ProgramProvider>
     );
   }
-}
-function Position({ option }: { option: string | undefined }) {
-  return (
-    <div className="flex border-b border-gray-600 pb-1 items-center  justify-between">
-      <h1 className="font-archivo ">{option}</h1>
-      <div className="flex items-center gap-x-2">
-        <h1 className="">2 SOL</h1>
-
-        <Button variant="destructive">Withdraw</Button>
-      </div>
-    </div>
-  );
 }

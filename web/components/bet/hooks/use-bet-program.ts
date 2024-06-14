@@ -12,7 +12,7 @@ interface Props {
   isBetA: boolean;
   amount: number;
 }
-function getSolPDA({ isBetA, user, programId }: { isBetA: boolean, user: PublicKey | null, programId: PublicKey }) {
+export function getSolPDA({ isBetA, user, programId }: { isBetA: boolean, user: PublicKey | null, programId: PublicKey }) {
 
   const [userSolBalancePda] = anchor.web3.PublicKey.findProgramAddressSync(
     [Buffer.from(isBetA ? 'sol_bet_a' : 'sol_bet_b'), user?.toBuffer() ?? Buffer.from('')],

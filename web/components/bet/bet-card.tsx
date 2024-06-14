@@ -1,5 +1,5 @@
 'use client';
-import { type FormEvent, useState, useCallback, useEffect } from 'react';
+import { type FormEvent, useState, useCallback,  } from 'react';
 import { Button } from '../shared/ui/button';
 import Stats from './stats';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
@@ -10,8 +10,6 @@ import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useSubmitValid } from './hooks/is-submit-valid';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useSolBet } from './hooks/use-bet-program';
-import { useGetBetProgram } from '../shared/hooks/get-bet-program';
-import { PublicKey } from '@solana/web3.js';
 
 import BetProgressAlert from './bet-progress-alert';
 
@@ -26,7 +24,11 @@ export default function BetCard({
   const { connected } = useWallet();
   const searchParams = useSearchParams();
   const vote = searchParams.get('vote');
-  const { placeSolBet } = useSolBet({ isABet: true, amount: 333 });
+  const { placeSolBet } = useSolBet({
+    isBetA: true,
+    amount: parseFloat(deposit),
+  });
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // initProgram.mutate();
@@ -68,43 +70,6 @@ export default function BetCard({
     balance: bal.data,
     vote,
   });
-  const { programId, program } = useGetBetProgram();
-  const [userSolBalanceBPda] = PublicKey.findProgramAddressSync(
-    [Buffer.from('sol_bet_b')],
-    programId
-  );
-  useEffect(() => {
-    if (publicKey) {
-      const a = async () => {
-        const balance = await program.account.signerSolBalance.fetch(
-          userSolBalanceBPda
-        );
-        console.log(balance.balance.toString());
-      };
-      a();
-    }
-  }, [
-    connection,
-    program.account.signerSolBalance,
-    publicKey,
-    userSolBalanceBPda,
-  ]);
-  const userPosition = useQuery({
-    queryKey: ['userPosition', publicKey],
-    queryFn: async () => {
-      console.log(publicKey, 'PUBLIC KEY');
-      if (publicKey !== null) {
-        const balance = await program.account.signerSolBalance.fetch(publicKey);
-        console.log(balance, 'BALANCE');
-        return balance;
-      } else {
-        console.log('ERROR');
-        throw new Error('Not connected');
-      }
-    },
-  });
-
-  console.log({ userPosition });
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
       <BetProgressAlert
