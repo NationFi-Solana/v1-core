@@ -92,7 +92,10 @@ export default function BetCard({
                 router.push(
                   pathname +
                     '?' +
-                    createQueryString('vote', sluga?.toLowerCase() ?? 'yes')
+                    createQueryString('vote', sluga?.toLowerCase() ?? 'yes'),
+                  {
+                    scroll: false,
+                  }
                 );
               }}
               className={`basis-1/2 ${
@@ -109,7 +112,8 @@ export default function BetCard({
                 router.push(
                   pathname +
                     '?' +
-                    createQueryString('vote', slugb?.toLowerCase() ?? 'no')
+                    createQueryString('vote', slugb?.toLowerCase() ?? 'no'),
+                  { scroll: false }
                 );
               }}
               className={`basis-1/2 ${
