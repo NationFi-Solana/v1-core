@@ -1,11 +1,11 @@
 'use client';
 
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { BN } from '@coral-xyz/anchor';
 import * as anchor from '@coral-xyz/anchor';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { PublicKey } from '@solana/web3.js';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { PublicKey, Transaction } from '@solana/web3.js';
 import { useGetBetProgram } from '@/components/shared/hooks/get-bet-program';
 
 interface Props {
@@ -20,6 +20,7 @@ export function getSolPDA({ isBetA, user, programId }: { isBetA: boolean, user: 
   );
   return { userSolBalancePda }
 }
+
 export function useSolBet({ isBetA, amount }: Props) {
 
   const { program, programId } = useGetBetProgram()
@@ -33,18 +34,34 @@ export function useSolBet({ isBetA, amount }: Props) {
       return program.methods.initPlaceSolBetB().accounts({}).rpc();
     },
   });
+  const { data } = useQuery({
+    queryKey: ['isInit', { publicKey: wallet.publicKey, programId: programId }], queryFn: () => {
+      return program.account.signerSolBalance.fetch(userSolBalancePda)
+    }
+  })
   const placeSolBet = useMutation({
     mutationKey: ['placebet'],
-    mutationFn: () => {
+    mutationFn: async () => {
       if (wallet.publicKey) {
-        return program.methods
-          .placeSolBet(isBetA ? 1 : 0, new BN(amount))
-          .accounts({
-            userSolBalance: userSolBalancePda,
-
-          })
-          .signers([])
-          .rpc();
+        if (data) {
+          return program.methods
+            .placeSolBet(isBetA ? 1 : 0, new BN(amount))
+            .accounts({
+              userSolBalance: userSolBalancePda,
+            })
+            .signers([])
+            .rpc();
+        } else {
+          if (isBetA) {
+            return await program.methods.placeSolBet(isBetA ? 1 : 0, new BN(amount))
+              .accounts({ userSolBalance: userSolBalancePda })
+              .preInstructions([await program.methods.initPlaceSolBetA().instruction()]).rpc()
+          } else {
+            return await program.methods.placeSolBet(isBetA ? 1 : 0, new BN(amount))
+              .accounts({ userSolBalance: userSolBalancePda })
+              .preInstructions([await program.methods.initPlaceSolBetB().instruction()]).rpc()
+          }
+        }
       } else {
         throw Error('No wallet provided');
       }
@@ -56,7 +73,7 @@ export function useSolBet({ isBetA, amount }: Props) {
       console.log(s);
     },
   });
-  return { placeSolBet, initProgram };
+  return { placeSolBet, initProgram, isInit: Boolean(data) };
 }
 
 
