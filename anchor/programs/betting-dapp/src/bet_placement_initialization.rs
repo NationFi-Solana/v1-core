@@ -105,7 +105,7 @@ pub struct InitPlaceSOLBetA<'info> {
     #[account(init,
               payer = user_authority,
               space=120,
-              seeds = [b"sol_bet_a"],
+              seeds = [b"sol_bet_a", user_authority.key().as_ref()],
               bump
     )]
     pub user_sol_balance: Account<'info, SignerSOLBalance>,
@@ -121,7 +121,7 @@ pub struct InitPlaceSOLBetB<'info> {
     #[account(init,
               payer = user_authority,
               space=120,
-              seeds = [b"sol_bet_b"],
+              seeds = [b"sol_bet_b", user_authority.key().as_ref()],
               bump
     )]
     pub user_sol_balance: Account<'info, SignerSOLBalance>,

@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/betting_dapp.json`.
  */
 export type BettingDapp = {
-  "address": "EsLLsztAmMrXdmGv7hRjdp2MdtSStEErGakmwrLretXQ",
+  "address": "Caoz2CTRQnmNtk65QMTmwsrVww7XQycQ1tWiCY7ThkdE",
   "metadata": {
     "name": "bettingDapp",
     "version": "0.1.0",
@@ -13,6 +13,162 @@ export type BettingDapp = {
     "description": "Created with Anchor"
   },
   "instructions": [
+    {
+      "name": "cashoutBet",
+      "discriminator": [
+        201,
+        94,
+        66,
+        105,
+        111,
+        124,
+        232,
+        27
+      ],
+      "accounts": [
+        {
+          "name": "programStateAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "userAuthority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "userSolBalance",
+          "writable": true
+        },
+        {
+          "name": "programFundsAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  103,
+                  114,
+                  97,
+                  109,
+                  45,
+                  102,
+                  117,
+                  110,
+                  100,
+                  115
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "isBetA",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "cashoutWinnings",
+      "discriminator": [
+        217,
+        42,
+        110,
+        199,
+        65,
+        4,
+        91,
+        212
+      ],
+      "accounts": [
+        {
+          "name": "programStateAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "userAuthority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "userSolBalance",
+          "writable": true
+        },
+        {
+          "name": "programFundsAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  103,
+                  114,
+                  97,
+                  109,
+                  45,
+                  102,
+                  117,
+                  110,
+                  100,
+                  115
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "isBetA",
+          "type": "u8"
+        }
+      ]
+    },
     {
       "name": "initPlaceSolBetA",
       "discriminator": [
@@ -44,6 +200,10 @@ export type BettingDapp = {
                   95,
                   97
                 ]
+              },
+              {
+                "kind": "account",
+                "path": "userAuthority"
               }
             ]
           }
@@ -91,116 +251,10 @@ export type BettingDapp = {
                   95,
                   98
                 ]
-              }
-            ]
-          }
-        },
-        {
-          "name": "userAuthority",
-          "writable": true,
-          "signer": true
-        },
-        {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "initPlaceSplBetA",
-      "discriminator": [
-        75,
-        255,
-        59,
-        163,
-        228,
-        106,
-        9,
-        103
-      ],
-      "accounts": [
-        {
-          "name": "userSplBalance",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "account",
-                "path": "userTokenAccount"
               },
               {
-                "kind": "const",
-                "value": [
-                  115,
-                  112,
-                  108,
-                  95,
-                  98,
-                  101,
-                  116,
-                  95,
-                  97
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "name": "userAuthority",
-          "writable": true,
-          "signer": true
-        },
-        {
-          "name": "splTokenMint",
-          "writable": true
-        },
-        {
-          "name": "userTokenAccount",
-          "writable": true
-        },
-        {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "initPlaceSplBetB",
-      "discriminator": [
-        212,
-        100,
-        68,
-        158,
-        61,
-        168,
-        71,
-        234
-      ],
-      "accounts": [
-        {
-          "name": "userSplBalance",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
                 "kind": "account",
-                "path": "userTokenAccount"
-              },
-              {
-                "kind": "const",
-                "value": [
-                  115,
-                  112,
-                  108,
-                  95,
-                  98,
-                  101,
-                  116,
-                  95,
-                  98
-                ]
+                "path": "userAuthority"
               }
             ]
           }
@@ -209,14 +263,6 @@ export type BettingDapp = {
           "name": "userAuthority",
           "writable": true,
           "signer": true
-        },
-        {
-          "name": "splTokenMint",
-          "writable": true
-        },
-        {
-          "name": "userTokenAccount",
-          "writable": true
         },
         {
           "name": "systemProgram",
@@ -283,7 +329,21 @@ export type BettingDapp = {
       "accounts": [
         {
           "name": "programStateAccount",
-          "writable": true
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
         },
         {
           "name": "userAuthority",
@@ -337,79 +397,6 @@ export type BettingDapp = {
       ]
     },
     {
-      "name": "placeSplBet",
-      "discriminator": [
-        60,
-        8,
-        33,
-        15,
-        51,
-        211,
-        67,
-        94
-      ],
-      "accounts": [
-        {
-          "name": "programStateAccount",
-          "writable": true
-        },
-        {
-          "name": "splTokenMint",
-          "writable": true
-        },
-        {
-          "name": "programTokenAccountForSpl",
-          "writable": true
-        },
-        {
-          "name": "userAuthority",
-          "writable": true,
-          "signer": true
-        },
-        {
-          "name": "programAuthority"
-        },
-        {
-          "name": "userTokenAccount",
-          "writable": true
-        },
-        {
-          "name": "userSplBalance",
-          "writable": true
-        },
-        {
-          "name": "rent",
-          "address": "SysvarRent111111111111111111111111111111111"
-        },
-        {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
-        },
-        {
-          "name": "tokenProgram",
-          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
-        },
-        {
-          "name": "associatedTokenProgram",
-          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
-        }
-      ],
-      "args": [
-        {
-          "name": "isBetA",
-          "type": "u8"
-        },
-        {
-          "name": "amount",
-          "type": "u64"
-        },
-        {
-          "name": "decimals",
-          "type": "u8"
-        }
-      ]
-    },
-    {
       "name": "readProgramState",
       "discriminator": [
         15,
@@ -455,6 +442,10 @@ export type BettingDapp = {
         {
           "name": "isBetAWinner",
           "type": "u8"
+        },
+        {
+          "name": "betOver",
+          "type": "u8"
         }
       ]
     }
@@ -485,26 +476,13 @@ export type BettingDapp = {
         192,
         45
       ]
-    },
-    {
-      "name": "signerSplBalance",
-      "discriminator": [
-        160,
-        246,
-        20,
-        14,
-        38,
-        134,
-        46,
-        128
-      ]
     }
   ],
   "errors": [
     {
       "code": 6000,
-      "name": "betOverAndDistributed",
-      "msg": "Bet is already over and winnings have already been distributed"
+      "name": "betOver",
+      "msg": "Bet is already over"
     },
     {
       "code": 6001,
@@ -518,18 +496,58 @@ export type BettingDapp = {
     },
     {
       "code": 6003,
+      "name": "pdaMismatchStateProgramAccount",
+      "msg": "Invalid State Program Account"
+    },
+    {
+      "code": 6004,
+      "name": "userHasNoBalance",
+      "msg": "User has no balance to cash out"
+    },
+    {
+      "code": 6005,
+      "name": "noBetFoundToCashout",
+      "msg": "No Bet Found For User To Cashout"
+    },
+    {
+      "code": 6006,
       "name": "pdaMismatchProgramFunds",
       "msg": "An invalid account for the program was passed for SOL Placement"
     },
     {
-      "code": 6004,
+      "code": 6007,
+      "name": "pdaProgramFundsNotOwnedByProgram",
+      "msg": "An invalid account for the program was passed for SOL Placement"
+    },
+    {
+      "code": 6008,
       "name": "signerSolBalanceInvalidOwnership",
       "msg": "User's SignerSolBalance is not owned by program"
     },
     {
-      "code": 6005,
+      "code": 6009,
       "name": "invalidProgramId",
       "msg": "Invalid Program ID"
+    },
+    {
+      "code": 6010,
+      "name": "programAlreadyInitialized",
+      "msg": "Program Already Initialized"
+    },
+    {
+      "code": 6011,
+      "name": "betsClosedNotOver",
+      "msg": "Bets Are Closed"
+    },
+    {
+      "code": 6012,
+      "name": "betNotOver",
+      "msg": "Bet Is Not Over"
+    },
+    {
+      "code": 6013,
+      "name": "userLostBet",
+      "msg": "User tried to cash winnings but didnt win"
     }
   ],
   "types": [
@@ -547,7 +565,7 @@ export type BettingDapp = {
             "type": "u8"
           },
           {
-            "name": "betOverAndDistributed",
+            "name": "betOver",
             "type": "u8"
           },
           {
@@ -555,16 +573,24 @@ export type BettingDapp = {
             "type": "u64"
           },
           {
-            "name": "splBalances",
-            "type": {
-              "vec": "pubkey"
-            }
+            "name": "totalSolA",
+            "type": "u64"
           },
           {
-            "name": "solBalances",
-            "type": {
-              "vec": "pubkey"
-            }
+            "name": "totalSolB",
+            "type": "u64"
+          },
+          {
+            "name": "totalBetsA",
+            "type": "u64"
+          },
+          {
+            "name": "totalBetsB",
+            "type": "u64"
+          },
+          {
+            "name": "isInitialized",
+            "type": "u8"
           }
         ]
       }
@@ -576,34 +602,6 @@ export type BettingDapp = {
         "fields": [
           {
             "name": "signerPublicKey",
-            "type": "pubkey"
-          },
-          {
-            "name": "isBetA",
-            "type": "u8"
-          },
-          {
-            "name": "balance",
-            "type": "u64"
-          }
-        ]
-      }
-    },
-    {
-      "name": "signerSplBalance",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "signerPublicKey",
-            "type": "pubkey"
-          },
-          {
-            "name": "signerTokenAccount",
-            "type": "pubkey"
-          },
-          {
-            "name": "splTokenMint",
             "type": "pubkey"
           },
           {

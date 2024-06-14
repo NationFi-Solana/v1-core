@@ -1,12 +1,13 @@
+use anchor_lang::prelude::*;
 use anchor_lang::solana_program::{native_token::LAMPORTS_PER_SOL, system_instruction};
-
-use crate::{SignerSOLBalance, SignerSPLBalance};
+use anchor_spl::{
+    associated_token::{self, AssociatedToken},
+    token::{self, Token, TokenAccount},
+};
 
 use super::errors;
 use super::state::*;
-use anchor_spl::associated_token::AssociatedToken;
-use anchor_spl::token::Token;
-use {anchor_lang::prelude::*, anchor_spl::associated_token, anchor_spl::token};
+use crate::{BetTotalSOL, SignerSOLBalance, SignerSPLBalance};
 
 pub fn place_sol_bet(ctx: Context<PlaceSOLBet>, is_bet_a: u8, sol_amount: u64) -> Result<()> {
     let program_state_account = &mut ctx.accounts.program_state_account;
@@ -14,13 +15,24 @@ pub fn place_sol_bet(ctx: Context<PlaceSOLBet>, is_bet_a: u8, sol_amount: u64) -
     let program_funds_account = &mut ctx.accounts.program_funds_account;
     let user_authority = &mut ctx.accounts.user_authority;
 
+    let (program_state_account_pda, _bump) =
+        Pubkey::find_program_address(&[b"state"], &ctx.program_id);
+
+    if program_state_account.key() != program_state_account_pda {
+        msg!("ProgramStateAccount Address Mismatch");
+        return Err(errors::ErrorCode::PDAMismatchStateProgramAccount.into());
+    }
+
     let amount = sol_amount * LAMPORTS_PER_SOL;
     let (user_sol_balance_address, _bump) = Pubkey::find_program_address(
-        &[if is_bet_a != 0 {
-            b"sol_bet_a"
-        } else {
-            b"sol_bet_b"
-        }],
+        &[
+            if is_bet_a != 0 {
+                b"sol_bet_a"
+            } else {
+                b"sol_bet_b"
+            },
+            user_authority.key().as_ref(),
+        ],
         &ctx.program_id,
     );
 
@@ -39,7 +51,7 @@ pub fn place_sol_bet(ctx: Context<PlaceSOLBet>, is_bet_a: u8, sol_amount: u64) -
 
     if program_funds_pda.key() != program_funds_account.key() {
         msg!("Program Funds Account is invalid!");
-        return Err(errors::ErrorCode::SignerSolBalanceInvalidOwnership.into());
+        return Err(errors::ErrorCode::PDAMismatchProgramFunds.into());
     }
 
     if user_sol_balance.is_bet_a != is_bet_a {
@@ -64,15 +76,12 @@ pub fn place_sol_bet(ctx: Context<PlaceSOLBet>, is_bet_a: u8, sol_amount: u64) -
 
     user_sol_balance.balance = user_sol_balance.balance + amount;
 
-    let user_sol_balance_index = program_state_account
-        .sol_balances
-        .iter()
-        .position(|bet| *bet == user_sol_balance.key());
-
-    if user_sol_balance_index.is_none() {
-        program_state_account
-            .sol_balances
-            .push(user_sol_balance.key())
+    if is_bet_a != 0 {
+        program_state_account.total_sol_a += amount;
+        program_state_account.total_bets_a += 1;
+    } else {
+        program_state_account.total_sol_b += amount;
+        program_state_account.total_bets_b += 1;
     }
 
     program_state_account.total_bets += 1;
@@ -96,7 +105,10 @@ pub fn place_spl_bet(
     let user_spl_balance = &mut ctx.accounts.user_spl_balance;
 
     let program_token_account_for_spl_address =
-        associated_token::get_associated_token_address(ctx.program_id, &spl_token_mint.key());
+        anchor_spl::associated_token::get_associated_token_address(
+            ctx.program_id,
+            &spl_token_mint.key(),
+        );
 
     let (user_spl_balance_address, _bump) = Pubkey::find_program_address(
         &[
@@ -127,9 +139,9 @@ pub fn place_spl_bet(
 
     if program_token_account_for_spl.data_is_empty() {
         msg!("Creating SPL Token Account For Program...");
-        associated_token::create(CpiContext::new(
+        anchor_spl::associated_token::create(CpiContext::new(
             ctx.accounts.associated_token_program.to_account_info(),
-            associated_token::Create {
+            anchor_spl::associated_token::Create {
                 payer: user_authority.to_account_info(),
                 associated_token: program_token_account_for_spl.to_account_info(),
                 authority: program_authority.to_account_info(),
@@ -161,18 +173,7 @@ pub fn place_spl_bet(
     )?;
 
     user_spl_balance.balance = user_spl_balance.balance + amount;
-
-    let user_spl_balance_index = program_state_account
-        .spl_balances
-        .iter()
-        .position(|bet| *bet == user_spl_balance.key());
-
-    if user_spl_balance_index.is_none() {
-        program_state_account
-            .spl_balances
-            .push(user_spl_balance.key())
-    }
-
+    
     program_state_account.total_bets += 1;
 
     Ok(())
@@ -197,7 +198,7 @@ pub struct PlaceSPLBet<'info> {
     pub program_authority: UncheckedAccount<'info>,
 
     #[account(mut)]
-    pub user_token_account: Account<'info, token::TokenAccount>,
+    pub user_token_account: Account<'info, anchor_spl::token::TokenAccount>,
 
     #[account(mut)]
     pub user_spl_balance: Account<'info, SignerSPLBalance>,
@@ -205,12 +206,12 @@ pub struct PlaceSPLBet<'info> {
     pub rent: Sysvar<'info, Rent>,
     pub system_program: Program<'info, System>,
     pub token_program: Program<'info, token::Token>,
-    pub associated_token_program: Program<'info, associated_token::AssociatedToken>,
+    pub associated_token_program: Program<'info, anchor_spl::associated_token::AssociatedToken>,
 }
 
 #[derive(Accounts)]
 pub struct PlaceSOLBet<'info> {
-    #[account(mut)]
+    #[account(mut, seeds = [b"state"], bump)]
     pub program_state_account: Account<'info, ProgramState>,
 
     #[account(mut)]

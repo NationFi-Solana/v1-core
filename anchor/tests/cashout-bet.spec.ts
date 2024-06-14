@@ -10,8 +10,8 @@ describe("betting-dapp", () => {
 
   const programId = program.programId;
 
-  it("PlaceSolBet for Bet A", async () => {
-    let [userSolBalanceAPda, _0] = anchor.web3.PublicKey.findProgramAddressSync(
+  it("Cashout bet for bet B", async () => {
+    let [userSolBalanceAPDA, _0] = anchor.web3.PublicKey.findProgramAddressSync(
       [Buffer.from("sol_bet_a"), helperFunctions.signer.publicKey.toBuffer()],
       programId
     );
@@ -29,11 +29,11 @@ describe("betting-dapp", () => {
       );
 
     const tx = await program.methods
-      .placeSolBet(1, new anchor.BN(1))
+      .cashoutBet(1)
       .accounts({
         programStateAccount: programStateAccount,
         userAuthority: helperFunctions.signer.publicKey,
-        userSolBalance: userSolBalanceAPda,
+        userSolBalance: userSolBalanceAPDA,
         programFundsAccount: programFundsAccount,
       })
       .signers([helperFunctions.signer])

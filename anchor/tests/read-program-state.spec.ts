@@ -1,6 +1,6 @@
-import * as anchor from "@coral-xyz/anchor";
 import { BettingDapp } from "../target/types/betting_dapp";
 import { helpers } from "./helpers";
+import * as anchor from "@coral-xyz/anchor";
 
 describe("betting-dapp", () => {
   const provider = anchor.AnchorProvider.env();

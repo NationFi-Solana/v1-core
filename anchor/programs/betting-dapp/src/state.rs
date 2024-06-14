@@ -1,4 +1,4 @@
-use anchor_lang::prelude::*;
+use anchor_lang::{prelude::*, solana_program::program_pack};
 
 use super::errors;
 
@@ -7,10 +7,13 @@ pub fn initialize_program_state(ctx: Context<InitializeState>) -> Result<()> {
 
     program_state_account.bets_closed = 0;
     program_state_account.is_bet_a_winner = 0;
-    program_state_account.bet_over_and_distributed = 0;
+    program_state_account.bet_over = 0;
     program_state_account.total_bets = 0;
-    program_state_account.spl_balances = Vec::new();
-    program_state_account.sol_balances = Vec::new();
+    program_state_account.total_sol_a = 0;
+    program_state_account.total_sol_b = 0;
+    program_state_account.total_bets_a = 0;
+    program_state_account.total_bets_b = 0;
+    program_state_account.is_initialized = 1;
 
     Ok(())
 }
@@ -19,19 +22,12 @@ pub fn read_program_state(ctx: Context<ReadState>) -> Result<()> {
     let program_state_account = &mut ctx.accounts.program_state_account;
 
     msg!("Bets Closed ST: {}", program_state_account.bets_closed);
-    msg!(
-        "Bet Over And Distributed: {}",
-        program_state_account.bet_over_and_distributed
-    );
+    msg!("Bet Over: {}", program_state_account.bet_over);
     msg!("Total Bets: {}", program_state_account.total_bets);
-    msg!(
-        "Total SPL Balances: {}",
-        program_state_account.spl_balances.len()
-    );
-    msg!(
-        "Total SOL Balances: {}",
-        program_state_account.sol_balances.len()
-    );
+    msg!("Total SOL Bet A: {}", program_state_account.total_sol_a);
+    msg!("Total SOL Bet B: {}", program_state_account.total_sol_b);
+    msg!("Total Bets A: {}", program_state_account.total_bets_a);
+    msg!("Total Bets B: {}", program_state_account.total_bets_b);
     msg!("Is Bet A Winner: {}", program_state_account.is_bet_a_winner);
 
     Ok(())
@@ -41,18 +37,27 @@ pub fn set_program_state(
     ctx: Context<SetState>,
     bets_closed: u8,
     is_bet_a_winner: u8,
+    bet_over: u8,
 ) -> Result<()> {
     let program_state_account = &mut ctx.accounts.program_state_account;
 
     // TODO (Check for Signer)
 
-    // Cannot modify state when bets are over and distributed already
-    if program_state_account.bet_over_and_distributed != 0 {
-        return Err(errors::ErrorCode::BetOverAndDistributed.into());
+    // Cannot modify state when bets are over already
+    if program_state_account.bet_over != 0 {
+        return Err(errors::ErrorCode::BetOver.into());
     }
 
     program_state_account.is_bet_a_winner = is_bet_a_winner;
-    program_state_account.bets_closed = bets_closed;
+
+    if bets_closed == 1 && program_state_account.bets_closed != 1 {
+        program_state_account.bets_closed = 1;
+    }
+
+    if bet_over == 1 && program_state_account.bet_over != 1 {
+        program_state_account.bet_over = 1;
+        program_state_account.bets_closed = 1;
+    }
 
     Ok(())
 }
@@ -80,10 +85,15 @@ pub struct InitializeState<'info> {
 pub struct ProgramState {
     pub bets_closed: u8,
     pub is_bet_a_winner: u8,
-    pub bet_over_and_distributed: u8,
+    pub bet_over: u8,
     pub total_bets: u64,
-    pub spl_balances: Vec<Pubkey>,
-    pub sol_balances: Vec<Pubkey>,
+
+    pub total_sol_a: u64,
+    pub total_sol_b: u64,
+    pub total_bets_a: u64,
+    pub total_bets_b: u64,
+
+    pub is_initialized: u8,
 }
 
 #[derive(Accounts)]

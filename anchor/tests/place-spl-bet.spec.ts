@@ -1,8 +1,9 @@
-import * as anchor from '@coral-xyz/anchor';
-import { BettingDapp } from '../target/types/betting_dapp';
-import { helpers } from './helpers';
+import * as anchor from "@project-serum/anchor";
+import { BettingDapp } from "../target/types/betting_dapp";
+import { helpers } from "./helpers";
+import * as anchor from "@project-serum/anchor";
 
-describe('betting-dapp', () => {
+describe("betting-dapp", () => {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
@@ -15,16 +16,16 @@ describe('betting-dapp', () => {
 
   const programId = program.programId;
 
-  it('Successfully place SPL Bet', async () => {
+  it("Successfully place SPL Bet", async () => {
     const ownerTokenAddress = await anchor.utils.token.associatedAddress({
       mint: helperFunctions.mint,
       owner: programId,
     });
 
-    const [userSplBalancePda,] = anchor.web3.PublicKey.findProgramAddressSync(
+    let [userSplBalancePda, _] = anchor.web3.PublicKey.findProgramAddressSync(
       [
         helperFunctions.tokenAccountforMint.toBuffer(),
-        Buffer.from('spl_bet_b'),
+        Buffer.from("spl_bet_b"),
       ],
       programId
     );
@@ -42,6 +43,6 @@ describe('betting-dapp', () => {
       })
       .signers([helperFunctions.signer])
       .rpc();
-    console.log('Your transaction signature', tx);
+    console.log("Your transaction signature", tx);
   });
 });

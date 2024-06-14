@@ -1,6 +1,6 @@
+import * as anchor from "@coral-xyz/anchor";
 import { BettingDapp } from "../target/types/betting_dapp";
 import { helpers } from "./helpers";
-import * as anchor from "@coral-xyz/anchor";
 
 describe("betting-dapp", () => {
   const provider = anchor.AnchorProvider.env();
@@ -11,22 +11,17 @@ describe("betting-dapp", () => {
 
   const programId = program.programId;
 
-  it("Successfully place SPL Bet B", async () => {
-    let [userSplBalancePda, _] = anchor.web3.PublicKey.findProgramAddressSync(
-      [
-        helperFunctions.tokenAccountforMint.toBuffer(),
-        Buffer.from("spl_bet_b"),
-      ],
+  it("Initialize PlaceSOLBet For Bet A", async () => {
+    let [userSolBalanceAPda, _] = anchor.web3.PublicKey.findProgramAddressSync(
+      [Buffer.from("sol_bet_a"), helperFunctions.signer.publicKey.toBuffer()],
       programId
     );
 
     const tx = await program.methods
-      .initPlaceSplBetB()
+      .initPlaceSolBetA()
       .accounts({
-        userSplBalance: userSplBalancePda,
+        userSolBalance: userSolBalanceAPda,
         userAuthority: helperFunctions.signer.publicKey,
-        splTokenMint: helperFunctions.mint,
-        userTokenAccount: helperFunctions.tokenAccountforMint,
       })
       .signers([helperFunctions.signer])
       .rpc();

@@ -5,19 +5,19 @@ seeds = false
 skip-lint = false
 
 [programs.localnet]
-counter = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
-betting_dapp = "EsLLsztAmMrXdmGv7hRjdp2MdtSStEErGakmwrLretXQ"
+counter = "8u4KaAwQVwDgDdZKcZjBqNgrnpe2uc1dHca5rJ5gHYMo"
+betting_dapp = "8u4KaAwQVwDgDdZKcZjBqNgrnpe2uc1dHca5rJ5gHYMo"
 
 [programs.devnet]
-counter = "7t3Ao9DeLrYUrduk2Xa3EAF39NAYhSWGEqxPY98ShmUf"
-betting_dapp = "EsLLsztAmMrXdmGv7hRjdp2MdtSStEErGakmwrLretXQ"
+counter = "8u4KaAwQVwDgDdZKcZjBqNgrnpe2uc1dHca5rJ5gHYMo"
+betting_dapp = "8u4KaAwQVwDgDdZKcZjBqNgrnpe2uc1dHca5rJ5gHYMo"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
 cluster = "localnet"
-wallet = "~/Users/travistarpley/.config/solana/id.json"
+wallet = "~/.config/solana/id.json"
 
 [scripts]
 test = "../node_modules/.bin/nx run anchor:jest"
