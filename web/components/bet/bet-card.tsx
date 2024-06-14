@@ -1,5 +1,5 @@
 'use client';
-import { type FormEvent, useState, useCallback,  } from 'react';
+import { type FormEvent, useState, useCallback } from 'react';
 import { Button } from '../shared/ui/button';
 import Stats from './stats';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
@@ -42,7 +42,7 @@ export default function BetCard({
   const router = useRouter();
 
   const bal = useQuery({
-    queryKey: ['solBal', publicKey],
+    queryKey: ['solBal', publicKey?.toString()],
     queryFn: async () => {
       if (publicKey) {
         const balance = await connection.getBalance(publicKey);

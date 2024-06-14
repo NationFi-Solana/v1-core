@@ -18,7 +18,7 @@ export function UserPosition({
     e.preventDefault();
     cashOut.mutate();
   };
-
+  const bal0 = parseInt(data?.balance.toString() ?? '0') > 0;
   return (
     <form onSubmit={onSubmit}>
       <BetProgressAlert waitForSign={cashOut.isPending} isTxPending={false} />
@@ -27,7 +27,7 @@ export function UserPosition({
         <div className="flex items-center gap-x-2">
           <h1 className="">{data?.balance.toString() ?? '0'} SOL</h1>
 
-          <Button type="submit" disabled={!data} variant="destructive">
+          <Button type="submit" disabled={!data || !bal0} variant="destructive">
             Withdraw
           </Button>
         </div>

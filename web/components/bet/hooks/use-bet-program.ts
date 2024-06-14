@@ -1,7 +1,7 @@
 'use client';
 
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { BN } from '@coral-xyz/anchor';
 import * as anchor from '@coral-xyz/anchor';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
@@ -39,6 +39,7 @@ export function useSolBet({ isBetA, amount }: Props) {
       return program.account.signerSolBalance.fetch(userSolBalancePda)
     }
   })
+  const queryClient = useQueryClient()
   const placeSolBet = useMutation({
     mutationKey: ['placebet'],
     mutationFn: async () => {
@@ -70,7 +71,14 @@ export function useSolBet({ isBetA, amount }: Props) {
       console.log(e, 'ERROR');
     },
     onSuccess: (s) => {
-      console.log(s);
+
+      queryClient.invalidateQueries({
+        queryKey:
+          ['userPosition', wallet.publicKey, programId.toString(), isBetA ? '0' : '1']
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['solBal', wallet.publicKey?.toString()]
+      })
     },
   });
   return { placeSolBet, initProgram, isInit: Boolean(data) };
@@ -82,6 +90,7 @@ export function useCancelBet({ isBetA }: { isBetA: boolean }) {
   const { program, programId } = useGetBetProgram()
 
   const { userSolBalancePda } = getSolPDA({ isBetA, programId, user: wallet.publicKey })
+  const queryClient = useQueryClient()
   const cashOut = useMutation({
     mutationKey: [''],
     mutationFn: () => {
@@ -93,11 +102,14 @@ export function useCancelBet({ isBetA }: { isBetA: boolean }) {
         throw Error('No wallet provided');
       }
     },
-    onError: (e) => {
-      console.log(e, 'ERROR');
-    },
-    onSuccess: (s) => {
-      console.log(s);
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey:
+          ['userPosition', wallet.publicKey, programId.toString(), isBetA ? '0' : '1']
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['solBal', wallet.publicKey?.toString()]
+      })
     },
   });
   return { cashOut }
