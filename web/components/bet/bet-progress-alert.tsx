@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AlertDialog, AlertDialogContent } from '../shared/ui/alert-dialog';
 import { Button } from '../shared/ui/button';
+import { BounceLoader, ClipLoader } from 'react-spinners';
 
 interface Props {
   waitForSign: boolean;
@@ -32,10 +33,20 @@ export default function BetProgressAlert({ waitForSign, isTxPending }: Props) {
         className=" overflow-hidden bg-transparent"
       >
         <div className="space-y-3 rounded-md bg-secondary p-8 text-white">
-          <h2 className="pb-1 text-center font-lora text-xl">{message}</h2>
-          <h3 className="text-gray">Lorem ipsum</h3>
+          <div className="flex gap-x-4 items-center">
+            <h2 className="pb-1 text-center font-lora text-xl">
+              Processing...
+            </h2>
+            <BounceLoader
+              color={'#F5B800'}
+              size={40}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </div>
           <Button
             role="button"
+            className="w-full"
             onClick={() => setOpen(false)}
             variant="primary"
             type="button"
