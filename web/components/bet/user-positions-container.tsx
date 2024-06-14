@@ -6,8 +6,8 @@ export function UserPositionsContainer({
   optiona,
   optionb,
 }: {
-  optiona: string;
-  optionb: string;
+  optiona: string | undefined;
+  optionb: string | undefined;
 }) {
   const wallet = useWallet();
   return (

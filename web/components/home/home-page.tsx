@@ -36,11 +36,11 @@ export default function HomePage({
               <br />
               <div className="w-[540px] z-10 font-inter font-semibold text-[18px]">
                 <h2>
-                  Contrary to popular belief, Lorem Ipsum is not simply random
-                  text. It has roots in a piece of classical.
+                  Predict who{"'"}s going to win for the Teams you support!
+                  Higher Odds equal higher rewards, get your ballots in!
                 </h2>
                 <h3 className="text-gray-300 text-[12px] pt-2">
-                  LOREM IPSUM TEXT HERE!
+                  GOOD LUCK VOTING.
                 </h3>
               </div>
               <div className="pt-4"></div>
