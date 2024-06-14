@@ -163,6 +163,8 @@ pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8) -> Result<()> {
         &[&[&pda_seed_word.as_bytes(), &[program_funds_bump]]],
     )?;
 
+    user_sol_balance.balance = 0;
+
     return Ok(());
 }
 
