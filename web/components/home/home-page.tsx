@@ -23,18 +23,18 @@ export default function HomePage({
   return (
     <div className=" font-archivo relative">
       <BgSvg />
-      <div className="rounded-md min-h-screen relative ">
+      <div className="rounded-md min-h-screen relative px-4">
         <Header />
         <div className="max-w-[800px] mx-auto py-8 relative">
           <div className="relative ">
             <div className="z-10 relative py-3">
               <div className="flex z-10">
-                <h1 className="text-5xl w-[400px] text-transparent bg-gradient-to-r via-primary-100 from-white to-primary  bg-clip-text">
+                <h1 className="text-4xl lg:text-5xl lg:w-[400px] text-transparent bg-gradient-to-r via-primary-100 from-white to-primary  bg-clip-text">
                   VOTE FOR YOUR NATION.
                 </h1>
               </div>
               <br />
-              <div className="w-[540px] z-10 font-inter font-semibold text-[18px]">
+              <div className="lg:w-[540px] z-10 font-inter font-semibold text-[18px]">
                 <h2>
                   Predict who{"'"}s going to win for the Teams you support!
                   Higher Odds equal higher rewards, get your ballots in!
