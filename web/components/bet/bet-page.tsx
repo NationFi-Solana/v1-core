@@ -45,8 +45,10 @@ export default async function BetPage({
     const optiona = safeMarket.data.optiona?.current.toUpperCase();
     return (
       <ProgramProvider programId={safeMarket.data.address}>
-        <div>
-          <Header />
+        <div className="">
+          <div className="px-4">
+            <Header />
+          </div>
           <div className=" px-4 md:px-8 py-10 max-w-[1300px] mx-auto">
             <div className=" lg:flex space-y-4 xl:w-[1200px]  2xl:w-[1400px] gap-x-8 justify-between ">
               <div className="flex-grow w-full min-w-[440px]">
