@@ -5,6 +5,7 @@ import { useGetUserPosition } from './hooks/get-user-position';
 import { useCancelBet } from './hooks/use-bet-program';
 import BetProgressAlert from './bet-progress-alert';
 import { SiSolana } from 'react-icons/si';
+import { useProgram } from '../providers/program-provider';
 
 export function UserPosition({
   option,
@@ -20,6 +21,7 @@ export function UserPosition({
     cashOut.mutate();
   };
   const bal0 = parseInt(data?.balance.toString() ?? '0') > 0;
+  const { programData } = useProgram();
   return (
     <form onSubmit={onSubmit}>
       <BetProgressAlert waitForSign={cashOut.isPending} isTxPending={false} />
@@ -31,9 +33,15 @@ export function UserPosition({
             <SiSolana size={15} className="text-primary" />
           </h1>
 
-          <Button type="submit" disabled={!data || !bal0} variant="destructive">
-            Withdraw
-          </Button>
+          {programData?.betOver == 0 && programData.betsClosed == 0 && (
+            <Button
+              type="submit"
+              disabled={!data || !bal0}
+              variant="destructive"
+            >
+              Withdraw
+            </Button>
+          )}
         </div>
       </div>
     </form>

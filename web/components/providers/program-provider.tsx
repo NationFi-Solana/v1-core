@@ -47,11 +47,12 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({
     return getBettingProgram(provider, addressId);
   }, [addressId, provider]);
   const { data } = useQuery({
-    queryKey: ['abPools', programId],
+    queryKey: ['abPools', programId, statePda],
     queryFn: () => {
       return program.account.programState.fetch(statePda);
     },
   });
+  console.log(data, 'data');
   return (
     <ProgramContext.Provider
       value={{ addressId, setProgramId, programData: data }}
