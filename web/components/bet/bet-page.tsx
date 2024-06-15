@@ -10,8 +10,6 @@ import { slugSchema } from '@/lib/schemas';
 import Header from '@/components/header';
 import { ProgramProvider } from '@/components/providers/program-provider';
 import { UserPositionsContainer } from '@/components/bet/user-positions-container';
-import { getBettingProgram } from '@test/anchor';
-import { useGetBetProgram } from '../shared/hooks/get-bet-program';
 import { BetPercents } from './bet-percents';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
@@ -28,7 +26,11 @@ export default async function BetPage({
 }: {
   params: { slug: string };
 }) {
-  const marketReq = await client.fetch(getMarket, { slug: params.slug });
+  const marketReq = await client.fetch(
+    getMarket,
+    { slug: params.slug },
+    { next: { revalidate: 4 } }
+  );
   const safeMarket = marketSchema.safeParse(marketReq[0]);
 
   if (!safeMarket.success) {
@@ -73,7 +75,7 @@ export default async function BetPage({
                 </div>
 
                 <br />
-                <div className="grid grid-cols-2">
+                <div className="grid md:grid-cols-2">
                   <div className="col-span-2">
                     <div className="w-full relative z-0 ">
                       <div className="flex font-archivo text-2xl justify-between ">

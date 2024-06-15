@@ -22,7 +22,7 @@ export function UserPositionsContainer({
         <br />
 
         {wallet.publicKey && (
-          <div className="grid grid-cols-2 gap-x-4">
+          <div className="grid gap-y-4 md:grid-cols-2 gap-x-4">
             <UserPosition isBetA={true} option={optiona} />
             <UserPosition isBetA={false} option={optionb} />
           </div>

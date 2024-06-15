@@ -24,8 +24,9 @@ export default function BetCard({
   const { connected } = useWallet();
   const searchParams = useSearchParams();
   const vote = searchParams.get('vote');
+
   const { placeSolBet } = useSolBet({
-    isBetA: true,
+    isBetA: vote?.toLowerCase() === sluga?.toLowerCase(),
     amount: parseFloat(deposit),
   });
 
@@ -103,7 +104,7 @@ export default function BetCard({
               } font-archivo`}
               variant="primary"
             >
-              VOTE {sluga?.toUpperCase()}
+              {sluga?.toUpperCase()}
             </Button>
             <Button
               type="button"
@@ -121,7 +122,7 @@ export default function BetCard({
               } font-archivo`}
               variant="primary"
             >
-              VOTE {slugb?.toUpperCase()}
+              {slugb?.toUpperCase()}
             </Button>
           </div>
           <div className="pt-1"></div>
