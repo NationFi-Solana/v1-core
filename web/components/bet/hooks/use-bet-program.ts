@@ -69,8 +69,6 @@ export function useSolBet({ isBetA, amount }: Props) {
             .signers([])
             .rpc();
         } else {
-          console.log('HELLO');
-          console.log(program.idl.address);
           if (isBetA) {
             return await program.methods
               .placeSolBet(getBetNum({ isBetA }), new BN(amount * 10 ** 9))

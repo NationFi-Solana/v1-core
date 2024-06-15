@@ -1,4 +1,4 @@
-import BetCard from '@/components/bet/bet-card';
+import BetCard from '@/components/bet/bet-card/bet-card';
 
 import { client } from '@/lib/sanity';
 import Image from 'next/image';
@@ -84,7 +84,7 @@ export default async function BetPage({
                       </div>
                       <div className="pt-2"></div>
 
-                      <BetPercents />
+                      <BetPercents optiona={optiona} optionb={optionb} />
                       <br />
                       <UserPositionsContainer
                         optiona={optiona}
