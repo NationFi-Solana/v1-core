@@ -6,6 +6,7 @@ import { useCollectWinnings } from '../hooks/use-bet-program';
 import { FormEvent } from 'react';
 import { useGetBetProgram } from '@/components/shared/hooks/get-bet-program';
 import * as anchor from '@coral-xyz/anchor';
+import { BetClaim } from './bet-claim';
 export default function BetCard({
   sluga,
   slugb,
@@ -14,19 +15,13 @@ export default function BetCard({
   slugb: string | undefined;
 }) {
   const { programData } = useProgram();
-  const { cashOut } = useCollectWinnings({
-    isBetA: programData?.isBetAWinner === 1,
-  });
-  const submitCashout = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    cashOut.mutate();
-  };
   console.log(programData, 'DATA');
   const { program, programId } = useGetBetProgram();
   const [pda] = anchor.web3.PublicKey.findProgramAddressSync(
     [Buffer.from('state')],
     programId
   );
+
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
       <button
@@ -54,12 +49,7 @@ export default function BetCard({
           <h1>Betting is closed.</h1>
         )}
         {programData?.betsClosed === 1 && programData.betOver === 1 && (
-          <form onSubmit={submitCashout}>
-            <h1 className="font-archivo text-xl  pb-4">Redeem</h1>
-            <Button variant="submit" type="submit">
-              Claim
-            </Button>
-          </form>
+          <BetClaim isBetAWinner={programData.isBetAWinner} />
         )}
       </div>
     </div>

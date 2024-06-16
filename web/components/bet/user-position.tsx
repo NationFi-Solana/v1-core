@@ -20,6 +20,7 @@ export function UserPosition({
     e.preventDefault();
     cashOut.mutate();
   };
+
   const bal0 = parseInt(data?.balance.toString() ?? '0') > 0;
   const { programData } = useProgram();
   return (

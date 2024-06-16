@@ -12,3 +12,28 @@ export function formatUnixTimestamp(unixTimestamp: number) {
     day: 'numeric',
   });
 }
+
+export function getUserReward(
+  totalSolA: number,
+  totalSolB: number,
+  userSol: number,
+  isBetA: boolean
+) {
+  let userPercent;
+  if (!isBetA) {
+    userPercent = userSol / totalSolB;
+  } else {
+    userPercent = userSol / totalSolA;
+  }
+  const total = totalSolA + totalSolB;
+  const userReward = total * userPercent;
+  return userReward;
+}
+
+export function checkNaN(n: number) {
+  if (Number.isFinite(n)) {
+    return n;
+  } else {
+    return 0;
+  }
+}
