@@ -36,6 +36,7 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({
   children,
   programId,
 }) => {
+  console.log(programId, 'PROGRAM ID');
   const [addressId, setProgramId] = useState<string>(programId);
   const [statePda] = anchor.web3.PublicKey.findProgramAddressSync(
     [Buffer.from('state')],

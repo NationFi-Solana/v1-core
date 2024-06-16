@@ -23,7 +23,7 @@ export default function HomePage({
   return (
     <div className=" font-archivo relative">
       <BgSvg />
-      <div className="rounded-md min-h-screen relative px-4">
+      <div className="rounded-md  relative px-4">
         <Header />
         <div className="max-w-[1200px] mx-auto py-8 relative">
           <div className="relative ">
