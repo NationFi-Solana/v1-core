@@ -16,7 +16,7 @@ export default function Header() {
         >
           {/* // eslint-disable-next-line @next/next/no-img-element */}
           <h2 className=" font-archivo text-sm lg:text-lg md:block hidden">
-            NationFi Voting
+            NATIONFI Voting
           </h2>
           <h2 className=" font-archivo text-sm md:hidden">NV</h2>
           <Image src={logo} className="h-14 w-14" alt="Logo" />

@@ -10,6 +10,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useAtom } from 'jotai';
 import { isDarkTheme } from '@/app/layout';
 import Header from '@/components/header';
+import { Footer } from './footer';
 
 export function UiLayout({
   children,
@@ -41,9 +42,9 @@ export function UiLayout({
         </Suspense>
         <Toaster position="bottom-right" />
       </div>
-      <footer className="footer bg-background-900 footer-center p-4 bg-base-300  py-10">
-        <h1>IM A FOOTER</h1>
-      </footer>
+      <br />
+      <br />
+      <Footer />
     </div>
   );
 }

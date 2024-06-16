@@ -9,7 +9,7 @@ import { getBettingProgram } from '@test/anchor';
 interface ProgramContextType {
   addressId: string;
   setProgramId: (id: string) => void;
-
+  isLoading: boolean;
   programData:
     | {
         betsClosed: number;
@@ -46,7 +46,7 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({
   const program = useMemo(() => {
     return getBettingProgram(provider, addressId);
   }, [addressId, provider]);
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['abPools', programId, statePda],
     queryFn: () => {
       return program.account.programState.fetch(statePda);
@@ -55,7 +55,7 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({
   console.log(data, 'data');
   return (
     <ProgramContext.Provider
-      value={{ addressId, setProgramId, programData: data }}
+      value={{ addressId, isLoading, setProgramId, programData: data }}
     >
       {children}
     </ProgramContext.Provider>
