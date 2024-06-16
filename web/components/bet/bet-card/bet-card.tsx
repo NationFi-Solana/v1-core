@@ -24,7 +24,7 @@ export default function BetCard({
 
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
-      <button
+      {/* <button
         onClick={() => {
           program.methods.initializeProgramState().accounts({}).rpc();
         }}
@@ -40,7 +40,7 @@ export default function BetCard({
         }}
       >
         Close bets
-      </button>
+      </button> */}
       <div className="bg-background-800 p-4 w-full rounded-md ">
         {programData?.betsClosed === 0 && programData.betOver === 0 && (
           <BetForm sluga={sluga} slugb={slugb} />
@@ -49,7 +49,11 @@ export default function BetCard({
           <h1>Betting is closed.</h1>
         )}
         {programData?.betsClosed === 1 && programData.betOver === 1 && (
-          <BetClaim isBetAWinner={programData.isBetAWinner} />
+          <BetClaim
+            isBetAWinner={programData.isBetAWinner}
+            totalSolA={programData.totalSolA.toNumber()}
+            totalSolB={programData.totalSolB.toNumber()}
+          />
         )}
       </div>
     </div>

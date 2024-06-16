@@ -3,7 +3,7 @@ import { useCollectWinnings } from '../hooks/use-bet-program';
 import { FormEvent } from 'react';
 import { useGetUserPosition } from '../hooks/get-user-position';
 import { BN } from '@coral-xyz/anchor';
-import { getUserReward } from '@/lib/utils';
+import { checkNaN, getUserReward } from '@/lib/utils';
 
 export function BetClaim({
   isBetAWinner,
@@ -33,10 +33,14 @@ export function BetClaim({
       <form onSubmit={submitCashout}>
         <div className="flex justify-between">
           <h2>Position</h2>
-          <h2>{userReward}</h2>
+          <h2>{checkNaN(userReward)}</h2>
         </div>
         <h1 className="font-archivo text-xl  pb-4">Redeem</h1>
-        <Button variant="submit" type="submit">
+        <Button
+          disabled={checkNaN(userReward) <= 0}
+          variant="submit"
+          type="submit"
+        >
           Claim
         </Button>
       </form>
