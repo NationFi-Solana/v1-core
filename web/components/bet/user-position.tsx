@@ -34,7 +34,7 @@ export function UserPosition({
             <SiSolana size={15} className="text-primary" />
           </h1>
 
-          {programData?.betOver == 0 && programData.betsClosed == 0 && (
+          {/* {programData?.betOver == 0 && programData.betsClosed == 0 && (
             <Button
               type="submit"
               disabled={!data || !bal0}
@@ -42,7 +42,7 @@ export function UserPosition({
             >
               Withdraw
             </Button>
-          )}
+          )} */}
         </div>
       </div>
     </form>
