@@ -47,6 +47,7 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({
   const program = useMemo(() => {
     return getBettingProgram(provider, addressId);
   }, [addressId, provider]);
+
   const { data, isLoading } = useQuery({
     queryKey: ['abPools', programId, statePda],
     queryFn: () => {

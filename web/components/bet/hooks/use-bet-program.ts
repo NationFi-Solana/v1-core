@@ -106,6 +106,14 @@ export function useSolBet({ isBetA, amount }: Props) {
       queryClient.invalidateQueries({
         queryKey: ['solBal', wallet.publicKey?.toString()],
       });
+
+      const [statePda] = anchor.web3.PublicKey.findProgramAddressSync(
+        [Buffer.from('state')],
+        new PublicKey(programId)
+      );
+      queryClient.invalidateQueries({
+        queryKey: ['abPools', programId, statePda]
+      })
     },
   });
   return { placeSolBet, initProgram, isInit: Boolean(data) };
