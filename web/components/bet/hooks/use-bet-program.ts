@@ -108,6 +108,7 @@ export function useSolBet({ isBetA, amount }: Props) {
 
 export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
   const wallet = useWallet();
+  const queryClient = useQueryClient()
   const { program, programId } = useGetBetProgram();
   const { betId } = useProgram()
   const userSolBalancePda = getUserSolPDA({
@@ -140,9 +141,17 @@ export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
       console.log(e, 'ERROR');
     },
     onSuccess: (s) => {
-      console.log(s);
+      queryClient.invalidateQueries({
+        queryKey: [
+          'userPosition',
+          wallet.publicKey,
+          programId.toString(),
+          isBetA ? '0' : '1',
+        ]
+      })
     },
   });
+
   return { cashOut };
 }
 
