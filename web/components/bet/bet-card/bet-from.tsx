@@ -11,6 +11,7 @@ import BetProgressAlert from '../bet-progress-alert';
 import { useSolBet } from '../hooks/use-bet-program';
 import { SiSolana } from 'react-icons/si';
 import Stats from '../stats';
+import { checkNaN, formatDecimal } from '@/lib/utils/utils';
 
 export function BetForm({
   sluga,
@@ -142,7 +143,7 @@ export function BetForm({
       <div className="flex w-full justify-between  gap-x-2 text-sm">
         <h3 className="text-gray-500">Balance</h3>
         <h3 className="flex items-center gap-x-1">
-          {bal.data ? bal.data / 10 ** 9 : '0'}{' '}
+          {bal.data ? formatDecimal(checkNaN(bal.data / 10 ** 9)) : '0'}{' '}
           <SiSolana className="text-primary"></SiSolana>
         </h3>
       </div>
