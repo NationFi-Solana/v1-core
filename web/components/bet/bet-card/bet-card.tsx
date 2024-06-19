@@ -19,7 +19,10 @@ export default function BetCard({
           <BetForm sluga={sluga} slugb={slugb} />
         )}
         {programData?.betsClosed === 1 && programData.betOver === 0 && (
-          <h1>Betting is closed.</h1>
+          <div>
+            <h2 className="font-archivo text-xl text-center">Betting is closed.</h2>
+            <h3></h3>
+          </div>
         )}
         {programData?.betsClosed === 1 && programData.betOver === 1 && (
           <BetClaim

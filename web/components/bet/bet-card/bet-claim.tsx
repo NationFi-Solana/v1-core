@@ -37,7 +37,7 @@ export function BetClaim({
   return (
     <>
       <form onSubmit={submitCashout}>
-        <h1 className="font-archivo font-bold text-center text-xl">Redeem</h1>
+        <h1 className="font-archivo font-bold text-center text-xl">Claim</h1>
         <div className="flex justify-between border-b border-background-500 pb-1">
           <h2 className="font-semibold">Position</h2>
           <h2 className="flex items-center gap-x-1">
