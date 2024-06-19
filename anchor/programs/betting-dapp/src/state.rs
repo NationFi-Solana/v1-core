@@ -72,7 +72,7 @@ pub fn set_program_state(
 #[derive(Accounts)]
 pub struct InitializeState<'info> {
     #[account(init, 
-    payer = signer, space=4096, seeds=[b"be",&global_state_account.length.to_ne_bytes()], bump )]
+    payer = signer, space=5000, seeds=[b"be",&global_state_account.length.to_le_bytes()], bump )]
     pub program_state_account: Account<'info, ProgramState>,
 
     #[account(mut,seeds = [b"global_state"], bump) ]

@@ -14,7 +14,7 @@ use cashout::*;
 use global_state::*;
 use state::*;
 
-declare_id!("9mZgvJaPgRdpxnJpLcqw2STUfYmZdPta4GYtzjbB96Ej");
+declare_id!("6TeDLuCyB49xAf9781LxaBc3HPUHgPwvAzBVmQ8KyyaR");
 
 #[program]
 pub mod betting_dapp {

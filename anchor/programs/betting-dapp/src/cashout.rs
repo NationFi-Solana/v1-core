@@ -44,8 +44,8 @@ pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8, bet_id: u16) -> 
             } else {
                 b"sol_bet_b"
             },
-            &program_state_account.id.to_ne_bytes(),
             user_authority.key().as_ref(),
+            &program_state_account.id.to_ne_bytes(),
         ],
         &ctx.program_id,
     );
@@ -62,18 +62,28 @@ pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8, bet_id: u16) -> 
 
     let total_pool_amount = program_state_account.total_sol_a + program_state_account.total_sol_b;
     let winning_pool_amount = if is_bet_a != 0 {
-        program_state_account.total_sol_a
+        program_state_account.total_sol_a as f64
     } else {
-        program_state_account.total_sol_b
+        program_state_account.total_sol_b as f64
     };
-
-    let winnings_lamports = (user_sol_balance.balance / winning_pool_amount) * total_pool_amount;
-
+    let temp_sol_bal = user_sol_balance.balance as f64;
+    let temp_total_pool_amount = total_pool_amount as f64;
+    let div = temp_sol_bal / winning_pool_amount;
+    let winnings_lamports = (temp_sol_bal / winning_pool_amount) * temp_total_pool_amount;
+    msg!(
+        "winning lams: {}, div: {}, user_sol_balance: {}, winning_pool_amount: {}, total_pool_amount:{}",
+        winnings_lamports,
+        div,
+        temp_sol_bal,
+        winning_pool_amount,
+        temp_total_pool_amount
+    );
+    let int_winning = winnings_lamports as u64;
     // Create the transfer instruction
     let transfer_instruction = system_instruction::transfer(
         &program_funds_account.key(),
         user_authority.key,
-        winnings_lamports,
+        int_winning,
     );
 
     let pda_seed_word = "program_funds";
@@ -86,7 +96,11 @@ pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8, bet_id: u16) -> 
             user_authority.to_account_info(),
             ctx.accounts.system_program.to_account_info(),
         ],
-        &[&[&pda_seed_word.as_bytes(), &[program_funds_bump]]],
+        &[&[
+            &pda_seed_word.as_bytes(),
+            &bet_id.to_ne_bytes(),
+            &[program_funds_bump],
+        ]],
     )?;
 
     user_sol_balance.balance = 0;

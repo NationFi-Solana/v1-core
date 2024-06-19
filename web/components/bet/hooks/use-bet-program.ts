@@ -127,6 +127,7 @@ export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
         return program.methods
           .cashoutWinnings(getBetNum({ isBetA }), betId)
           .accounts({
+
             userSolBalance: userSolBalancePda,
             programStateAccount: BetStatePDA,
             programFundsAccount: BetFundsPDA

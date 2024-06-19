@@ -1,5 +1,6 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::system_instruction;
+use solana_program::pubkey;
 
 use super::errors;
 use super::state::*;
@@ -15,6 +16,7 @@ pub fn place_sol_bet(
     let user_sol_balance = &mut ctx.accounts.user_sol_balance;
     let program_funds_account = &mut ctx.accounts.program_funds_account;
     let user_authority = &mut ctx.accounts.user_authority;
+    let fee_account = &mut ctx.accounts.fee_account;
     // check error
     let (program_state_account_pda, _bump) =
         Pubkey::find_program_address(&[b"be", &id], &ctx.program_id);
@@ -25,6 +27,7 @@ pub fn place_sol_bet(
     }
 
     let amount = sol_amount;
+    msg!("sol_amount: {}", sol_amount);
     let (user_sol_balance_address, _bump) = Pubkey::find_program_address(
         &[
             if is_bet_a != 0 {
@@ -62,11 +65,19 @@ pub fn place_sol_bet(
         msg!("UserSolBalance Is Bet A Mismatch");
         return Err(errors::ErrorCode::PDAMismatchProgramTokenAccount.into());
     }
+    let fee_amt = (amount * 5) / 100;
+    let deposit = amount - fee_amt;
 
     // Create the transfer instruction
     let transfer_instruction =
-        system_instruction::transfer(user_authority.key, &program_funds_account.key(), amount);
+        system_instruction::transfer(user_authority.key, &program_funds_account.key(), deposit);
 
+    let transfer_fee_instruction =
+        system_instruction::transfer(user_authority.key, &fee_account.key(), fee_amt);
+    if fee_account.key() != pubkey!("G5curtPawBR7LchZyxEEZ2zDNZYS5Sfrd6Z6u2theHk2") {
+        msg!("Fee Account is invalid!");
+        return Err(errors::ErrorCode::PDAMismatchProgramFunds.into());
+    }
     // Invoke the transfer instruction
     anchor_lang::solana_program::program::invoke_signed(
         &transfer_instruction,
@@ -78,6 +89,15 @@ pub fn place_sol_bet(
         &[],
     )?;
 
+    anchor_lang::solana_program::program::invoke_signed(
+        &transfer_fee_instruction,
+        &[
+            user_authority.to_account_info(),
+            fee_account.to_account_info(),
+            ctx.accounts.system_program.to_account_info(),
+        ],
+        &[],
+    )?;
     user_sol_balance.balance = user_sol_balance.balance + amount;
 
     if is_bet_a != 0 {
@@ -107,6 +127,10 @@ pub struct PlaceSOLBet<'info> {
     /// CHECK: This is safe because we derive the PDA in the instruction
     #[account(mut, seeds=[b"program_funds", &program_state_account.id.to_ne_bytes()], bump)]
     pub program_funds_account: AccountInfo<'info>,
+
+    /// CHECK: This is safe because we derive the PDA in the instruction
+    #[account(mut, address=pubkey!("G5curtPawBR7LchZyxEEZ2zDNZYS5Sfrd6Z6u2theHk2"))]
+    pub fee_account: AccountInfo<'info>,
 
     pub system_program: Program<'info, System>,
 }

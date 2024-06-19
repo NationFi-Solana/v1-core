@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/betting_dapp.json`.
  */
 export type BettingDapp = {
-  "address": "9mZgvJaPgRdpxnJpLcqw2STUfYmZdPta4GYtzjbB96Ej",
+  "address": "6TeDLuCyB49xAf9781LxaBc3HPUHgPwvAzBVmQ8KyyaR",
   "metadata": {
     "name": "bettingDapp",
     "version": "0.1.0",
@@ -427,6 +427,11 @@ export type BettingDapp = {
               }
             ]
           }
+        },
+        {
+          "name": "feeAccount",
+          "writable": true,
+          "address": "G5curtPawBR7LchZyxEEZ2zDNZYS5Sfrd6Z6u2theHk2"
         },
         {
           "name": "systemProgram",
