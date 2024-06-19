@@ -15,7 +15,6 @@ interface Props {
   amount: number;
 }
 
-
 export function useSolBet({ isBetA, amount }: Props) {
   const { program, programId } = useGetBetProgram();
   const wallet = useWallet();
@@ -141,7 +140,7 @@ export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
     onError: (e) => {
       console.log(e, 'ERROR');
     },
-    onSuccess: (s) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [
           'userPosition',
@@ -150,9 +149,12 @@ export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
           isBetA ? '0' : '1',
         ]
       })
+      queryClient.invalidateQueries({
+        queryKey: ['abPools', betId]
+      })
+      // ['abPools', betId]
     },
   });
-
   return { cashOut };
 }
 

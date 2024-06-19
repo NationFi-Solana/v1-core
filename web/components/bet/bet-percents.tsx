@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useProgram } from '../providers/program-provider';
-import { checkNaN } from '@/lib/utils/utils';
+import { checkNaN, formatDecimal } from '@/lib/utils/utils';
 
 export function BetPercents({
   optiona,
@@ -34,18 +34,18 @@ export function BetPercents({
         <>
           <div className="flex ">
             <div
-              style={{ width: `${checkNaN(totals.apercent)}%` }}
+              style={{ width: `${formatDecimal(checkNaN(totals.apercent))}%` }}
               className={`h-2 bg-primary `}
             ></div>
             <div
-              style={{ width: `${checkNaN(totals.bpercent)}%` }}
+              style={{ width: `${formatDecimal(checkNaN(totals.bpercent))}%` }}
               className={`h-2  bg-primary-100 `}
             ></div>
           </div>
 
           <div className="flex justify-between font-semibold pt-4 text-lg">
-            <h3>{checkNaN(totals.apercent)}%</h3>
-            <h3>{checkNaN(totals.bpercent)}%</h3>
+            <h3>{formatDecimal(checkNaN(totals.apercent))}%</h3>
+            <h3>{formatDecimal(checkNaN(totals.bpercent))}%</h3>
           </div>
         </>
       )}
