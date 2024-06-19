@@ -13,7 +13,7 @@ export function formatUnixTimestamp(unixTimestamp: number) {
   });
 }
 export function formatDecimal(num: number) {
-  return parseFloat(num.toFixed(5).toString())
+  return parseFloat(Math.floor((num * 1000) / 1000).toFixed(5).toString())
 }
 export function convertToU8Array(num: number) {
   const a = new Uint16Array([num])
