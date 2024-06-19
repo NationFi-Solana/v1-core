@@ -80,7 +80,7 @@ export default function HomePage({
             scroll={false}
             className={`bg-background-600 items-center gap-x-2 p-2 flex rounded-lg transition-all cursor-pointer border-2 ${
               category ? 'border-primary/0' : 'border-primary'
-            } hover:border-primary`}
+            } font-bold hover:border-primary`}
           >
             <span>Featured</span>
             <FaRegStar className="text-primary" />

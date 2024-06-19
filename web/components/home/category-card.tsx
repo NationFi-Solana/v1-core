@@ -21,7 +21,7 @@ export function CategoryCard({
           'bg-background-600 p-2 rounded-lg transition-all' +
           ` cursor-pointer border-2 ${
             active ? 'border-primary' : 'border-primary/0'
-          } hover:border-primary`
+          } font-bold hover:border-primary`
         }
       >
         {title}

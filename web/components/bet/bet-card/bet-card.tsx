@@ -15,13 +15,21 @@ export default function BetCard({
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
       <div className="bg-background-800 p-4 w-full rounded-md ">
+        {!programData && (
+          <div>
+            <h2 className="font-archivo font-bold text-lg text-center">
+              Betting is <span className="text-primary">not ready.</span>
+            </h2>
+          </div>
+        )}
         {programData?.betsClosed === 0 && programData.betOver === 0 && (
           <BetForm sluga={sluga} slugb={slugb} />
         )}
         {programData?.betsClosed === 1 && programData.betOver === 0 && (
           <div>
-            <h2 className="font-archivo text-xl text-center">Betting is closed.</h2>
-            <h3></h3>
+            <h2 className="font-archivo text-xl text-center">
+              Betting is closed.
+            </h2>
           </div>
         )}
         {programData?.betsClosed === 1 && programData.betOver === 1 && (
