@@ -3,6 +3,7 @@ import { useCollectWinnings } from '../hooks/use-bet-program';
 import { FormEvent } from 'react';
 import { useGetUserPosition } from '../hooks/get-user-position';
 import { checkNaN, getUserReward } from '@/lib/utils/utils';
+import { useProgram } from '@/components/providers/program-provider';
 
 export function BetClaim({
   isBetAWinner,
@@ -16,11 +17,15 @@ export function BetClaim({
   const { cashOut } = useCollectWinnings({
     isBetA: isBetAWinner === 1,
   });
+  const { betId } = useProgram();
   const submitCashout = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     cashOut.mutate();
   };
-  const { data } = useGetUserPosition({ isBetA: isBetAWinner === 1 });
+  const { data } = useGetUserPosition({
+    isBetA: isBetAWinner === 1,
+    id: betId,
+  });
   const userReward = getUserReward(
     totalSolA ?? 0,
     totalSolB ?? 0,
