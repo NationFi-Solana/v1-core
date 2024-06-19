@@ -1,9 +1,8 @@
 'use client';
 import { FormEvent } from 'react';
 import { useGetUserPosition } from './hooks/get-user-position';
-import BetProgressAlert from './bet-progress-alert';
+
 import { SiSolana } from 'react-icons/si';
-import { useProgram } from '../providers/program-provider';
 
 export function UserPosition({
   option,
