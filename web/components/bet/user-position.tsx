@@ -3,6 +3,7 @@ import { FormEvent } from 'react';
 import { useGetUserPosition } from './hooks/get-user-position';
 
 import { SiSolana } from 'react-icons/si';
+import { checkNaN, formatDecimal } from '@/lib/utils/utils';
 
 export function UserPosition({
   option,
@@ -28,7 +29,9 @@ export function UserPosition({
         <h1 className="font-archivo ">{option}</h1>
         <div className="flex items-center gap-x-2">
           <h1 className="flex items-center gap-x-2 pr-4">
-            {parseInt(data?.balance.toString() ?? '0') / 10 ** 9}{' '}
+            {formatDecimal(
+              checkNaN(parseInt(data?.balance.toString() ?? '0') / 10 ** 9)
+            )}{' '}
             <SiSolana size={15} className="text-primary" />
           </h1>
 
