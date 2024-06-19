@@ -16,7 +16,8 @@ pub fn place_sol_bet(
     let program_funds_account = &mut ctx.accounts.program_funds_account;
     let user_authority = &mut ctx.accounts.user_authority;
     // check error
-    let (program_state_account_pda, _bump) = Pubkey::find_program_address(&[&id], &ctx.program_id);
+    let (program_state_account_pda, _bump) =
+        Pubkey::find_program_address(&[b"be", &id], &ctx.program_id);
 
     if program_state_account.key() != program_state_account_pda {
         msg!("ProgramStateAccount Address Mismatch");
@@ -31,10 +32,8 @@ pub fn place_sol_bet(
             } else {
                 b"sol_bet_b"
             },
-            //TODO
-            // check error
-            &id,
             user_authority.key().as_ref(),
+            &id,
         ],
         &ctx.program_id,
     );
@@ -50,7 +49,7 @@ pub fn place_sol_bet(
     }
 
     let (program_funds_pda, _bump) = Pubkey::find_program_address(
-        &[b"program-funds", &program_state_account.id.to_ne_bytes()],
+        &[b"program_funds", &program_state_account.id.to_ne_bytes()],
         ctx.program_id,
     );
 

@@ -16,7 +16,6 @@ export const COUNTER_PROGRAM_ID = new PublicKey(CounterIDL.address);
 export function getCounterProgram(provider: AnchorProvider) {
   return new Program(CounterIDL as Counter, provider);
 }
-
 // This is a helper function to get the program ID for the Counter program depending on the cluster.
 export function getCounterProgramId(cluster: Cluster) {
   switch (cluster) {
@@ -31,7 +30,7 @@ export function getCounterProgramId(cluster: Cluster) {
 }
 
 export function getBettingProgram(provider: AnchorProvider,) {
-  const idl = { ...BettingIDL, address: '3cQJcuHYF4yPB8m7gwzG2a9an2kdFfAhUuYNyxhN27Xz' };
+  const idl = { ...BettingIDL, address: '9GF9LPejfwKwv5gDbDuxLoTrLU9YbdGu7ULj6maxjCeC' };
   return new Program(idl as BettingDapp, provider);
 }
 

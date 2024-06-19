@@ -6,82 +6,7 @@ use super::errors;
 use super::state::*;
 use crate::SignerSOLBalance;
 
-pub fn cashout_bet(ctx: Context<CashoutBet>, is_bet_a: u8) -> Result<()> {
-    let program_state_account = &mut ctx.accounts.program_state_account;
-    let user_authority = &mut ctx.accounts.user_authority;
-    let user_sol_balance = &mut ctx.accounts.user_sol_balance;
-    let program_funds_account = &mut ctx.accounts.program_funds_account;
-
-    let (program_state_account_pda, _bump) =
-        Pubkey::find_program_address(&[b"state"], &ctx.program_id);
-
-    if program_state_account.key() != program_state_account_pda {
-        msg!("ProgramStateAccount Address Mismatch");
-        return Err(errors::ErrorCode::PDAMismatchStateProgramAccount.into());
-    }
-
-    let (program_funds_pda, program_funds_bump) =
-        Pubkey::find_program_address(&[b"program-funds"], ctx.program_id);
-
-    if program_funds_pda.key() != program_funds_account.key() {
-        msg!("Program Funds Account is invalid!");
-        return Err(errors::ErrorCode::PDAMismatchProgramFunds.into());
-    }
-
-    let (user_sol_balance_address, _bump) = Pubkey::find_program_address(
-        &[
-            if is_bet_a != 0 {
-                b"sol_bet_a"
-            } else {
-                b"sol_bet_b"
-            },
-            user_authority.key().as_ref(),
-        ],
-        &ctx.program_id,
-    );
-
-    if user_sol_balance.key() != user_sol_balance_address {
-        msg!("UserSolBalance Address Mismatch");
-        return Err(errors::ErrorCode::PDAMismatchProgramTokenAccount.into());
-    }
-
-    if user_sol_balance.balance <= 0 {
-        msg!("User has no balance to cashout");
-        return Err(errors::ErrorCode::UserHasNoBalance.into());
-    }
-
-    // Create the transfer instruction
-    let transfer_instruction = system_instruction::transfer(
-        &program_funds_account.key(),
-        user_authority.key,
-        user_sol_balance.balance,
-    );
-
-    let pda_seed_word = "program-funds";
-
-    // Invoke the transfer instruction
-    anchor_lang::solana_program::program::invoke_signed(
-        &transfer_instruction,
-        &[
-            program_funds_account.to_account_info(),
-            user_authority.to_account_info(),
-            ctx.accounts.system_program.to_account_info(),
-        ],
-        &[&[&pda_seed_word.as_bytes(), &[program_funds_bump]]],
-    )?;
-
-    if is_bet_a != 0 {
-        program_state_account.total_sol_a -= user_sol_balance.balance;
-    } else {
-        program_state_account.total_sol_b -= user_sol_balance.balance;
-    }
-
-    user_sol_balance.balance = 0;
-
-    return Ok(());
-}
-
-pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8) -> Result<()> {
+pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8, bet_id: u16) -> Result<()> {
     let program_state_account = &mut ctx.accounts.program_state_account;
 
     if program_state_account.bet_over == 0 {
@@ -97,7 +22,7 @@ pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8) -> Result<()> {
     let program_funds_account = &mut ctx.accounts.program_funds_account;
 
     let (program_state_account_pda, _bump) =
-        Pubkey::find_program_address(&[b"state"], &ctx.program_id);
+        Pubkey::find_program_address(&[b"be", &bet_id.to_ne_bytes()], &ctx.program_id);
 
     if program_state_account.key() != program_state_account_pda {
         msg!("ProgramStateAccount Address Mismatch");
@@ -105,7 +30,7 @@ pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8) -> Result<()> {
     }
 
     let (program_funds_pda, program_funds_bump) =
-        Pubkey::find_program_address(&[b"program-funds"], ctx.program_id);
+        Pubkey::find_program_address(&[b"program_funds", &bet_id.to_ne_bytes()], ctx.program_id);
 
     if program_funds_pda.key() != program_funds_account.key() {
         msg!("Program Funds Account is invalid!");
@@ -119,6 +44,7 @@ pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8) -> Result<()> {
             } else {
                 b"sol_bet_b"
             },
+            &program_state_account.id.to_ne_bytes(),
             user_authority.key().as_ref(),
         ],
         &ctx.program_id,
@@ -150,7 +76,7 @@ pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8) -> Result<()> {
         winnings_lamports,
     );
 
-    let pda_seed_word = "program-funds";
+    let pda_seed_word = "program_funds";
 
     // Invoke the transfer instruction
     anchor_lang::solana_program::program::invoke_signed(

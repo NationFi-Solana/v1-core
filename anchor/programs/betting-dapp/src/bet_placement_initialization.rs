@@ -102,7 +102,13 @@ pub struct InitPlaceSPLBetB<'info> {
 
 #[derive(Accounts)]
 pub struct InitPlaceSOLBetA<'info> {
-    #[account(init, payer= user_authority, space=120, seeds=[b"sol_bet_a", user_authority.key().as_ref(), &program_state_account.id.to_ne_bytes()], bump)]
+    #[account(init,
+        payer= user_authority,
+        space=120,
+        seeds=[b"sol_bet_a",
+        user_authority.key().as_ref(),
+        &program_state_account.id.to_ne_bytes()],
+     bump)]
     pub user_sol_balance: Account<'info, SignerSOLBalance>,
 
     #[account(mut,seeds = [b"global_state"], bump) ]

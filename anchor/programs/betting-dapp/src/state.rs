@@ -2,7 +2,7 @@ use anchor_lang::{
     prelude::*,
     solana_program::{ pubkey},
 };
-use anchor_lang::prelude::Pubkey;
+
 use crate::global_state::GlobalState;
 
 use super::errors;
@@ -71,13 +71,8 @@ pub fn set_program_state(
 
 #[derive(Accounts)]
 pub struct InitializeState<'info> {
-    #[account(
-        init, 
-        payer = signer,
-        space=4096,
-        seeds=[b"be",&global_state_account.length.to_ne_bytes()],
-        bump
-    )]
+    #[account(init, 
+    payer = signer, space=4096, seeds=[b"be",&global_state_account.length.to_ne_bytes()], bump )]
     pub program_state_account: Account<'info, ProgramState>,
 
     #[account(mut,seeds = [b"global_state"], bump) ]

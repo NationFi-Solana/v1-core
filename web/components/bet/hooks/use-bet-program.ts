@@ -14,24 +14,7 @@ interface Props {
   isBetA: boolean;
   amount: number;
 }
-export function getSolPDA({
-  isBetA,
-  user,
-  programId,
-}: {
-  isBetA: boolean;
-  user: PublicKey | null;
-  programId: PublicKey;
-}) {
-  const [userSolBalancePda] = anchor.web3.PublicKey.findProgramAddressSync(
-    [
-      Buffer.from(isBetA ? 'sol_bet_a' : 'sol_bet_b'),
-      user?.toBuffer() ?? Buffer.from(''),
-    ],
-    programId
-  );
-  return { userSolBalancePda };
-}
+
 
 export function useSolBet({ isBetA, amount }: Props) {
   const { program, programId } = useGetBetProgram();
@@ -127,8 +110,9 @@ export function useCancelBet({ isBetA }: { isBetA: boolean }) {
   const wallet = useWallet();
   const { program, programId } = useGetBetProgram();
   const { betId } = useProgram()
-  const { userSolBalancePda } = getSolPDA({
+  const userSolBalancePda = getUserSolPDA({
     isBetA,
+    id: betId,
     programId,
     user: wallet.publicKey,
   });
@@ -172,21 +156,22 @@ export function useCancelBet({ isBetA }: { isBetA: boolean }) {
 export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
   const wallet = useWallet();
   const { program, programId } = useGetBetProgram();
-  const { userSolBalancePda } = getSolPDA({
+  const { betId } = useProgram()
+  const userSolBalancePda = getUserSolPDA({
     user: wallet.publicKey,
     programId,
+    id: betId,
     isBetA,
   });
-  const { betId } = useProgram()
   const cashOut = useMutation({
     mutationKey: ['cashout', betId.toString()],
     mutationFn: () => {
       if (wallet.publicKey) {
-
         const { BetStatePDA } = getBetStatePDA({ id: betId, programId })
         const { BetFundsPDA } = getBetFundsPDA({ id: betId, programId })
+        console.log(BetFundsPDA.toString(), BetStatePDA.toString())
         return program.methods
-          .cashoutWinnings(getBetNum({ isBetA }))
+          .cashoutWinnings(getBetNum({ isBetA }), betId)
           .accounts({
             userSolBalance: userSolBalancePda,
             programStateAccount: BetStatePDA,

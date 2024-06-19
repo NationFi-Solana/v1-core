@@ -1,5 +1,5 @@
 {
-  "address": "5MmQLcU2NrZxeM67uyrQYutS7DBHWrKXhUdcpBC2wDvP",
+  "address": "9mZgvJaPgRdpxnJpLcqw2STUfYmZdPta4GYtzjbB96Ej",
   "metadata": {
     "name": "betting_dapp",
     "version": "0.1.0",
@@ -26,48 +26,6 @@
         }
       ],
       "args": []
-    },
-    {
-      "name": "cashout_bet",
-      "discriminator": [
-        201,
-        94,
-        66,
-        105,
-        111,
-        124,
-        232,
-        27
-      ],
-      "accounts": [
-        {
-          "name": "program_state_account",
-          "writable": true
-        },
-        {
-          "name": "user_authority",
-          "writable": true,
-          "signer": true
-        },
-        {
-          "name": "user_sol_balance",
-          "writable": true
-        },
-        {
-          "name": "program_funds_account",
-          "writable": true
-        },
-        {
-          "name": "system_program",
-          "address": "11111111111111111111111111111111"
-        }
-      ],
-      "args": [
-        {
-          "name": "is_bet_a",
-          "type": "u8"
-        }
-      ]
     },
     {
       "name": "cashout_winnings",
@@ -108,6 +66,10 @@
         {
           "name": "is_bet_a",
           "type": "u8"
+        },
+        {
+          "name": "bet_id",
+          "type": "u16"
         }
       ]
     },

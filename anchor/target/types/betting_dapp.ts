@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/betting_dapp.json`.
  */
 export type BettingDapp = {
-  "address": "5MmQLcU2NrZxeM67uyrQYutS7DBHWrKXhUdcpBC2wDvP",
+  "address": "9mZgvJaPgRdpxnJpLcqw2STUfYmZdPta4GYtzjbB96Ej",
   "metadata": {
     "name": "bettingDapp",
     "version": "0.1.0",
@@ -32,48 +32,6 @@ export type BettingDapp = {
         }
       ],
       "args": []
-    },
-    {
-      "name": "cashoutBet",
-      "discriminator": [
-        201,
-        94,
-        66,
-        105,
-        111,
-        124,
-        232,
-        27
-      ],
-      "accounts": [
-        {
-          "name": "programStateAccount",
-          "writable": true
-        },
-        {
-          "name": "userAuthority",
-          "writable": true,
-          "signer": true
-        },
-        {
-          "name": "userSolBalance",
-          "writable": true
-        },
-        {
-          "name": "programFundsAccount",
-          "writable": true
-        },
-        {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
-        }
-      ],
-      "args": [
-        {
-          "name": "isBetA",
-          "type": "u8"
-        }
-      ]
     },
     {
       "name": "cashoutWinnings",
@@ -114,6 +72,10 @@ export type BettingDapp = {
         {
           "name": "isBetA",
           "type": "u8"
+        },
+        {
+          "name": "betId",
+          "type": "u16"
         }
       ]
     },
