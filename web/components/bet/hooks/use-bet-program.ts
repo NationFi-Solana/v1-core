@@ -92,14 +92,10 @@ export function useSolBet({ isBetA, amount }: Props) {
       queryClient.invalidateQueries({
         queryKey: ['solBal', wallet.publicKey?.toString()],
       });
-
-      const [statePda] = anchor.web3.PublicKey.findProgramAddressSync(
-        [Buffer.from('state')],
-        new PublicKey(programId)
-      );
       queryClient.invalidateQueries({
-        queryKey: ['abPools', programId, statePda]
+        queryKey: ['abPools', betId]
       })
+
     },
   });
   return { placeSolBet, isInit: Boolean(data) };
@@ -149,9 +145,7 @@ export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
           isBetA ? '0' : '1',
         ]
       })
-      queryClient.invalidateQueries({
-        queryKey: ['abPools', betId]
-      })
+
       // ['abPools', betId]
     },
   });
