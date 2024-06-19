@@ -38,7 +38,7 @@ export function BetClaim({
       <form onSubmit={submitCashout}>
         <div className="flex justify-between">
           <h2>Position</h2>
-          <h2>{checkNaN(userReward)}</h2>
+          <h2>{checkNaN(userReward) / 10**9}</h2>
         </div>
         <h1 className="font-archivo text-xl  pb-4">Redeem</h1>
         <Button
