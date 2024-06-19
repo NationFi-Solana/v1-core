@@ -4,6 +4,7 @@ import { FormEvent } from 'react';
 import { useGetUserPosition } from '../hooks/get-user-position';
 import { checkNaN, getUserReward } from '@/lib/utils/utils';
 import { useProgram } from '@/components/providers/program-provider';
+import { SiSolana } from 'react-icons/si';
 
 export function BetClaim({
   isBetAWinner,
@@ -36,11 +37,15 @@ export function BetClaim({
   return (
     <>
       <form onSubmit={submitCashout}>
-        <div className="flex justify-between">
-          <h2>Position</h2>
-          <h2>{checkNaN(userReward) / 10 ** 9}</h2>
+        <h1 className="font-archivo font-bold text-center text-xl">Redeem</h1>
+        <div className="flex justify-between border-b border-background-500 pb-1">
+          <h2 className="font-semibold">Position</h2>
+          <h2 className="flex items-center gap-x-1">
+            {checkNaN(userReward) / 10 ** 9}
+            <SiSolana size={15} className="text-primary" />
+          </h2>
         </div>
-        <h1 className="font-archivo text-xl  pb-4">Redeem</h1>
+        <div className="pt-4"></div>
         <Button
           disabled={checkNaN(userReward) <= 0}
           variant="submit"

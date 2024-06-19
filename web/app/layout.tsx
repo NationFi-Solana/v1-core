@@ -4,7 +4,7 @@ import { ClusterProvider } from '@/components/cluster/cluster-data-access';
 import { SolanaProvider } from '@/components/solana/solana-provider';
 import { ReactQueryProvider } from './react-query-provider';
 
-import { Inter, Archivo_Black } from 'next/font/google';
+import { Inter, Archivo } from 'next/font/google';
 
 // export const metadata = {
 //   title: 'betting-nationfi',
@@ -18,8 +18,7 @@ const links: { label: string; path: string }[] = [
 
 // If loading a variable font, you don't need to specify the font weight
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const arc = Archivo_Black({
-  weight: ['400'],
+const arc = Archivo({
   subsets: ['latin'],
   variable: '--font-archivo',
 });

@@ -29,7 +29,7 @@ export default function HomePage({
           <div className="relative ">
             <div className="z-10 relative py-3">
               <div className="flex z-10">
-                <h1 className="text-4xl lg:text-5xl lg:w-[600px] text-transparent bg-gradient-to-r via-primary-100 from-white to-primary  bg-clip-text">
+                <h1 className="text-4xl font-extrabold lg:text-5xl lg:w-[600px] text-transparent bg-gradient-to-r via-primary-100 from-white to-primary  bg-clip-text">
                   VOTE FOR YOUR NATION.
                 </h1>
               </div>
@@ -58,7 +58,7 @@ export default function HomePage({
           <br />
 
           <div className="flex flex-col items-center md:grid md:grid-cols-2 lg:grid-cols-1 gap-y-10 ">
-            <h1 className="text-3xl text-center">HOW IT WORKS.</h1>
+            <h1 className="text-3xl text-center font-bold">HOW IT WORKS.</h1>
             <div className="flex flex-col lg:grid grid-cols-3 gap-x-20  gap-y-4 justify-between">
               <HowTo desc="CONNECT YOUR WALLET" num={1}>
                 <MdOutlineAccountBalanceWallet />
@@ -121,7 +121,7 @@ function HowTo({
       <div className="h-14 w-14 absolute -left-2 border-2 border-white  bg-primary  rounded-full flex items-center justify-center text-xl">
         {children}
       </div>
-      <h2 className="pl-14 h-14 w-full pr-3 ml-2 flex items-center rounded-md bg-background-700 whitespace-pre-wrap text-sm ">
+      <h2 className="pl-14 h-14 font-bold w-full pr-3 ml-2 flex items-center rounded-md bg-background-700 whitespace-pre-wrap text-sm ">
         {desc}
       </h2>
     </div>
