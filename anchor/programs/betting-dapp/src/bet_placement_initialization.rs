@@ -1,4 +1,4 @@
-use crate::SignerSPLBalance;
+use crate::{GlobalState, ProgramState, SignerSPLBalance};
 
 use {anchor_lang::prelude::*, anchor_spl::token};
 
@@ -102,32 +102,34 @@ pub struct InitPlaceSPLBetB<'info> {
 
 #[derive(Accounts)]
 pub struct InitPlaceSOLBetA<'info> {
-    #[account(init,
-              payer = user_authority,
-              space=120,
-              seeds = [b"sol_bet_a", user_authority.key().as_ref()],
-              bump
-    )]
+    #[account(init, payer= user_authority, space=120, seeds=[b"sol_bet_a", user_authority.key().as_ref(), &program_state_account.id.to_ne_bytes()], bump)]
     pub user_sol_balance: Account<'info, SignerSOLBalance>,
+
+    #[account(mut,seeds = [b"global_state"], bump) ]
+    pub global_state_account: Account<'info, GlobalState>,
 
     #[account(mut)]
     pub user_authority: Signer<'info>,
+
+    #[account(mut)]
+    pub program_state_account: Account<'info, ProgramState>,
 
     pub system_program: Program<'info, System>,
 }
 
 #[derive(Accounts)]
 pub struct InitPlaceSOLBetB<'info> {
-    #[account(init,
-              payer = user_authority,
-              space=120,
-              seeds = [b"sol_bet_b", user_authority.key().as_ref()],
-              bump
-    )]
+    #[account(init, payer= user_authority, space=120, seeds=[b"sol_bet_b", user_authority.key().as_ref(), &program_state_account.id.to_ne_bytes()], bump)]
     pub user_sol_balance: Account<'info, SignerSOLBalance>,
+
+    #[account(mut,seeds = [b"global_state"], bump) ]
+    pub global_state_account: Account<'info, GlobalState>,
 
     #[account(mut)]
     pub user_authority: Signer<'info>,
+
+    #[account(mut)]
+    pub program_state_account: Account<'info, ProgramState>,
 
     pub system_program: Program<'info, System>,
 }

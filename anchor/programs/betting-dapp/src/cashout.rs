@@ -170,7 +170,7 @@ pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8) -> Result<()> {
 
 #[derive(Accounts)]
 pub struct CashoutBet<'info> {
-    #[account(mut, seeds = [b"state"], bump)]
+    #[account(mut)]
     pub program_state_account: Account<'info, ProgramState>,
 
     #[account(mut)]
@@ -180,7 +180,7 @@ pub struct CashoutBet<'info> {
     pub user_sol_balance: Account<'info, SignerSOLBalance>,
 
     /// CHECK: This is safe because we derive the PDA in the instruction
-    #[account(mut, seeds = [b"program-funds"], bump)]
+    #[account(mut)]
     pub program_funds_account: AccountInfo<'info>,
 
     pub system_program: Program<'info, System>,

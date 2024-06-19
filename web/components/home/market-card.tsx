@@ -2,7 +2,7 @@
 import { Button } from '../shared/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { formatUnixTimestamp } from '@/lib/utils';
+import { formatUnixTimestamp } from '@/lib/utils/utils';
 
 import { MdAccessTime } from 'react-icons/md';
 import { useCountdown } from '../shared/hooks/countdown';

@@ -5,18 +5,20 @@ pub mod bet_placement;
 pub mod bet_placement_initialization;
 pub mod cashout;
 pub mod errors;
+pub mod global_state;
 pub mod state;
-
 use balances::*;
 use bet_placement::*;
 use bet_placement_initialization::*;
 use cashout::*;
+use global_state::*;
 use state::*;
 
-declare_id!("Caoz2CTRQnmNtk65QMTmwsrVww7XQycQ1tWiCY7ThkdE");
+declare_id!("5MmQLcU2NrZxeM67uyrQYutS7DBHWrKXhUdcpBC2wDvP");
 
 #[program]
 pub mod betting_dapp {
+
     use super::*;
 
     pub fn initialize_program_state(ctx: Context<InitializeState>) -> Result<()> {
@@ -26,6 +28,12 @@ pub mod betting_dapp {
         }
 
         state::initialize_program_state(ctx)
+    }
+    pub fn init_global_state(ctx: Context<InitializeGlobalState>) -> Result<()> {
+        global_state::init_global_state(ctx)
+    }
+    pub fn add_new_bet(ctx: Context<SetGlobalState>) -> Result<()> {
+        global_state::add_new_bet(ctx)
     }
 
     pub fn read_program_state(ctx: Context<ReadState>) -> Result<()> {
@@ -49,32 +57,41 @@ pub mod betting_dapp {
         bet_placement_initialization::init_place_sol_bet_b(ctx)
     }
 
-    pub fn place_sol_bet(ctx: Context<PlaceSOLBet>, is_bet_a: u8, sol_amount: u64) -> Result<()> {
+    pub fn place_sol_bet(
+        ctx: Context<PlaceSOLBet>,
+        is_bet_a: u8,
+        sol_amount: u64,
+        id: [u8; 2],
+    ) -> Result<()> {
         let program_state_account = &mut ctx.accounts.program_state_account;
         if program_state_account.bets_closed != 0 {
-            return Err(errors::ErrorCode::ProgramAlreadyInitialized.into());
+            return Err(errors::ErrorCode::BetsAreClosed.into());
         }
 
-        bet_placement::place_sol_bet(ctx, is_bet_a, sol_amount)
+        bet_placement::place_sol_bet(ctx, is_bet_a, sol_amount, id)
     }
 
     pub fn cashout_bet(ctx: Context<CashoutBet>, is_bet_a: u8) -> Result<()> {
         let program_state_account = &mut ctx.accounts.program_state_account;
 
-        if program_state_account.bets_closed != 0 && program_state_account.bet_over == 0 {
-            return Err(errors::ErrorCode::BetsClosedNotOver.into());
+        // If Bets Are Open And The Bet Is Not Over, Cashout Is Possible
+
+        if program_state_account.bets_closed == 0 && program_state_account.bet_over == 0 {
+            return cashout::cashout_bet(ctx, is_bet_a);
         }
 
-        cashout::cashout_bet(ctx, is_bet_a)
+        Err(errors::ErrorCode::BetsClosedNotOver.into())
     }
 
     pub fn cashout_winnings(ctx: Context<CashoutBet>, is_bet_a: u8) -> Result<()> {
         let program_state_account = &mut ctx.accounts.program_state_account;
 
-        if program_state_account.bets_closed != 0 && program_state_account.bet_over == 0 {
-            return Err(errors::ErrorCode::BetsClosedNotOver.into());
+        // If Bets Are Closed And Bet Is Over, Cashout Is Possible
+
+        if program_state_account.bets_closed != 0 && program_state_account.bet_over == 1 {
+            return cashout::cashout_winnings(ctx, is_bet_a);
         }
 
-        cashout::cashout_winnings(ctx, is_bet_a)
+        return Err(errors::ErrorCode::BetsClosedNotOver.into());
     }
 }

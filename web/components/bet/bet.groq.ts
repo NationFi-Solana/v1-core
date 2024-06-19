@@ -7,6 +7,6 @@ export const getMarket = groq`
     "thumb": thumbnail.asset->url,   
     description,
     optiona, 
-    address,
+    id,
     optionb
 }`;

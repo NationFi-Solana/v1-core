@@ -5,7 +5,7 @@ import { SolanaProvider } from '@/components/solana/solana-provider';
 import { ReactQueryProvider } from './react-query-provider';
 
 import { Inter, Archivo_Black } from 'next/font/google';
-import { atom } from 'jotai';
+
 // export const metadata = {
 //   title: 'betting-nationfi',
 //   description: 'Betting app',
@@ -23,7 +23,7 @@ const arc = Archivo_Black({
   subsets: ['latin'],
   variable: '--font-archivo',
 });
-export const isDarkTheme = atom(true);
+
 export default function RootLayout({
   children,
 }: {

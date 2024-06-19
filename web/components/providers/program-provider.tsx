@@ -6,9 +6,12 @@ import { PublicKey } from '@solana/web3.js';
 import { useQuery } from '@tanstack/react-query';
 import { useAnchorProvider } from '../solana/solana-provider';
 import { getBettingProgram } from '@test/anchor';
+import { getBetStatePDA } from '@/lib/utils/pda';
+import { useGetBetProgram } from '../shared/hooks/get-bet-program';
+
 interface ProgramContextType {
-  addressId: string;
-  setProgramId: (id: string) => void;
+  betId: number;
+  setBetId: (id: number) => void;
   isLoading: boolean;
   programData:
     | {
@@ -29,35 +32,34 @@ const ProgramContext = createContext<ProgramContextType | undefined>(undefined);
 
 interface ProgramProviderProps {
   children: ReactNode;
-  programId: string;
+  _betId: number;
 }
 
 export const ProgramProvider: React.FC<ProgramProviderProps> = ({
   children,
-  programId,
+  _betId,
 }) => {
-  console.log(programId, 'PROGRAM ID');
-  const [addressId, setProgramId] = useState<string>(programId);
-  const [statePda] = anchor.web3.PublicKey.findProgramAddressSync(
-    [Buffer.from('state')],
-    new PublicKey(programId)
-  );
+  const [betId, setBetId] = useState<number>(_betId);
 
   const provider = useAnchorProvider();
   const program = useMemo(() => {
-    return getBettingProgram(provider, addressId);
-  }, [addressId, provider]);
+    return getBettingProgram(provider);
+  }, [provider]);
+  const { BetStatePDA } = getBetStatePDA({
+    id: betId,
+    programId: program.programId,
+  });
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['abPools', programId, statePda],
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['abPools', betId],
     queryFn: () => {
-      return program.account.programState.fetch(statePda);
+      return program.account.programState.fetch(BetStatePDA);
     },
   });
-  console.log(data, 'data');
+  console.log(isError, error);
   return (
     <ProgramContext.Provider
-      value={{ addressId, isLoading, setProgramId, programData: data }}
+      value={{ betId, isLoading, setBetId, programData: data }}
     >
       {children}
     </ProgramContext.Provider>

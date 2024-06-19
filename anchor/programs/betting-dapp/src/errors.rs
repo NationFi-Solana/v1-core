@@ -38,6 +38,9 @@ pub enum ErrorCode {
     #[msg("Bets Are Closed")]
     BetsClosedNotOver,
 
+    #[msg("Bets Are Closed")]
+    BetsAreClosed,
+
     #[msg("Bet Is Not Over")]
     BetNotOver,
 

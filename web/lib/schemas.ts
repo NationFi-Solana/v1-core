@@ -10,7 +10,7 @@ export const marketSchema = z.object({
     slug: z.object({ _type: z.string(), current: z.string() }),
     optiona: z.object({ _type: z.string(), current: z.string() }).nullable(),
     optionb: z.object({ _type: z.string(), current: z.string() }).nullable(),
-    address: z.string(),
+    id: z.number(),
     _id: z.string(),
 });
 export const marketsSchema = z.array(marketSchema);

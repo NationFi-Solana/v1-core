@@ -3,13 +3,8 @@
 import * as React from 'react';
 import { ReactNode, Suspense, useEffect, useRef } from 'react';
 
-import { usePathname } from 'next/navigation';
-
 import { ExplorerLink } from '../../cluster/cluster-ui';
 import toast, { Toaster } from 'react-hot-toast';
-import { useAtom } from 'jotai';
-import { isDarkTheme } from '@/app/layout';
-import Header from '@/components/header';
 import { Footer } from './footer';
 
 export function UiLayout({
@@ -19,13 +14,11 @@ export function UiLayout({
   children: ReactNode;
   links: { label: string; path: string }[];
 }) {
-  const pathname = usePathname();
-  const [isDark] = useAtom(isDarkTheme);
   return (
     <div
       className={
         ' flex  flex-col  min-h-screen bg-background-900 scroll-smooth  font-inter text-foreground ' +
-        ` ${isDark ? 'dark' : ''} `
+        ` dark `
       }
     >
       {/* <Header></Header> */}

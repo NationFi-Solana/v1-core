@@ -1,10 +1,16 @@
-use anchor_lang::{prelude::*, solana_program::program_pack};
+use anchor_lang::{
+    prelude::*,
+    solana_program::{ pubkey},
+};
+use anchor_lang::prelude::Pubkey;
+use crate::global_state::GlobalState;
 
 use super::errors;
 
-pub fn initialize_program_state(ctx: Context<InitializeState>) -> Result<()> {
+pub fn initialize_program_state(ctx: Context<InitializeState> ) -> Result<()> {
     let program_state_account = &mut ctx.accounts.program_state_account;
-
+    let global_state_account = &mut ctx.accounts.global_state_account;
+    program_state_account.id = global_state_account.length;
     program_state_account.bets_closed = 0;
     program_state_account.is_bet_a_winner = 0;
     program_state_account.bet_over = 0;
@@ -38,6 +44,7 @@ pub fn set_program_state(
     bets_closed: u8,
     is_bet_a_winner: u8,
     bet_over: u8,
+    
 ) -> Result<()> {
     let program_state_account = &mut ctx.accounts.program_state_account;
 
@@ -65,17 +72,18 @@ pub fn set_program_state(
 #[derive(Accounts)]
 pub struct InitializeState<'info> {
     #[account(
-        init,
+        init, 
         payer = signer,
-        space = 4096,
-        seeds = [
-            b"state",
-        ],
+        space=4096,
+        seeds=[b"be",&global_state_account.length.to_ne_bytes()],
         bump
     )]
     pub program_state_account: Account<'info, ProgramState>,
 
-    #[account(mut)]
+    #[account(mut,seeds = [b"global_state"], bump) ]
+    pub global_state_account: Account<'info, GlobalState>,
+
+    #[account(mut, address = pubkey!("EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"))]
     pub signer: Signer<'info>,
 
     pub system_program: Program<'info, System>,
@@ -83,6 +91,7 @@ pub struct InitializeState<'info> {
 
 #[account]
 pub struct ProgramState {
+    pub id: u16,
     pub bets_closed: u8,
     pub is_bet_a_winner: u8,
     pub bet_over: u8,
@@ -100,10 +109,17 @@ pub struct ProgramState {
 pub struct ReadState<'info> {
     #[account(mut)]
     pub program_state_account: Account<'info, ProgramState>,
+   
 }
 
 #[derive(Accounts)]
 pub struct SetState<'info> {
     #[account(mut)]
     pub program_state_account: Account<'info, ProgramState>,
+
+    #[account(mut, address = pubkey!("EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"))]
+    pub signer: Signer<'info>,
+
+    #[account(mut,seeds = [b"global_state"], bump) ]
+    pub global_state_account: Account<'info, GlobalState>,
 }

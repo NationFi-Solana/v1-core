@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/betting_dapp.json`.
  */
 export type BettingDapp = {
-  "address": "Caoz2CTRQnmNtk65QMTmwsrVww7XQycQ1tWiCY7ThkdE",
+  "address": "5MmQLcU2NrZxeM67uyrQYutS7DBHWrKXhUdcpBC2wDvP",
   "metadata": {
     "name": "bettingDapp",
     "version": "0.1.0",
@@ -13,6 +13,26 @@ export type BettingDapp = {
     "description": "Created with Anchor"
   },
   "instructions": [
+    {
+      "name": "addNewBet",
+      "discriminator": [
+        64,
+        2,
+        212,
+        134,
+        36,
+        20,
+        114,
+        204
+      ],
+      "accounts": [
+        {
+          "name": "globalStateAccount",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
     {
       "name": "cashoutBet",
       "discriminator": [
@@ -28,21 +48,7 @@ export type BettingDapp = {
       "accounts": [
         {
           "name": "programStateAccount",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115,
-                  116,
-                  97,
-                  116,
-                  101
-                ]
-              }
-            ]
-          }
+          "writable": true
         },
         {
           "name": "userAuthority",
@@ -55,29 +61,7 @@ export type BettingDapp = {
         },
         {
           "name": "programFundsAccount",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  112,
-                  114,
-                  111,
-                  103,
-                  114,
-                  97,
-                  109,
-                  45,
-                  102,
-                  117,
-                  110,
-                  100,
-                  115
-                ]
-              }
-            ]
-          }
+          "writable": true
         },
         {
           "name": "systemProgram",
@@ -106,21 +90,7 @@ export type BettingDapp = {
       "accounts": [
         {
           "name": "programStateAccount",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115,
-                  116,
-                  97,
-                  116,
-                  101
-                ]
-              }
-            ]
-          }
+          "writable": true
         },
         {
           "name": "userAuthority",
@@ -133,29 +103,7 @@ export type BettingDapp = {
         },
         {
           "name": "programFundsAccount",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  112,
-                  114,
-                  111,
-                  103,
-                  114,
-                  97,
-                  109,
-                  45,
-                  102,
-                  117,
-                  110,
-                  100,
-                  115
-                ]
-              }
-            ]
-          }
+          "writable": true
         },
         {
           "name": "systemProgram",
@@ -168,6 +116,57 @@ export type BettingDapp = {
           "type": "u8"
         }
       ]
+    },
+    {
+      "name": "initGlobalState",
+      "discriminator": [
+        225,
+        88,
+        176,
+        139,
+        158,
+        113,
+        203,
+        37
+      ],
+      "accounts": [
+        {
+          "name": "globalStateAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true,
+          "address": "EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
     },
     {
       "name": "initPlaceSolBetA",
@@ -204,6 +203,36 @@ export type BettingDapp = {
               {
                 "kind": "account",
                 "path": "userAuthority"
+              },
+              {
+                "kind": "account",
+                "path": "program_state_account.id",
+                "account": "programState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "globalStateAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
               }
             ]
           }
@@ -212,6 +241,10 @@ export type BettingDapp = {
           "name": "userAuthority",
           "writable": true,
           "signer": true
+        },
+        {
+          "name": "programStateAccount",
+          "writable": true
         },
         {
           "name": "systemProgram",
@@ -255,6 +288,36 @@ export type BettingDapp = {
               {
                 "kind": "account",
                 "path": "userAuthority"
+              },
+              {
+                "kind": "account",
+                "path": "program_state_account.id",
+                "account": "programState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "globalStateAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
               }
             ]
           }
@@ -263,6 +326,10 @@ export type BettingDapp = {
           "name": "userAuthority",
           "writable": true,
           "signer": true
+        },
+        {
+          "name": "programStateAccount",
+          "writable": true
         },
         {
           "name": "systemProgram",
@@ -292,6 +359,33 @@ export type BettingDapp = {
               {
                 "kind": "const",
                 "value": [
+                  98,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "global_state_account.length",
+                "account": "globalState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "globalStateAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108,
+                  95,
                   115,
                   116,
                   97,
@@ -305,7 +399,8 @@ export type BettingDapp = {
         {
           "name": "signer",
           "writable": true,
-          "signer": true
+          "signer": true,
+          "address": "EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"
         },
         {
           "name": "systemProgram",
@@ -329,21 +424,7 @@ export type BettingDapp = {
       "accounts": [
         {
           "name": "programStateAccount",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115,
-                  116,
-                  97,
-                  116,
-                  101
-                ]
-              }
-            ]
-          }
+          "writable": true
         },
         {
           "name": "userAuthority",
@@ -369,13 +450,18 @@ export type BettingDapp = {
                   114,
                   97,
                   109,
-                  45,
+                  95,
                   102,
                   117,
                   110,
                   100,
                   115
                 ]
+              },
+              {
+                "kind": "account",
+                "path": "program_state_account.id",
+                "account": "programState"
               }
             ]
           }
@@ -393,6 +479,15 @@ export type BettingDapp = {
         {
           "name": "solAmount",
           "type": "u64"
+        },
+        {
+          "name": "id",
+          "type": {
+            "array": [
+              "u8",
+              2
+            ]
+          }
         }
       ]
     },
@@ -432,6 +527,37 @@ export type BettingDapp = {
         {
           "name": "programStateAccount",
           "writable": true
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true,
+          "address": "EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"
+        },
+        {
+          "name": "globalStateAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
         }
       ],
       "args": [
@@ -451,6 +577,19 @@ export type BettingDapp = {
     }
   ],
   "accounts": [
+    {
+      "name": "globalState",
+      "discriminator": [
+        163,
+        46,
+        74,
+        168,
+        216,
+        123,
+        133,
+        98
+      ]
+    },
     {
       "name": "programState",
       "discriminator": [
@@ -541,21 +680,42 @@ export type BettingDapp = {
     },
     {
       "code": 6012,
+      "name": "betsAreClosed",
+      "msg": "Bets Are Closed"
+    },
+    {
+      "code": 6013,
       "name": "betNotOver",
       "msg": "Bet Is Not Over"
     },
     {
-      "code": 6013,
+      "code": 6014,
       "name": "userLostBet",
       "msg": "User tried to cash winnings but didnt win"
     }
   ],
   "types": [
     {
+      "name": "globalState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "length",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
       "name": "programState",
       "type": {
         "kind": "struct",
         "fields": [
+          {
+            "name": "id",
+            "type": "u16"
+          },
           {
             "name": "betsClosed",
             "type": "u8"

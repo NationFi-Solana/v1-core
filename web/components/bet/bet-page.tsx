@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { MdAccessTime } from 'react-icons/md';
 import { getMarket } from './bet.groq';
 import { z } from 'zod';
-import { formatUnixTimestamp } from '@/lib/utils';
+import { formatUnixTimestamp } from '@/lib/utils/utils';
 import { slugSchema } from '@/lib/schemas';
 import Header from '@/components/header';
 import { ProgramProvider } from '@/components/providers/program-provider';
@@ -17,7 +17,7 @@ const marketSchema = z.object({
   thumb: z.string(),
   description: z.string(),
   optiona: slugSchema,
-  address: z.string(),
+  id: z.number(),
   optionb: slugSchema,
 });
 
@@ -31,12 +31,16 @@ export default async function BetPage({
     { slug: params.slug },
     { next: { revalidate: 4 } }
   );
+
   const safeMarket = marketSchema.safeParse(marketReq[0]);
 
   if (!safeMarket.success) {
     return (
-      <div className="h-full">
-        <h1>Market does not exist.</h1>
+      <div className="">
+        <Header />
+        <div className="h-[60vh] flex justify-center items-center">
+          <h1 className="text-xl font-archivo">Market does not exist.</h1>
+        </div>
       </div>
     );
   } else {
@@ -44,7 +48,7 @@ export default async function BetPage({
     const optionb = safeMarket.data.optionb?.current.toUpperCase();
     const optiona = safeMarket.data.optiona?.current.toUpperCase();
     return (
-      <ProgramProvider programId={safeMarket.data.address}>
+      <ProgramProvider _betId={safeMarket.data.id}>
         <div className="">
           <div className="px-4">
             <Header />

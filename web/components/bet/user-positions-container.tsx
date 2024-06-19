@@ -11,7 +11,7 @@ export function UserPositionsContainer({
   optionb: string | undefined;
 }) {
   const wallet = useWallet();
-  const { programData } = useProgram();
+  const { programData, betId } = useProgram();
   if (programData?.betOver === 1) {
     return;
   }
@@ -28,8 +28,8 @@ export function UserPositionsContainer({
 
         {wallet.publicKey && programData?.betOver !== 1 && (
           <div className="grid gap-y-4 md:grid-cols-2 gap-x-4">
-            <UserPosition isBetA={true} option={optiona} />
-            <UserPosition isBetA={false} option={optionb} />
+            <UserPosition isBetA={true} option={optiona} id={betId} />
+            <UserPosition isBetA={false} option={optionb} id={betId} />
           </div>
         )}
       </div>

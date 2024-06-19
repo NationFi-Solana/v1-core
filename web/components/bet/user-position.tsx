@@ -10,11 +10,13 @@ import { useProgram } from '../providers/program-provider';
 export function UserPosition({
   option,
   isBetA,
+  id,
 }: {
   option: string | undefined;
   isBetA: boolean;
+  id: number;
 }) {
-  const { data } = useGetUserPosition({ isBetA });
+  const { data } = useGetUserPosition({ isBetA, id });
   const { cashOut } = useCancelBet({ isBetA });
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

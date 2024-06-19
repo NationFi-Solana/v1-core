@@ -34,7 +34,6 @@ export function BetForm({
     // initProgram.mutate();
     placeSolBet.mutate();
   };
-
   const walletModal = useWalletModal();
 
   const { publicKey } = useWallet();
