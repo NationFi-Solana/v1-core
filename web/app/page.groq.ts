@@ -6,7 +6,7 @@ export const getMarkets = groq`
     title, 
     "thumb": thumbnail.asset->url,
     slug, 
-    address,
+    id,
     _id,
     optiona,
     optionb
@@ -17,7 +17,7 @@ export const getMarketsByCategory = groq`
 *[_type == 'market' && category == $category]{
     unixTimestamp, 
     title, 
-    address,
+    id,
     "thumb": thumbnail.asset->url,
     slug, 
     _id,

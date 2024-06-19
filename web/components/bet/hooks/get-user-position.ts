@@ -1,16 +1,12 @@
 import { useGetBetProgram } from '@/components/shared/hooks/get-bet-program';
 import { useQuery } from '@tanstack/react-query';
-import { getSolPDA } from './use-bet-program';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { getUserSolPDA } from '@/lib/utils/pda';
 
-export function useGetUserPosition({ isBetA }: { isBetA: boolean }) {
+export function useGetUserPosition({ isBetA, id }: { isBetA: boolean, id: number }) {
   const { program, programId } = useGetBetProgram();
   const wallet = useWallet();
-  const { userSolBalancePda } = getSolPDA({
-    isBetA,
-    user: wallet.publicKey,
-    programId,
-  });
+  const userSolBalancePda = getUserSolPDA({ id, user: wallet.publicKey, programId, isBetA })
   const { data } = useQuery({
     queryKey: [
       'userPosition',
@@ -23,7 +19,7 @@ export function useGetUserPosition({ isBetA }: { isBetA: boolean }) {
         const balance = await program.account.signerSolBalance.fetch(
           userSolBalancePda
         );
-        console.log(balance, 'BALANCE');
+        console.log(balance.toString(), "BALANCE")
         return balance;
       } else {
         console.log('ERROR');

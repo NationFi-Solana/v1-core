@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useProgram } from '../providers/program-provider';
-import { checkNaN } from '@/lib/utils';
+import { checkNaN } from '@/lib/utils/utils';
 
 export function BetPercents({
   optiona,

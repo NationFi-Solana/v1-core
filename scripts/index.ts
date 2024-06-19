@@ -17,10 +17,10 @@ function main() {
     );
     const wallet = new Wallet(walletKeypair)
     const provider = new AnchorProvider(connection, wallet)
-    const program = getBettingProgram(provider, '64KWnz3VtxNGVDxUP2AsyqTsRiMb4U9waBe2Qg8BRMPJ')
-    // initProgramState(program)
+    const program = getBettingProgram(provider, 'DAWzUuyZVRej6i3xAH4Cui3BW13TVCSZ3jdA4vbBLLQw')
+    initProgramState(program)
     // ProgramFunds(program)
-    setWinner(program)
+    // setWinner(program)
 }
 main()
 

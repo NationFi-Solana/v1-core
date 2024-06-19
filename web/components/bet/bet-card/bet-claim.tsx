@@ -2,8 +2,7 @@ import { Button } from '@/components/shared/ui/button';
 import { useCollectWinnings } from '../hooks/use-bet-program';
 import { FormEvent } from 'react';
 import { useGetUserPosition } from '../hooks/get-user-position';
-import { BN } from '@coral-xyz/anchor';
-import { checkNaN, getUserReward } from '@/lib/utils';
+import { checkNaN, getUserReward } from '@/lib/utils/utils';
 
 export function BetClaim({
   isBetAWinner,
@@ -28,6 +27,7 @@ export function BetClaim({
     data?.balance.toNumber(),
     isBetAWinner === 1
   );
+
   return (
     <>
       <form onSubmit={submitCashout}>

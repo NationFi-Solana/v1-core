@@ -1,5 +1,5 @@
 {
-  "address": "Caoz2CTRQnmNtk65QMTmwsrVww7XQycQ1tWiCY7ThkdE",
+  "address": "5MmQLcU2NrZxeM67uyrQYutS7DBHWrKXhUdcpBC2wDvP",
   "metadata": {
     "name": "betting_dapp",
     "version": "0.1.0",
@@ -7,6 +7,26 @@
     "description": "Created with Anchor"
   },
   "instructions": [
+    {
+      "name": "add_new_bet",
+      "discriminator": [
+        64,
+        2,
+        212,
+        134,
+        36,
+        20,
+        114,
+        204
+      ],
+      "accounts": [
+        {
+          "name": "global_state_account",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
     {
       "name": "cashout_bet",
       "discriminator": [
@@ -22,21 +42,7 @@
       "accounts": [
         {
           "name": "program_state_account",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115,
-                  116,
-                  97,
-                  116,
-                  101
-                ]
-              }
-            ]
-          }
+          "writable": true
         },
         {
           "name": "user_authority",
@@ -49,29 +55,7 @@
         },
         {
           "name": "program_funds_account",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  112,
-                  114,
-                  111,
-                  103,
-                  114,
-                  97,
-                  109,
-                  45,
-                  102,
-                  117,
-                  110,
-                  100,
-                  115
-                ]
-              }
-            ]
-          }
+          "writable": true
         },
         {
           "name": "system_program",
@@ -100,21 +84,7 @@
       "accounts": [
         {
           "name": "program_state_account",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115,
-                  116,
-                  97,
-                  116,
-                  101
-                ]
-              }
-            ]
-          }
+          "writable": true
         },
         {
           "name": "user_authority",
@@ -127,29 +97,7 @@
         },
         {
           "name": "program_funds_account",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  112,
-                  114,
-                  111,
-                  103,
-                  114,
-                  97,
-                  109,
-                  45,
-                  102,
-                  117,
-                  110,
-                  100,
-                  115
-                ]
-              }
-            ]
-          }
+          "writable": true
         },
         {
           "name": "system_program",
@@ -162,6 +110,57 @@
           "type": "u8"
         }
       ]
+    },
+    {
+      "name": "init_global_state",
+      "discriminator": [
+        225,
+        88,
+        176,
+        139,
+        158,
+        113,
+        203,
+        37
+      ],
+      "accounts": [
+        {
+          "name": "global_state_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true,
+          "address": "EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
     },
     {
       "name": "init_place_sol_bet_a",
@@ -198,6 +197,36 @@
               {
                 "kind": "account",
                 "path": "user_authority"
+              },
+              {
+                "kind": "account",
+                "path": "program_state_account.id",
+                "account": "ProgramState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_state_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
               }
             ]
           }
@@ -206,6 +235,10 @@
           "name": "user_authority",
           "writable": true,
           "signer": true
+        },
+        {
+          "name": "program_state_account",
+          "writable": true
         },
         {
           "name": "system_program",
@@ -249,6 +282,36 @@
               {
                 "kind": "account",
                 "path": "user_authority"
+              },
+              {
+                "kind": "account",
+                "path": "program_state_account.id",
+                "account": "ProgramState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_state_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
               }
             ]
           }
@@ -257,6 +320,10 @@
           "name": "user_authority",
           "writable": true,
           "signer": true
+        },
+        {
+          "name": "program_state_account",
+          "writable": true
         },
         {
           "name": "system_program",
@@ -286,6 +353,33 @@
               {
                 "kind": "const",
                 "value": [
+                  98,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "global_state_account.length",
+                "account": "GlobalState"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_state_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108,
+                  95,
                   115,
                   116,
                   97,
@@ -299,7 +393,8 @@
         {
           "name": "signer",
           "writable": true,
-          "signer": true
+          "signer": true,
+          "address": "EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"
         },
         {
           "name": "system_program",
@@ -323,21 +418,7 @@
       "accounts": [
         {
           "name": "program_state_account",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115,
-                  116,
-                  97,
-                  116,
-                  101
-                ]
-              }
-            ]
-          }
+          "writable": true
         },
         {
           "name": "user_authority",
@@ -363,13 +444,18 @@
                   114,
                   97,
                   109,
-                  45,
+                  95,
                   102,
                   117,
                   110,
                   100,
                   115
                 ]
+              },
+              {
+                "kind": "account",
+                "path": "program_state_account.id",
+                "account": "ProgramState"
               }
             ]
           }
@@ -387,6 +473,15 @@
         {
           "name": "sol_amount",
           "type": "u64"
+        },
+        {
+          "name": "id",
+          "type": {
+            "array": [
+              "u8",
+              2
+            ]
+          }
         }
       ]
     },
@@ -426,6 +521,37 @@
         {
           "name": "program_state_account",
           "writable": true
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true,
+          "address": "EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"
+        },
+        {
+          "name": "global_state_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
         }
       ],
       "args": [
@@ -445,6 +571,19 @@
     }
   ],
   "accounts": [
+    {
+      "name": "GlobalState",
+      "discriminator": [
+        163,
+        46,
+        74,
+        168,
+        216,
+        123,
+        133,
+        98
+      ]
+    },
     {
       "name": "ProgramState",
       "discriminator": [
@@ -535,21 +674,42 @@
     },
     {
       "code": 6012,
+      "name": "BetsAreClosed",
+      "msg": "Bets Are Closed"
+    },
+    {
+      "code": 6013,
       "name": "BetNotOver",
       "msg": "Bet Is Not Over"
     },
     {
-      "code": 6013,
+      "code": 6014,
       "name": "UserLostBet",
       "msg": "User tried to cash winnings but didnt win"
     }
   ],
   "types": [
     {
+      "name": "GlobalState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "length",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
       "name": "ProgramState",
       "type": {
         "kind": "struct",
         "fields": [
+          {
+            "name": "id",
+            "type": "u16"
+          },
           {
             "name": "bets_closed",
             "type": "u8"

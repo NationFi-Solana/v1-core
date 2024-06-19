@@ -30,8 +30,8 @@ export function getCounterProgramId(cluster: Cluster) {
   }
 }
 
-export function getBettingProgram(provider: AnchorProvider, address: string) {
-  const idl = { ...BettingIDL, address };
+export function getBettingProgram(provider: AnchorProvider,) {
+  const idl = { ...BettingIDL, address: '3cQJcuHYF4yPB8m7gwzG2a9an2kdFfAhUuYNyxhN27Xz' };
   return new Program(idl as BettingDapp, provider);
 }
 

@@ -13,6 +13,10 @@ export function formatUnixTimestamp(unixTimestamp: number) {
   });
 }
 
+export function convertToU8Array(num: number) {
+  const a = new Uint16Array([num])
+  return [a[0], a[1]]
+}
 export function getUserReward(
   totalSolA: number,
   totalSolB: number,

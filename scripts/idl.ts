@@ -1,5 +1,5 @@
 export const idl = {
-    "address": "Caoz2CTRQnmNtk65QMTmwsrVww7XQycQ1tWiCY7ThkdE",
+    "address": "DAWzUuyZVRej6i3xAH4Cui3BW13TVCSZ3jdA4vbBLLQw",
     "metadata": {
         "name": "betting_dapp",
         "version": "0.1.0",
@@ -7,84 +7,6 @@ export const idl = {
         "description": "Created with Anchor"
     },
     "instructions": [
-        {
-            "name": "cashout_bet",
-            "discriminator": [
-                201,
-                94,
-                66,
-                105,
-                111,
-                124,
-                232,
-                27
-            ],
-            "accounts": [
-                {
-                    "name": "program_state_account",
-                    "writable": true,
-                    "pda": {
-                        "seeds": [
-                            {
-                                "kind": "const",
-                                "value": [
-                                    115,
-                                    116,
-                                    97,
-                                    116,
-                                    101
-                                ]
-                            }
-                        ]
-                    }
-                },
-                {
-                    "name": "user_authority",
-                    "writable": true,
-                    "signer": true
-                },
-                {
-                    "name": "user_sol_balance",
-                    "writable": true
-                },
-                {
-                    "name": "program_funds_account",
-                    "writable": true,
-                    "pda": {
-                        "seeds": [
-                            {
-                                "kind": "const",
-                                "value": [
-                                    112,
-                                    114,
-                                    111,
-                                    103,
-                                    114,
-                                    97,
-                                    109,
-                                    45,
-                                    102,
-                                    117,
-                                    110,
-                                    100,
-                                    115
-                                ]
-                            }
-                        ]
-                    }
-                },
-                {
-                    "name": "system_program",
-                    "address": "11111111111111111111111111111111"
-                }
-            ],
-            "args": [
-                {
-                    "name": "is_bet_a",
-                    "type": "u8"
-                }
-            ]
-        },
         {
             "name": "cashout_winnings",
             "discriminator": [
@@ -535,11 +457,16 @@ export const idl = {
         },
         {
             "code": 6012,
+            "name": "BetsAreClosed",
+            "msg": "Bets Are Closed"
+        },
+        {
+            "code": 6013,
             "name": "BetNotOver",
             "msg": "Bet Is Not Over"
         },
         {
-            "code": 6013,
+            "code": 6014,
             "name": "UserLostBet",
             "msg": "User tried to cash winnings but didnt win"
         }
@@ -610,4 +537,4 @@ export const idl = {
             }
         }
     ]
-}
+} 
