@@ -1,6 +1,6 @@
 // Here we export some useful types and functions for interacting with the Anchor program.
-import { AnchorProvider, Program, } from '@coral-xyz/anchor';
-import { Cluster, PublicKey, } from '@solana/web3.js';
+import { AnchorProvider, Program } from '@coral-xyz/anchor';
+import { Cluster, PublicKey } from '@solana/web3.js';
 import CounterIDL from '../target/idl/counter.json';
 import BettingIDL from '../target/idl/betting_dapp.json';
 import type { Counter } from '../target/types/counter';
@@ -29,8 +29,11 @@ export function getCounterProgramId(cluster: Cluster) {
   }
 }
 
-export function getBettingProgram(provider: AnchorProvider,) {
-  const idl = { ...BettingIDL, address: '2o7NzGsyQm8guivrjqqZLdig2WcEphwto1XUcVKbjp9Q' };
+export function getBettingProgram(provider: AnchorProvider) {
+  const idl = {
+    ...BettingIDL,
+    address: '2o7NzGsyQm8guivrjqqZLdig2WcEphwto1XUcVKbjp9Q',
+  };
   return new Program(idl as BettingDapp, provider);
 }
 

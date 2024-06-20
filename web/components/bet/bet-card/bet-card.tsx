@@ -2,6 +2,7 @@
 import { useProgram } from '@/components/providers/program-provider';
 import { BetForm } from './bet-from';
 import { BetClaim } from './bet-claim';
+import { PulseLoader } from 'react-spinners';
 
 export default function BetCard({
   sluga,
@@ -10,16 +11,21 @@ export default function BetCard({
   sluga: string | undefined;
   slugb: string | undefined;
 }) {
-  const { programData } = useProgram();
+  const { programData, isLoading } = useProgram();
 
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
       <div className="bg-background-800 p-4 w-full rounded-md ">
-        {!programData && (
+        {!programData && !isLoading && (
           <div>
             <h2 className="font-archivo font-bold text-lg text-center">
               Betting is <span className="text-primary">not ready.</span>
             </h2>
+          </div>
+        )}
+        {isLoading && (
+          <div className="flex justify-center py-4">
+            <PulseLoader color="#F5B700" />
           </div>
         )}
         {programData?.betsClosed === 0 && programData.betOver === 0 && (

@@ -5,7 +5,7 @@ import { SiDiscord, SiTelegram, SiTwitter } from 'react-icons/si';
 export function Footer() {
   return (
     <footer className="  py-14  px-4 border-t-2 border-background-700">
-      <div className="w-full flex-grow flex justify-between items-center  max-w-[1200px] mx-auto ">
+      <div className="w-full flex-grow space-y-4 md:flex justify-between items-center  max-w-[1200px] mx-auto ">
         <div className="flex gap-x-10  items-center">
           <div className="flex items-center gap-x-2 ">
             <Image src={logo} width={80} height={80} alt="Logo" />

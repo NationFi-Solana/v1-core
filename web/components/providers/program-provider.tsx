@@ -2,12 +2,10 @@
 import { createContext, ReactNode, useState, useContext, useMemo } from 'react';
 
 import * as anchor from '@coral-xyz/anchor';
-import { PublicKey } from '@solana/web3.js';
 import { useQuery } from '@tanstack/react-query';
 import { useAnchorProvider } from '../solana/solana-provider';
 import { getBettingProgram } from '@test/anchor';
 import { getBetStatePDA } from '@/lib/utils/pda';
-import { useGetBetProgram } from '../shared/hooks/get-bet-program';
 
 interface ProgramContextType {
   betId: number;
