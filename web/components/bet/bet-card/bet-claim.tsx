@@ -2,7 +2,7 @@ import { Button } from '@/components/shared/ui/button';
 import { useCollectWinnings } from '../hooks/use-bet-program';
 import { FormEvent } from 'react';
 import { useGetUserPosition } from '../hooks/get-user-position';
-import { checkNaN, getUserReward } from '@/lib/utils/utils';
+import { checkNaN, formatDecimal, getUserReward } from '@/lib/utils/utils';
 import { useProgram } from '@/components/providers/program-provider';
 import { SiSolana } from 'react-icons/si';
 
@@ -41,7 +41,7 @@ export function BetClaim({
         <div className="flex justify-between border-b border-background-500 pb-1">
           <h2 className="font-semibold">Position</h2>
           <h2 className="flex items-center gap-x-1">
-            {checkNaN(userReward) / 10 ** 9}
+            {formatDecimal(checkNaN(userReward) / 10 ** 9)}
             <SiSolana size={15} className="text-primary" />
           </h2>
         </div>
