@@ -20,7 +20,7 @@ export function UserPositionsContainer({
     <div className="bg-background-800 p-4 border border-gray-800 rounded-md">
       <h1 className="font-bold text-xl">Your Positions</h1>
       {isLoading && (
-        <div>
+        <div className='flex justify-center items-center py-4'>
           <PulseLoader color="#F5B700" />
         </div>
       )}
