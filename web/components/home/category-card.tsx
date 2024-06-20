@@ -13,12 +13,12 @@ export function CategoryCard({
   const category = searchs.get('category');
   const active = category === slug;
   return (
-    <div>
+    <div className="">
       <Link
         href={`?category=${slug}`}
         scroll={false}
         className={
-          'bg-background-600 p-2 rounded-lg transition-all' +
+          'bg-background-600 p-2 h-[40px] rounded-lg transition-all' +
           ` cursor-pointer border-2 ${
             active ? 'border-primary' : 'border-primary/0'
           } font-bold hover:border-primary`

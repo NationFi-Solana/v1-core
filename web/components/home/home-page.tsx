@@ -78,7 +78,7 @@ export default function HomePage({
           <Link
             href="/"
             scroll={false}
-            className={`bg-background-600 items-center gap-x-2 p-2 flex rounded-lg transition-all cursor-pointer border-2 ${
+            className={`bg-background-600 items-center h-[40px] gap-x-2 p-2 flex rounded-lg transition-all cursor-pointer border-2 ${
               category ? 'border-primary/0' : 'border-primary'
             } font-bold hover:border-primary`}
           >
