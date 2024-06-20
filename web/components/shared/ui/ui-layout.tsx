@@ -6,13 +6,16 @@ import { ReactNode, Suspense, useEffect, useRef } from 'react';
 import { ExplorerLink } from '../../cluster/cluster-ui';
 import toast, { Toaster } from 'react-hot-toast';
 import { Footer } from './footer';
+import { TCategories } from '@/lib/schemas';
 
 export function UiLayout({
   children,
   links,
+  categories,
 }: {
   children: ReactNode;
   links: { label: string; path: string }[];
+  categories: TCategories | undefined;
 }) {
   return (
     <div
@@ -35,7 +38,7 @@ export function UiLayout({
         </Suspense>
         <Toaster position="bottom-right" />
       </div>
-      <Footer />
+      <Footer categories={categories} />
     </div>
   );
 }

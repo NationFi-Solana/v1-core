@@ -1,8 +1,14 @@
+import { TCategories } from '@/lib/schemas';
 import logo from '@/public/nation-logo.webp';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import { SiDiscord, SiTelegram, SiTwitter } from 'react-icons/si';
-export function Footer() {
+export function Footer({
+  categories,
+}: {
+  categories: TCategories | undefined;
+}) {
   return (
     <footer className="  py-14  px-4 border-t-2 border-background-700">
       <div className="w-full flex-grow space-y-4 md:flex justify-between items-center  max-w-[1200px] mx-auto ">
@@ -33,9 +39,16 @@ export function Footer() {
           <h2 className="text-white font-bold text-xl">Markets</h2>
           <div className="pt-3"></div>
           <div className="flex flex-col gap-y-2">
-            <h3 className="text-gray-300  text-[14px]">Euro2024</h3>
-            <h3 className="text-gray-300  text-[14px]">Euro2024</h3>
-            <h3 className="text-gray-300  text-[14px]">Euro2024</h3>
+            {categories?.map((c) => {
+              return (
+                <Link
+                  key={c.slug?.current}
+                  href={`/?category=${c.slug?.current}`}
+                >
+                  <h3 className="text-gray-300  text-[14px]">Euro2024</h3>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

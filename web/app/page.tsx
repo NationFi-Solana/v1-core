@@ -25,7 +25,7 @@ export default async function Page({
         { next: { revalidate: 5 } }
       )
     : await client.fetch(getMarkets, {}, { next: { revalidate: 5 } });
-  console.log(result, 'RESULT');
+
   const categories = await client.fetch(getCategories);
   const safeCats = categoriesSchema.safeParse(categories);
 

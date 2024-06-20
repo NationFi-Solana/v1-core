@@ -5,6 +5,9 @@ import { SolanaProvider } from '@/components/solana/solana-provider';
 import { ReactQueryProvider } from './react-query-provider';
 
 import { Inter, Archivo } from 'next/font/google';
+import { categoriesSchema } from '@/lib/schemas';
+import { client } from '@/lib/sanity';
+import { getCategories } from './page.groq';
 
 // export const metadata = {
 //   title: 'betting-nationfi',
@@ -23,11 +26,13 @@ const arc = Archivo({
   variable: '--font-archivo',
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const categories = await client.fetch(getCategories);
+  const safeCats = categoriesSchema.safeParse(categories);
   return (
     <html lang="en">
       <body
@@ -37,7 +42,12 @@ export default function RootLayout({
         <ReactQueryProvider>
           <ClusterProvider>
             <SolanaProvider>
-              <UiLayout links={links}>{children}</UiLayout>
+              <UiLayout
+                categories={safeCats.success ? safeCats.data : undefined}
+                links={links}
+              >
+                {children}
+              </UiLayout>
             </SolanaProvider>
           </ClusterProvider>
         </ReactQueryProvider>
