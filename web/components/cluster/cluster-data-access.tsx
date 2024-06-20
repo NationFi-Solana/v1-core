@@ -35,6 +35,11 @@ export const defaultClusters: Cluster[] = [
     endpoint: clusterApiUrl('testnet'),
     network: ClusterNetwork.Testnet,
   },
+  {
+    name: 'mainnet',
+    endpoint: `https://solana-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`,
+    network: ClusterNetwork.Mainnet,
+  },
 ];
 
 const clusterAtom = atomWithStorage<Cluster>(
