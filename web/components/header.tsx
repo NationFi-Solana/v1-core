@@ -28,8 +28,8 @@ export default function Header() {
           <Switch onCheckedChange={setIsDarkTheme} /> */}
         </div>
         <WalletButton className="bg-primary" style={{ color: '#e6f9af' }} />
-
         {/* <ClusterUiSelect /> */}
+        div{' '}
       </div>
     </div>
   );
