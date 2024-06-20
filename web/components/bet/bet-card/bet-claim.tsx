@@ -33,7 +33,7 @@ export function BetClaim({
     data?.balance.toNumber(),
     isBetAWinner === 1
   );
-
+  console.log(userReward)
   return (
     <>
       <form onSubmit={submitCashout}>
