@@ -8,6 +8,9 @@ import { Inter, Archivo } from 'next/font/google';
 import { categoriesSchema } from '@/lib/schemas';
 import { client } from '@/lib/sanity';
 import { getCategories } from './page.groq';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ToastProvider from '@/components/providers/toast-provider';
 
 // export const metadata = {
 //   title: 'betting-nationfi',
@@ -39,18 +42,20 @@ export default async function RootLayout({
         className={`
           dark bg-background text-foreground ${arc.variable} ${inter.variable} font-archivo`}
       >
-        <ReactQueryProvider>
-          <ClusterProvider>
-            <SolanaProvider>
-              <UiLayout
-                categories={safeCats.success ? safeCats.data : undefined}
-                links={links}
-              >
-                {children}
-              </UiLayout>
-            </SolanaProvider>
-          </ClusterProvider>
-        </ReactQueryProvider>
+        <ToastProvider>
+          <ReactQueryProvider>
+            <ClusterProvider>
+              <SolanaProvider>
+                <UiLayout
+                  categories={safeCats.success ? safeCats.data : undefined}
+                  links={links}
+                >
+                  {children}
+                </UiLayout>
+              </SolanaProvider>
+            </ClusterProvider>
+          </ReactQueryProvider>
+        </ToastProvider>
       </body>
     </html>
   );

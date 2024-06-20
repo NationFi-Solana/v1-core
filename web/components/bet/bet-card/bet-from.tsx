@@ -3,7 +3,7 @@ import { Button } from '@/components/shared/ui/button';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { useSubmitValid } from '../hooks/is-submit-valid';
-import { FormEvent, useCallback, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useQuery } from '@tanstack/react-query';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
@@ -12,6 +12,8 @@ import { useSolBet } from '../hooks/use-bet-program';
 import { SiSolana } from 'react-icons/si';
 import Stats from '../stats';
 import { checkNaN, formatDecimal } from '@/lib/utils/utils';
+import toast from 'react-hot-toast';
+import Link from 'next/link';
 
 export function BetForm({
   sluga,
@@ -36,7 +38,22 @@ export function BetForm({
     placeSolBet.mutate();
   };
   const walletModal = useWalletModal();
-
+  useEffect(() => {
+    if (placeSolBet.isSuccess && placeSolBet.data) {
+      toast.success(
+        <div className="">
+          <h2>Success!</h2>
+          <Link
+            href={`https://solscan.io/tx/${placeSolBet.data}`}
+            className="text-blue-400"
+          >
+            Transaction.
+          </Link>
+        </div>,
+        { position: 'top-center' }
+      );
+    }
+  }, [placeSolBet.data, placeSolBet.isSuccess]);
   const { publicKey } = useWallet();
   const { connection } = useConnection();
   const bal = useQuery({
@@ -78,7 +95,6 @@ export function BetForm({
           Choose Outcome{' '}
         </label>
       </div>
-
       <div className="flex gap-x-2">
         <Button
           role="checkbox"
@@ -139,7 +155,6 @@ export function BetForm({
           if (pattern.test(e.target.value)) return setDeposit(e.target.value);
         }}
       />
-
       <div className="flex w-full justify-between  gap-x-2 text-sm">
         <h3 className="text-gray-500">Balance</h3>
         <h3 className="flex items-center gap-x-1">
@@ -164,7 +179,6 @@ export function BetForm({
           <span className="">CONNECT</span>
         </Button>
       )}
-
       {connected && <p className="text-red-400 text-sm">{errorMessage}</p>}
       <Stats />
     </form>

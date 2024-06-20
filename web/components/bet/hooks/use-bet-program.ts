@@ -2,9 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { BN } from '@coral-xyz/anchor';
-import * as anchor from '@coral-xyz/anchor';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { PublicKey } from '@solana/web3.js';
 import { useGetBetProgram } from '@/components/shared/hooks/get-bet-program';
 import { convertToU8Array } from '@/lib/utils/utils';
 import { getBetFundsPDA, getBetStatePDA, getUserSolPDA } from '@/lib/utils/pda';
@@ -80,7 +78,7 @@ export function useSolBet({ isBetA, amount }: Props) {
     onError: (e) => {
       console.log(e, 'ERROR');
     },
-    onSuccess: () => {
+    onSuccess: (s) => {
       queryClient.invalidateQueries({
         queryKey: [
           'userPosition',
