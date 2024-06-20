@@ -8,7 +8,7 @@ export default function Stats() {
     <div className="space-y-3 text-sm pt-2">
       <div className="flex justify-between">
         <h3 className="text-gray-300">Fee</h3>
-        <h3 className="text-red-400">0.05%</h3>
+        <h3 className="text-red-400">5%</h3>
       </div>
       <div className="flex justify-between">
         <h3 className="text-gray-300">Market Cap</h3>
