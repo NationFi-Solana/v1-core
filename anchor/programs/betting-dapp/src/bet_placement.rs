@@ -129,7 +129,7 @@ pub struct PlaceSOLBet<'info> {
     pub program_funds_account: AccountInfo<'info>,
 
     /// CHECK: This is safe because we derive the PDA in the instruction
-    #[account(mut, address=pubkey!("G5curtPawBR7LchZyxEEZ2zDNZYS5Sfrd6Z6u2theHk2"))]
+    #[account(mut, address=pubkey!("ERR8XewvEk5cBuJDgtDmkxkKoshJ7v7Nq3bbrGgYLsdi"))]
     pub fee_account: AccountInfo<'info>,
 
     pub system_program: Program<'info, System>,

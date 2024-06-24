@@ -20,7 +20,7 @@ pub fn initialize_program_state(ctx: Context<InitializeState> ) -> Result<()> {
     program_state_account.total_bets_a = 0;
     program_state_account.total_bets_b = 0;
     program_state_account.is_initialized = 1;
-
+    // u8 u64 u64 u64 u64 u64 u8 u8 u8 u16
     Ok(())
 }
 
@@ -112,7 +112,7 @@ pub struct SetState<'info> {
     #[account(mut)]
     pub program_state_account: Account<'info, ProgramState>,
 
-    #[account(mut, address = pubkey!("EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"))]
+    #[account(mut, address = pubkey!("5bwTiogGZYCe33ZAcZQbjYmRyK39DMjnViiDpMJYZBSW"))]
     pub signer: Signer<'info>,
 
     #[account(mut,seeds = [b"global_state"], bump) ]

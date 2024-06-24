@@ -431,7 +431,7 @@ export type BettingDapp = {
         {
           "name": "feeAccount",
           "writable": true,
-          "address": "G5curtPawBR7LchZyxEEZ2zDNZYS5Sfrd6Z6u2theHk2"
+          "address": "ERR8XewvEk5cBuJDgtDmkxkKoshJ7v7Nq3bbrGgYLsdi"
         },
         {
           "name": "systemProgram",
@@ -499,7 +499,7 @@ export type BettingDapp = {
           "name": "signer",
           "writable": true,
           "signer": true,
-          "address": "EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"
+          "address": "5bwTiogGZYCe33ZAcZQbjYmRyK39DMjnViiDpMJYZBSW"
         },
         {
           "name": "globalStateAccount",
