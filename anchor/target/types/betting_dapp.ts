@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/betting_dapp.json`.
  */
 export type BettingDapp = {
-  "address": "6TeDLuCyB49xAf9781LxaBc3HPUHgPwvAzBVmQ8KyyaR",
+  "address": "5pTgM2iB8Huogi6m9PBSBQKT1Vpr7W8pTJpjstcQJ9TS",
   "metadata": {
     "name": "bettingDapp",
     "version": "0.1.0",
@@ -121,7 +121,7 @@ export type BettingDapp = {
           "name": "signer",
           "writable": true,
           "signer": true,
-          "address": "EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"
+          "address": "5bwTiogGZYCe33ZAcZQbjYmRyK39DMjnViiDpMJYZBSW"
         },
         {
           "name": "systemProgram",
@@ -334,6 +334,11 @@ export type BettingDapp = {
           }
         },
         {
+          "name": "userAuthority",
+          "writable": true,
+          "signer": true
+        },
+        {
           "name": "globalStateAccount",
           "writable": true,
           "pda": {
@@ -362,11 +367,15 @@ export type BettingDapp = {
           "name": "signer",
           "writable": true,
           "signer": true,
-          "address": "EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"
+          "address": "5bwTiogGZYCe33ZAcZQbjYmRyK39DMjnViiDpMJYZBSW"
         },
         {
           "name": "systemProgram",
           "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "programFundsAccount",
+          "writable": true
         }
       ],
       "args": []
@@ -457,26 +466,6 @@ export type BettingDapp = {
           }
         }
       ]
-    },
-    {
-      "name": "readProgramState",
-      "discriminator": [
-        15,
-        202,
-        151,
-        193,
-        80,
-        198,
-        253,
-        222
-      ],
-      "accounts": [
-        {
-          "name": "programStateAccount",
-          "writable": true
-        }
-      ],
-      "args": []
     },
     {
       "name": "setProgramState",
