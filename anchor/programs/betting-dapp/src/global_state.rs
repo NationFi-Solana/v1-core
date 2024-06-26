@@ -27,12 +27,10 @@ pub fn add_new_bet(
 #[derive(Accounts)]
 pub struct InitializeGlobalState<'info> {
     #[account(init, 
-    payer = signer, space=120, seeds=[b"global_state", ], bump )]
+    payer = signer, space=8+2, seeds=[b"global_state", ], bump )]
     pub global_state_account: Account<'info, GlobalState>,
-
-    #[account(mut, address = pubkey!("EgHH1EqXN6LENFC7utYJX3LcAfoH5wn7CG2RRBtxzmaf"))]
+    #[account(mut, address = pubkey!("5bwTiogGZYCe33ZAcZQbjYmRyK39DMjnViiDpMJYZBSW"))]
     pub signer: Signer<'info>,
-
     pub system_program: Program<'info, System>,
 }
 

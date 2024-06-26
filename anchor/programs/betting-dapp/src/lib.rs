@@ -13,8 +13,7 @@ use bet_placement_initialization::*;
 use cashout::*;
 use global_state::*;
 use state::*;
-
-declare_id!("6TeDLuCyB49xAf9781LxaBc3HPUHgPwvAzBVmQ8KyyaR");
+declare_id!("5pTgM2iB8Huogi6m9PBSBQKT1Vpr7W8pTJpjstcQJ9TS");
 
 #[program]
 pub mod betting_dapp {
@@ -34,10 +33,6 @@ pub mod betting_dapp {
     }
     pub fn add_new_bet(ctx: Context<SetGlobalState>) -> Result<()> {
         global_state::add_new_bet(ctx)
-    }
-
-    pub fn read_program_state(ctx: Context<ReadState>) -> Result<()> {
-        state::read_program_state(ctx)
     }
 
     pub fn set_program_state(

@@ -27,7 +27,6 @@ pub fn place_sol_bet(
     }
 
     let amount = sol_amount;
-    msg!("sol_amount: {}", sol_amount);
     let (user_sol_balance_address, _bump) = Pubkey::find_program_address(
         &[
             if is_bet_a != 0 {
@@ -68,13 +67,14 @@ pub fn place_sol_bet(
     let fee_amt = (amount * 5) / 100;
     let deposit = amount - fee_amt;
 
+    msg!("deposit: {}", deposit);
     // Create the transfer instruction
     let transfer_instruction =
         system_instruction::transfer(user_authority.key, &program_funds_account.key(), deposit);
 
     let transfer_fee_instruction =
         system_instruction::transfer(user_authority.key, &fee_account.key(), fee_amt);
-    if fee_account.key() != pubkey!("G5curtPawBR7LchZyxEEZ2zDNZYS5Sfrd6Z6u2theHk2") {
+    if fee_account.key() != pubkey!("ERR8XewvEk5cBuJDgtDmkxkKoshJ7v7Nq3bbrGgYLsdi") {
         msg!("Fee Account is invalid!");
         return Err(errors::ErrorCode::PDAMismatchProgramFunds.into());
     }
@@ -98,7 +98,7 @@ pub fn place_sol_bet(
         ],
         &[],
     )?;
-    user_sol_balance.balance = user_sol_balance.balance + amount;
+    user_sol_balance.balance = user_sol_balance.balance + deposit;
 
     if is_bet_a != 0 {
         program_state_account.total_sol_a += amount;
