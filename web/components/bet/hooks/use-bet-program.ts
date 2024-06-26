@@ -49,14 +49,15 @@ export function useSolBet({ isBetA, amount }: Props) {
         } else {
           if (isBetA) {
             return await program.methods
-              .placeSolBet(getBetNum({ isBetA }), new BN(amount * 10 ** 9), convertToU8Array(betId))
+              // .placeSolBet(getBetNum({ isBetA }), new BN(amount * 10 ** 9), convertToU8Array(betId))
+              .initPlaceSolBetA()
               .accounts({
-                userSolBalance: userSolBalancePda,
+                // userSolBalance: userSolBalancePda,
                 programStateAccount: BetStatePDA
               })
-              .preInstructions([
-                await program.methods.initPlaceSolBetA().accounts({ programStateAccount: BetStatePDA }).instruction(),
-              ])
+              // .preInstructions([
+              //   await program.methods.initPlaceSolBetA().accounts({ programStateAccount: BetStatePDA }).instruction(),
+              // ])
               .rpc();
           } else {
             return await program.methods

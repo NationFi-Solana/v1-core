@@ -1,9 +1,8 @@
 'use client';
 import { useProgram } from '@/components/providers/program-provider';
-import { BetForm } from './bet-from';
+import { BetForm } from './bet-form';
 import { BetClaim } from './bet-claim';
 import { PulseLoader } from 'react-spinners';
-import { ToastContainer } from 'react-toastify';
 
 export default function BetCard({
   sluga,
