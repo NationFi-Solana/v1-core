@@ -37,7 +37,7 @@ export const defaultClusters: Cluster[] = [
   },
   {
     name: 'mainnet',
-    endpoint: `https://solana-mainnet.g.alchemy.com/v2/QSdOLpEKxIMYXG9b5A6ZefgCSoYg_u5K`,
+    endpoint: `https://mainnet.helius-rpc.com/?api-key=409ce65a-7532-459f-8d23-892738a2a4b7`,
     network: ClusterNetwork.Mainnet,
   },
 ];

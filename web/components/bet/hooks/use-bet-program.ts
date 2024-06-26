@@ -21,7 +21,7 @@ export function useSolBet({ isBetA, amount }: Props) {
   const userSolBalancePda = getUserSolPDA({ id: betId, programId, isBetA, user: wallet.publicKey })
 
   const { BetStatePDA } = getBetStatePDA({ id: betId, programId })
-
+  console.log(BetStatePDA.toString())
   const { data } = useQuery({
     queryKey: [
       'isInit',

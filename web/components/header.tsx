@@ -5,6 +5,7 @@ import React from 'react';
 
 import logo from '@/public/nation-logo.webp';
 import Image from 'next/image';
+import { ClusterUiSelect } from './cluster/cluster-ui';
 // import { ClusterUiSelect } from './cluster/cluster-ui';
 export default function Header() {
   return (
@@ -28,7 +29,7 @@ export default function Header() {
           <Switch onCheckedChange={setIsDarkTheme} /> */}
         </div>
         <WalletButton className="bg-primary" style={{ color: '#e6f9af' }} />
-        {/* <ClusterUiSelect /> */}
+        <ClusterUiSelect />
       </div>
     </div>
   );
