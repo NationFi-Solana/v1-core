@@ -54,6 +54,16 @@ export function BetForm({
       );
     }
   }, [placeSolBet.data, placeSolBet.isSuccess]);
+  useEffect(() => {
+    if (placeSolBet.error) {
+      toast.success(
+        <div className="">
+          <h2>Transaction Error!</h2>
+        </div>,
+        { position: 'top-center' }
+      );
+    }
+  }, [placeSolBet.error]);
   const { publicKey } = useWallet();
   const { connection } = useConnection();
   const bal = useQuery({
