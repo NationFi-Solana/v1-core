@@ -9,6 +9,9 @@ import { ProgramProvider } from '@/components/providers/program-provider';
 // import { UserPositionsContainer } from '@/components/bet/user-positions-container';
 // import { BetPercents } from './bet-percents';
 import { Timestamp } from './timestamp';
+import { UserPositionsContainer } from './user-positions-container';
+import { BetPercents } from './bet-percents';
+import BetCard from './bet-card/bet-card';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -90,21 +93,21 @@ export default async function BetPage({
                       </div>
                       <div className="pt-2"></div>
 
-                      {/* <BetPercents optiona={optiona} optionb={optionb} /> */}
-                      {/* <br /> */}
-                      {/* <UserPositionsContainer */}
-                      {/*   optiona={optiona} */}
-                      {/*   optionb={optionb} */}
-                      {/* /> */}
+                      <BetPercents optiona={optiona} optionb={optionb} />
+                      <br />
+                      <UserPositionsContainer
+                        optiona={optiona}
+                        optionb={optionb}
+                      />
                     </div>
                   </div>
                 </div>
               </div>
               <div className="">
-                {/* <BetCard */}
-                {/*   sluga={safeMarket.data.optiona?.current} */}
-                {/*   slugb={safeMarket.data.optionb?.current} */}
-                {/* /> */}
+                <BetCard
+                  sluga={safeMarket.data.optiona?.current}
+                  slugb={safeMarket.data.optionb?.current}
+                />
               </div>
             </div>
           </div>
