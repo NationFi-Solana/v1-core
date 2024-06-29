@@ -1,5 +1,4 @@
 import BetCard from '@/components/bet/bet-card/bet-card';
-
 import { client } from '@/lib/sanity';
 import Image from 'next/image';
 import { MdAccessTime } from 'react-icons/md';
@@ -11,6 +10,7 @@ import Header from '@/components/header';
 import { ProgramProvider } from '@/components/providers/program-provider';
 import { UserPositionsContainer } from '@/components/bet/user-positions-container';
 import { BetPercents } from './bet-percents';
+import { useState, useEffect } from 'react';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -26,6 +26,7 @@ export default async function BetPage({
 }: {
   params: { slug: string };
 }) {
+  const [timestamp, setTimestamp] = useState<string | undefined>();
   const marketReq = await client.fetch(
     getMarket,
     { slug: params.slug },
@@ -33,6 +34,12 @@ export default async function BetPage({
   );
 
   const safeMarket = marketSchema.safeParse(marketReq[0]);
+
+  useEffect(() => {
+    if (safeMarket.data?.unixTimestamp) {
+      setTimestamp(formatUnixTimestamp(safeMarket.data?.unixTimestamp));
+    }
+  }, [safeMarket.data?.unixTimestamp]);
 
   if (!safeMarket.success) {
     return (
@@ -44,7 +51,6 @@ export default async function BetPage({
       </div>
     );
   } else {
-    const timestamp = formatUnixTimestamp(safeMarket.data.unixTimestamp);
     const optionb = safeMarket.data.optionb?.current.toUpperCase();
     const optiona = safeMarket.data.optiona?.current.toUpperCase();
     return (
@@ -53,9 +59,9 @@ export default async function BetPage({
           <div className="px-4">
             <Header />
           </div>
-          <div className=" px-4 md:px-8 py-10 max-w-[1300px] mx-auto">
-            <div className=" lg:flex space-y-4 xl:w-[1200px]  2xl:w-[1400px] gap-x-8 justify-between ">
-              <div className="flex-grow w-full lg:min-w-[440px]">
+          <div className="px-4 md:px-8 py-10 max-w-[1300px] mx-auto">
+            <div className="lg:flex space-y-4 xl:w-[1200px] 2xl:w-[1400px] gap-x-8 justify-between ">
+              <div className="flex-grow w-full lg:min-w-[440px] ">
                 <div className="md:flex space-y-2 gap-x-6">
                   <div className="flex">
                     <Image
@@ -65,6 +71,7 @@ export default async function BetPage({
                       width={100}
                       className="rounded-md border-2"
                     />
+
                     {/* <div className="min-w-[6rem] h-[6rem]  rounded-md bg-primary"></div> */}
                   </div>
                   <div className="space-y-2">
