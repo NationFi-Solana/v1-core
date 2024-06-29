@@ -1,7 +1,6 @@
 import BetCard from '@/components/bet/bet-card/bet-card';
 import { client } from '@/lib/sanity';
 import Image from 'next/image';
-import { MdAccessTime } from 'react-icons/md';
 import { getMarket } from './bet.groq';
 import { z } from 'zod';
 import { slugSchema } from '@/lib/schemas';
@@ -10,7 +9,6 @@ import { ProgramProvider } from '@/components/providers/program-provider';
 import { UserPositionsContainer } from '@/components/bet/user-positions-container';
 import { BetPercents } from './bet-percents';
 import { Timestamp } from './timestamp';
-import { formatUnixTimestamp } from '@/lib/utils/utils';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -88,21 +86,21 @@ export default async function BetPage({
                       </div>
                       <div className="pt-2"></div>
 
-                      <BetPercents optiona={optiona} optionb={optionb} />
-                      <br />
-                      <UserPositionsContainer
-                        optiona={optiona}
-                        optionb={optionb}
-                      />
+                      {/* <BetPercents optiona={optiona} optionb={optionb} /> */}
+                      {/* <br /> */}
+                      {/* <UserPositionsContainer */}
+                      {/*   optiona={optiona} */}
+                      {/*   optionb={optionb} */}
+                      {/* /> */}
                     </div>
                   </div>
                 </div>
               </div>
               <div className="">
-                <BetCard
-                  sluga={safeMarket.data.optiona?.current}
-                  slugb={safeMarket.data.optionb?.current}
-                />
+                {/* <BetCard */}
+                {/*   sluga={safeMarket.data.optiona?.current} */}
+                {/*   slugb={safeMarket.data.optionb?.current} */}
+                {/* /> */}
               </div>
             </div>
           </div>
