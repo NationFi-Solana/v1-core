@@ -15,6 +15,7 @@ export default function BetCard({
   const { programData, isLoading } = useProgram();
   const { publicKey } = useWallet();
 
+  //redeploy
   return (
     <div className="min-w-[340px] max-w-[420px] xl:min-w-[420px]">
       <div className="bg-background-800 p-4 w-full rounded-md ">
