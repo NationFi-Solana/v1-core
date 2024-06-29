@@ -30,7 +30,8 @@ export function UserPosition({
         <div className="flex items-center gap-x-2">
           <h1 className="flex items-center gap-x-2 pr-4">
             {formatDecimal(
-              checkNaN(parseInt(data?.balance.toString() ?? '0') / 10 ** 9)
+              checkNaN(parseInt(data?.balance.toString() ?? '0') / 10 ** 9),
+              5
             )}{' '}
             <SiSolana size={15} className="text-primary" />
           </h1>
