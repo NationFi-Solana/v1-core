@@ -17,9 +17,9 @@ const marketSchema = z.object({
   title: z.string(),
   thumb: z.string(),
   description: z.string(),
-  optiona: slugSchema,
+  optiona: z.string(),
   id: z.number(),
-  optionb: slugSchema,
+  optionb: z.string(),
 });
 
 export default async function BetPage({
@@ -45,8 +45,8 @@ export default async function BetPage({
       </div>
     );
   } else {
-    const optionb = safeMarket.data.optionb?.current.toUpperCase();
-    const optiona = safeMarket.data.optiona?.current.toUpperCase();
+    const optionb = safeMarket.data.optionb?.toUpperCase();
+    const optiona = safeMarket.data.optiona?.toUpperCase();
 
     {
       /* <ProgramProvider _betId={safeMarket.data.id}> */
@@ -105,8 +105,8 @@ export default async function BetPage({
               </div>
               <div className="">
                 <BetCard
-                  sluga={safeMarket.data.optiona?.current}
-                  slugb={safeMarket.data.optionb?.current}
+                  sluga={safeMarket.data.optiona}
+                  slugb={safeMarket.data.optionb}
                 />
               </div>
             </div>

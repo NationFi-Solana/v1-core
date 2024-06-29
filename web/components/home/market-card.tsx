@@ -35,18 +35,16 @@ export default function Card({
         <div className="grid grid-cols-2 gap-x-2 font-inter ">
           <Link
             scroll={false}
-            href={`/bet/${slug.current}?vote=${optiona?.current.toLowerCase()}`}
+            href={`/bet/${slug.current}?vote=${optiona?.toLowerCase()}`}
           >
             <Button role="link" className="w-full" variant="primary">
-              {optiona?.current.toUpperCase()}
+              {optiona?.toUpperCase()}
             </Button>
           </Link>
 
-          <Link
-            href={`/bet/${slug.current}?vote=${optionb?.current.toLowerCase()}`}
-          >
+          <Link href={`/bet/${slug.current}?vote=${optionb?.toLowerCase()}`}>
             <Button className="w-full" variant="primary">
-              {optionb?.current.toUpperCase()}
+              {optionb?.toUpperCase()}
             </Button>
           </Link>
         </div>
