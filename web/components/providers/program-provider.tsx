@@ -34,11 +34,8 @@ interface ProgramProviderProps {
 }
 
 export function getBettingProgram(provider: anchor.AnchorProvider) {
-  const aidl = {
-    ...idl,
-    address: '5pTgM2iB8Huogi6m9PBSBQKT1Vpr7W8pTJpjstcQJ9TS',
-  };
-  return new anchor.Program(aidl as BettingDapp, provider);
+  idl.address = '5pTgM2iB8Huogi6m9PBSBQKT1Vpr7W8pTJpjstcQJ9TS';
+  return new anchor.Program(idl as BettingDapp, provider);
 }
 export const ProgramProvider: React.FC<ProgramProviderProps> = ({
   children,
