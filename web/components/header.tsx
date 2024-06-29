@@ -16,7 +16,7 @@ export default function Header() {
           href="/"
         >
           {/* // eslint-disable-next-line @next/next/no-img-element */}
-          <h2 className="font-archivo  text-sm lg:text-lg md:block hidden">
+          <h2 className="font-archivo  text-sm lg:text-lg md:block font-bold hidden">
             NationFi Betting
           </h2>
           <h2 className=" font-archivo text-sm md:hidden">NationFi</h2>
