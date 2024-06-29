@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { formatUnixTimestamp } from '@/lib/utils/utils';
 import { MdAccessTime } from 'react-icons/md';
-
+import { useAnchorProvider } from '../solana/solana-provider';
 export function Timestamp({
   unixTimestamp,
 }: {
@@ -10,6 +10,7 @@ export function Timestamp({
 }) {
   const [timestamp, setTimestamp] = useState<string | undefined>();
 
+  const provider = useAnchorProvider();
   useEffect(() => {
     if (unixTimestamp) {
       setTimestamp(formatUnixTimestamp(unixTimestamp));
