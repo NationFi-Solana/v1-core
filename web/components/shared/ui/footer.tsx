@@ -45,7 +45,7 @@ export function Footer({
                   key={c.slug?.current}
                   href={`/?category=${c.slug?.current}`}
                 >
-                  <h3 className="text-gray-300  text-[14px]">Euro2024</h3>
+                  <h3 className="text-gray-300  text-[14px]">{c.title}</h3>
                 </Link>
               );
             })}
