@@ -12,12 +12,14 @@ export function formatUnixTimestamp(unixTimestamp: number) {
     day: 'numeric',
   });
 }
-export function formatDecimal(num: number) {
-  return parseFloat((Math.floor(num * 1000) / 1000).toFixed(5).toString())
+export function formatDecimal(num: number, fixed?: number) {
+  return parseFloat(
+    (Math.floor(num * 1000) / 1000).toFixed(fixed ?? 4).toString()
+  );
 }
 export function convertToU8Array(num: number) {
-  const a = new Uint16Array([num])
-  return [a[0], a[1]]
+  const a = new Uint16Array([num]);
+  return [a[0], a[1]];
 }
 export function getUserReward(
   totalSolA: number,
