@@ -49,7 +49,7 @@ export default async function BetPage({
       /* <ProgramProvider _betId={safeMarket.data.id}> */
     }
     return (
-      <>
+      <ProgramProvider _betId={safeMarket.data.id}>
         <div className="">
           <div className="px-4">
             <Header />
@@ -109,7 +109,7 @@ export default async function BetPage({
             </div>
           </div>
         </div>
-      </>
+      </ProgramProvider>
     );
 
     {

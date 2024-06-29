@@ -4,9 +4,9 @@ import { createContext, ReactNode, useState, useContext, useMemo } from 'react';
 import * as anchor from '@coral-xyz/anchor';
 import { useQuery } from '@tanstack/react-query';
 import { useAnchorProvider } from '../solana/solana-provider';
-import { getBettingProgram } from '@test/anchor';
 import { getBetStatePDA } from '@/lib/utils/pda';
-
+import BettingIDL from '../../target/idl/betting_dapp.json';
+import { BettingDapp } from '../../target/types/betting_dapp';
 interface ProgramContextType {
   betId: number;
   setBetId: (id: number) => void;
@@ -33,6 +33,13 @@ interface ProgramProviderProps {
   _betId: number;
 }
 
+export function getBettingProgram(provider: anchor.AnchorProvider) {
+  const idl = {
+    ...BettingIDL,
+    address: '5pTgM2iB8Huogi6m9PBSBQKT1Vpr7W8pTJpjstcQJ9TS',
+  };
+  return new anchor.Program(idl as BettingDapp, provider);
+}
 export const ProgramProvider: React.FC<ProgramProviderProps> = ({
   children,
   _betId,
@@ -40,9 +47,11 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({
   const [betId, setBetId] = useState<number>(_betId);
 
   const provider = useAnchorProvider();
+
   const program = useMemo(() => {
     return getBettingProgram(provider);
   }, [provider]);
+
   const { BetStatePDA } = getBetStatePDA({
     id: betId,
     programId: program.programId,
@@ -54,6 +63,7 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({
       return program.account.programState.fetch(BetStatePDA);
     },
   });
+
   console.log(isError, error);
   return (
     <ProgramContext.Provider
