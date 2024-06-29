@@ -1,8 +1,7 @@
 'use client';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { formatUnixTimestamp } from '@/lib/utils/utils';
 import { MdAccessTime } from 'react-icons/md';
-import { useAnchorProvider } from '../solana/solana-provider';
 export function Timestamp({
   unixTimestamp,
 }: {
