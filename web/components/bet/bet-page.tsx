@@ -1,16 +1,16 @@
 import BetCard from '@/components/bet/bet-card/bet-card';
-
 import { client } from '@/lib/sanity';
 import Image from 'next/image';
 import { MdAccessTime } from 'react-icons/md';
 import { getMarket } from './bet.groq';
 import { z } from 'zod';
-import { formatUnixTimestamp } from '@/lib/utils/utils';
 import { slugSchema } from '@/lib/schemas';
 import Header from '@/components/header';
 import { ProgramProvider } from '@/components/providers/program-provider';
 import { UserPositionsContainer } from '@/components/bet/user-positions-container';
 import { BetPercents } from './bet-percents';
+import { Timestamp } from './timestamp';
+import { formatUnixTimestamp } from '@/lib/utils/utils';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -44,7 +44,6 @@ export default async function BetPage({
       </div>
     );
   } else {
-    const timestamp = formatUnixTimestamp(safeMarket.data.unixTimestamp);
     const optionb = safeMarket.data.optionb?.current.toUpperCase();
     const optiona = safeMarket.data.optiona?.current.toUpperCase();
     return (
@@ -53,9 +52,9 @@ export default async function BetPage({
           <div className="px-4">
             <Header />
           </div>
-          <div className=" px-4 md:px-8 py-10 max-w-[1300px] mx-auto">
-            <div className=" lg:flex space-y-4 xl:w-[1200px]  2xl:w-[1400px] gap-x-8 justify-between ">
-              <div className="flex-grow w-full lg:min-w-[440px]">
+          <div className="px-4 md:px-8 py-10 max-w-[1300px] mx-auto">
+            <div className="lg:flex space-y-4 xl:w-[1200px] 2xl:w-[1400px] gap-x-8 justify-between ">
+              <div className="flex-grow w-full lg:min-w-[440px] ">
                 <div className="md:flex space-y-2 gap-x-6">
                   <div className="flex">
                     <Image
@@ -65,12 +64,11 @@ export default async function BetPage({
                       width={100}
                       className="rounded-md border-2"
                     />
+
                     {/* <div className="min-w-[6rem] h-[6rem]  rounded-md bg-primary"></div> */}
                   </div>
                   <div className="space-y-2">
-                    <h4 className="text-gray-400 text-sm flex items-center gap-x-1">
-                      <MdAccessTime size={18} /> {timestamp}
-                    </h4>
+                    <Timestamp unixTimestamp={safeMarket.data.unixTimestamp} />
                     <h1 className="text-2xl font-archivo">
                       {safeMarket.data.title}
                     </h1>
