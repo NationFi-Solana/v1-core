@@ -48,9 +48,7 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({
 
   const provider = useAnchorProvider();
 
-  const program = useMemo(() => {
-    return getBettingProgram(provider);
-  }, [provider]);
+  const program = getBettingProgram(provider);
 
   const { BetStatePDA } = getBetStatePDA({
     id: betId,
