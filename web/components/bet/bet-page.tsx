@@ -1,17 +1,14 @@
-// import BetCard from '@/components/bet/bet-card/bet-card';
 import { client } from '@/lib/sanity';
 import Image from 'next/image';
 import { getMarket } from './bet.groq';
 import { z } from 'zod';
-import { slugSchema } from '@/lib/schemas';
 import Header from '@/components/header';
 import { ProgramProvider } from '@/components/providers/program-provider';
-// import { UserPositionsContainer } from '@/components/bet/user-positions-container';
-// import { BetPercents } from './bet-percents';
 import { Timestamp } from './timestamp';
 import { UserPositionsContainer } from './user-positions-container';
 import { BetPercents } from './bet-percents';
 import BetCard from './bet-card/bet-card';
+import { Countdown } from './countdown';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -82,7 +79,8 @@ export default async function BetPage({
                     </h3>
                   </div>
                 </div>
-
+                <br />
+                <Countdown unixtimestamp={safeMarket.data.unixTimestamp} />
                 <br />
                 <div className="grid md:grid-cols-2">
                   <div className="col-span-2">
