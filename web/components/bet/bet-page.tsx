@@ -4,13 +4,13 @@ import Image from 'next/image';
 import { MdAccessTime } from 'react-icons/md';
 import { getMarket } from './bet.groq';
 import { z } from 'zod';
-import { formatUnixTimestamp } from '@/lib/utils/utils';
 import { slugSchema } from '@/lib/schemas';
 import Header from '@/components/header';
 import { ProgramProvider } from '@/components/providers/program-provider';
 import { UserPositionsContainer } from '@/components/bet/user-positions-container';
 import { BetPercents } from './bet-percents';
-import { useState, useEffect } from 'react';
+import { Timestamp } from './timestamp';
+import { formatUnixTimestamp } from '@/lib/utils/utils';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
   title: z.string(),
@@ -26,7 +26,6 @@ export default async function BetPage({
 }: {
   params: { slug: string };
 }) {
-  const [timestamp, setTimestamp] = useState<string | undefined>();
   const marketReq = await client.fetch(
     getMarket,
     { slug: params.slug },
@@ -34,12 +33,6 @@ export default async function BetPage({
   );
 
   const safeMarket = marketSchema.safeParse(marketReq[0]);
-
-  useEffect(() => {
-    if (safeMarket.data?.unixTimestamp) {
-      setTimestamp(formatUnixTimestamp(safeMarket.data?.unixTimestamp));
-    }
-  }, [safeMarket.data?.unixTimestamp]);
 
   if (!safeMarket.success) {
     return (
@@ -75,9 +68,7 @@ export default async function BetPage({
                     {/* <div className="min-w-[6rem] h-[6rem]  rounded-md bg-primary"></div> */}
                   </div>
                   <div className="space-y-2">
-                    <h4 className="text-gray-400 text-sm flex items-center gap-x-1">
-                      <MdAccessTime size={18} /> {timestamp}
-                    </h4>
+                    <Timestamp unixTimestamp={safeMarket.data.unixTimestamp} />
                     <h1 className="text-2xl font-archivo">
                       {safeMarket.data.title}
                     </h1>
