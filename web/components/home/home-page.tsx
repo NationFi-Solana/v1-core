@@ -5,9 +5,7 @@ import { FaRegStar } from 'react-icons/fa';
 import { CategoryCard } from './category-card';
 import { Button } from '../shared/ui/button';
 import { BgSvg } from '../shared/svgs/bg';
-import { MdOutlineAccountBalanceWallet } from 'react-icons/md';
-import { FaVoteYea } from 'react-icons/fa';
-import { FaMoneyBillWaveAlt } from 'react-icons/fa';
+import { FaVoteYea, FaMoneyBillWaveAlt, FaWallet } from 'react-icons/fa';
 import Header from '../header';
 import { TCategories, TMarkets } from '@/lib/schemas';
 
@@ -61,7 +59,7 @@ export default function HomePage({
             <h1 className="text-3xl text-center font-bold">HOW IT WORKS.</h1>
             <div className="flex flex-col lg:grid grid-cols-3 gap-x-20  gap-y-4 justify-between">
               <HowTo desc="CONNECT YOUR WALLET" num={1}>
-                <MdOutlineAccountBalanceWallet />
+                <FaWallet />
               </HowTo>
               <HowTo desc="PLACE YOUR WAGER" num={2}>
                 <FaVoteYea />
