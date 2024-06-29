@@ -43,7 +43,6 @@ export const ProgramProvider: React.FC<ProgramProviderProps> = ({
   const program = useMemo(() => {
     return getBettingProgram(provider);
   }, [provider]);
-  console.log(program.programId.toString(), 'PROGRAM ID');
   const { BetStatePDA } = getBetStatePDA({
     id: betId,
     programId: program.programId,

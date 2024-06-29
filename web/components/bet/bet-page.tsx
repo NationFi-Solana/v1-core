@@ -1,4 +1,4 @@
-import BetCard from '@/components/bet/bet-card/bet-card';
+// import BetCard from '@/components/bet/bet-card/bet-card';
 import { client } from '@/lib/sanity';
 import Image from 'next/image';
 import { getMarket } from './bet.groq';
@@ -6,8 +6,8 @@ import { z } from 'zod';
 import { slugSchema } from '@/lib/schemas';
 import Header from '@/components/header';
 import { ProgramProvider } from '@/components/providers/program-provider';
-import { UserPositionsContainer } from '@/components/bet/user-positions-container';
-import { BetPercents } from './bet-percents';
+// import { UserPositionsContainer } from '@/components/bet/user-positions-container';
+// import { BetPercents } from './bet-percents';
 import { Timestamp } from './timestamp';
 const marketSchema = z.object({
   unixTimestamp: z.number(),
@@ -44,8 +44,12 @@ export default async function BetPage({
   } else {
     const optionb = safeMarket.data.optionb?.current.toUpperCase();
     const optiona = safeMarket.data.optiona?.current.toUpperCase();
+
+    {
+      /* <ProgramProvider _betId={safeMarket.data.id}> */
+    }
     return (
-      <ProgramProvider _betId={safeMarket.data.id}>
+      <>
         <div className="">
           <div className="px-4">
             <Header />
@@ -105,7 +109,11 @@ export default async function BetPage({
             </div>
           </div>
         </div>
-      </ProgramProvider>
+      </>
     );
+
+    {
+      /*  </ProgramProvider> */
+    }
   }
 }
