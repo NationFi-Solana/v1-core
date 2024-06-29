@@ -56,7 +56,7 @@ export function BetForm({
   }, [placeSolBet.data, placeSolBet.isSuccess]);
   useEffect(() => {
     if (placeSolBet.error) {
-      toast.success(
+      toast.error(
         <div className="">
           <h2>Transaction Error!</h2>
         </div>,
