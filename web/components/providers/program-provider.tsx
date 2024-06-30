@@ -36,7 +36,7 @@ interface ProgramProviderProps {
 export function getBettingProgram(provider: anchor.AnchorProvider) {
   const newIdl = {
     ...idl,
-    address: '5Y1Qs8Nu4gBRNFjE9QyQ6rXKmrEorVcmdcj8cyNzrnkX',
+    address: '5pTgM2iB8Huogi6m9PBSBQKT1Vpr7W8pTJpjstcQJ9TS',
   };
   return new anchor.Program(newIdl as BettingDapp, provider);
 }
