@@ -17,11 +17,15 @@ export function useSolBet({ isBetA, amount }: Props) {
   const { program, programId } = useGetBetProgram();
   const wallet = useWallet();
 
-  const { betId } = useProgram()
-  const userSolBalancePda = getUserSolPDA({ id: betId, programId, isBetA, user: wallet.publicKey })
+  const { betId } = useProgram();
+  const userSolBalancePda = getUserSolPDA({
+    id: betId,
+    programId,
+    isBetA,
+    user: wallet.publicKey,
+  });
 
-  const { BetStatePDA } = getBetStatePDA({ id: betId, programId })
-  console.log(BetStatePDA.toString())
+  const { BetStatePDA } = getBetStatePDA({ id: betId, programId });
   const { data } = useQuery({
     queryKey: [
       'isInit',
@@ -31,7 +35,7 @@ export function useSolBet({ isBetA, amount }: Props) {
       return program.account.signerSolBalance.fetch(userSolBalancePda);
     },
   });
-  console.log({ data })
+  console.log({ data });
   const queryClient = useQueryClient();
   const placeSolBet = useMutation({
     mutationKey: ['placebet'],
@@ -39,35 +43,53 @@ export function useSolBet({ isBetA, amount }: Props) {
       if (wallet.publicKey) {
         if (data) {
           return program.methods
-            .placeSolBet(getBetNum({ isBetA }), new BN(amount * 10 ** 9), convertToU8Array(betId))
+            .placeSolBet(
+              getBetNum({ isBetA }),
+              new BN(amount * 10 ** 9),
+              convertToU8Array(betId)
+            )
             .accounts({
               userSolBalance: userSolBalancePda,
-              programStateAccount: BetStatePDA
+              programStateAccount: BetStatePDA,
             })
             .signers([])
             .rpc();
         } else {
           if (isBetA) {
             return await program.methods
-              .placeSolBet(getBetNum({ isBetA }), new BN(amount * 10 ** 9), convertToU8Array(betId))
+              .placeSolBet(
+                getBetNum({ isBetA }),
+                new BN(amount * 10 ** 9),
+                convertToU8Array(betId)
+              )
               // .initPlaceSolBetA()
               .accounts({
                 userSolBalance: userSolBalancePda,
-                programStateAccount: BetStatePDA
+                programStateAccount: BetStatePDA,
               })
               .preInstructions([
-                await program.methods.initPlaceSolBetA().accounts({ programStateAccount: BetStatePDA }).instruction(),
+                await program.methods
+                  .initPlaceSolBetA()
+                  .accounts({ programStateAccount: BetStatePDA })
+                  .instruction(),
               ])
               .rpc();
           } else {
             return await program.methods
-              .placeSolBet(getBetNum({ isBetA }), new BN(amount * 10 ** 9), convertToU8Array(betId))
+              .placeSolBet(
+                getBetNum({ isBetA }),
+                new BN(amount * 10 ** 9),
+                convertToU8Array(betId)
+              )
               .accounts({
                 userSolBalance: userSolBalancePda,
-                programStateAccount: BetStatePDA
+                programStateAccount: BetStatePDA,
               })
               .preInstructions([
-                await program.methods.initPlaceSolBetB().accounts({ programStateAccount: BetStatePDA }).instruction(),
+                await program.methods
+                  .initPlaceSolBetB()
+                  .accounts({ programStateAccount: BetStatePDA })
+                  .instruction(),
               ])
               .rpc();
           }
@@ -92,9 +114,8 @@ export function useSolBet({ isBetA, amount }: Props) {
         queryKey: ['solBal', wallet.publicKey?.toString()],
       });
       queryClient.invalidateQueries({
-        queryKey: ['abPools', betId]
-      })
-
+        queryKey: ['abPools', betId],
+      });
     },
   });
   return { placeSolBet, isInit: Boolean(data) };
@@ -102,9 +123,9 @@ export function useSolBet({ isBetA, amount }: Props) {
 
 export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
   const wallet = useWallet();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const { program, programId } = useGetBetProgram();
-  const { betId } = useProgram()
+  const { betId } = useProgram();
   const userSolBalancePda = getUserSolPDA({
     user: wallet.publicKey,
     programId,
@@ -115,16 +136,15 @@ export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
     mutationKey: ['cashout', betId.toString()],
     mutationFn: () => {
       if (wallet.publicKey) {
-        const { BetStatePDA } = getBetStatePDA({ id: betId, programId })
-        const { BetFundsPDA } = getBetFundsPDA({ id: betId, programId })
-        console.log(BetFundsPDA.toString(), BetStatePDA.toString())
+        const { BetStatePDA } = getBetStatePDA({ id: betId, programId });
+        const { BetFundsPDA } = getBetFundsPDA({ id: betId, programId });
+        console.log(BetFundsPDA.toString(), BetStatePDA.toString());
         return program.methods
           .cashoutWinnings(getBetNum({ isBetA }), betId)
           .accounts({
-
             userSolBalance: userSolBalancePda,
             programStateAccount: BetStatePDA,
-            programFundsAccount: BetFundsPDA
+            programFundsAccount: BetFundsPDA,
           })
           .signers([])
           .rpc();
@@ -142,8 +162,8 @@ export function useCollectWinnings({ isBetA }: { isBetA: boolean }) {
           wallet.publicKey,
           programId.toString(),
           isBetA ? '0' : '1',
-        ]
-      })
+        ],
+      });
 
       // ['abPools', betId]
     },

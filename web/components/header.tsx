@@ -5,6 +5,7 @@ import React from 'react';
 
 import logo from '@/public/nation-logo.webp';
 import Image from 'next/image';
+import { ClusterUiSelect } from './cluster/cluster-ui';
 // import { ClusterUiSelect } from './cluster/cluster-ui';
 
 export default function Header() {
@@ -24,12 +25,9 @@ export default function Header() {
         </Link>
       </div>
       <div className="flex space-x-4   ">
-        <div className="flex items-center gap-x-2 text-[0.8rem]">
-          {/* <p>Dark Mode</p>
-          <Switch onCheckedChange={setIsDarkTheme} /> */}
-        </div>
+        <div className="flex items-center gap-x-2 text-[0.8rem]"></div>
         <WalletButton className="bg-primary" style={{ color: '#e6f9af' }} />
-        {/* <ClusterUiSelect /> */}
+        <ClusterUiSelect />
       </div>
     </div>
   );

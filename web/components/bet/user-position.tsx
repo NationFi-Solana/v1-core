@@ -1,9 +1,10 @@
 'use client';
-import { FormEvent } from 'react';
+import { FormEvent, useMemo } from 'react';
 import { useGetUserPosition } from './hooks/get-user-position';
 
 import { SiSolana } from 'react-icons/si';
 import { checkNaN, formatDecimal } from '@/lib/utils/utils';
+import { useProgram } from '../providers/program-provider';
 
 export function UserPosition({
   option,
@@ -22,29 +23,47 @@ export function UserPosition({
   };
 
   // const bal0 = parseInt(data?.balance.toString() ?? '0') > 0;
-  // const { programData } = useProgram();
+  const { programData } = useProgram();
+  const userPercent = useMemo(() => {
+    const total = parseInt(
+      isBetA
+        ? programData?.totalSolA.toString()
+        : programData?.totalSolB.toString()
+    );
+    if (!(total > 0)) {
+      return 0;
+    }
+    const fee = (total * 5) / 100;
+    const userBal = parseInt(data?.balance ?? '0');
+
+    if (userBal > 0) {
+      const result = (userBal * 100) / (total - fee);
+      return result;
+    } else {
+      return 0;
+    }
+  }, [data?.balance, isBetA, programData?.totalSolA, programData?.totalSolB]);
+
   return (
     <form onSubmit={onSubmit}>
-      <div className="flex border-b border-gray-600 pb-2 items-center  justify-between">
+      <div className=" border-b border-gray-600 pb-2 ">
         <h1 className="font-archivo ">{option}</h1>
-        <div className="flex items-center gap-x-2">
-          <h1 className="flex items-center gap-x-2 pr-4">
-            {formatDecimal(
-              checkNaN(parseInt(data?.balance.toString() ?? '0') / 10 ** 9),
-              5
-            )}{' '}
-            <SiSolana size={15} className="text-primary" />
-          </h1>
+        <div className="flex flex-col gap-y-2 pt-2">
+          <div className="flex justify-between w-full pr-2">
+            <h2 className="text-gray-300 text-[16px]">Amount</h2>
+            <h1 className="flex items-center gap-x-2 ">
+              {formatDecimal(
+                checkNaN(parseInt(data?.balance.toString() ?? '0') / 10 ** 9),
+                5
+              )}
+              <SiSolana size={15} className="text-primary" />
+            </h1>
+          </div>
 
-          {/* {programData?.betOver == 0 && programData.betsClosed == 0 && (
-            <Button
-              type="submit"
-              disabled={!data || !bal0}
-              variant="destructive"
-            >
-              Withdraw
-            </Button>
-          )} */}
+          <div className="flex justify-between">
+            <h2>Percent of Share</h2>
+            <h2>{userPercent.toString()}%</h2>
+          </div>
         </div>
       </div>
     </form>
