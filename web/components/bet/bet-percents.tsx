@@ -44,8 +44,8 @@ export function BetPercents({
           </div>
 
           <div className="flex justify-between font-semibold pt-4 text-lg">
-            <h3>{formatDecimal(checkNaN(totals.apercent))}%</h3>
-            <h3>{formatDecimal(checkNaN(totals.bpercent))}%</h3>
+            <h3>{formatDecimal(checkNaN(totals.a / 10 ** 9))}Sol</h3>
+            <h3>{formatDecimal(checkNaN(totals.b / 10 ** 9))}Sol</h3>
           </div>
         </>
       )}
