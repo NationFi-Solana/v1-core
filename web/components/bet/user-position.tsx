@@ -45,12 +45,12 @@ export function UserPosition({
   }, [data?.balance, isBetA, programData?.totalSolA, programData?.totalSolB]);
   return (
     <form onSubmit={onSubmit}>
-      <div className=" border-b border-gray-600 pb-2 ">
+      <div className=" border-b border-gray-600 pb-2">
         <h1 className="font-archivo ">{option}</h1>
         <div className="flex flex-col gap-y-2 pt-2">
-          <div className="flex justify-between w-full pr-2">
-            <h2 className="text-gray-300 text-[16px]">Amount</h2>
-            <h1 className="flex items-center gap-x-2 ">
+          <div className="flex justify-between w-full ">
+            <h2 className="text-gray-300  text-[15px]">Amount</h2>
+            <h1 className="flex items-center gap-x-1 ">
               {formatDecimal(
                 checkNaN(parseInt(data?.balance.toString() ?? '0') / 10 ** 9),
                 5
@@ -60,12 +60,15 @@ export function UserPosition({
           </div>
 
           <div className="flex justify-between">
-            <h2>Percent of Share</h2>
+            <h2 className="text-gray-300 text-[15px]">Percent of Share</h2>
             <h2>{userPercent.userPercent.toString()}%</h2>
           </div>
           <div className="flex justify-between">
-            <h2>Projected Rewards</h2>
-            <h2>{userPercent.rewards.toString()}%</h2>
+            <h2 className="text-gray-300  text-[15px]">Projected Rewards</h2>
+            <h2 className="flex gap-x-1 items-center ">
+              {userPercent.rewards.toString()}{' '}
+              <SiSolana size={15} className="text-primary" />
+            </h2>
           </div>
         </div>
       </div>
