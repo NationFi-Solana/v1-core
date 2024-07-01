@@ -66,7 +66,10 @@ export function UserPosition({
           <div className="flex justify-between">
             <h2 className="text-gray-300  text-[15px]">Projected Rewards</h2>
             <h2 className="flex gap-x-1 items-center ">
-              {userPercent.rewards.toString()}{' '}
+              {formatDecimal(
+                checkNaN(parseInt(userPercent.rewards.toString())) / 10 ** 9,
+                5
+              )}
               <SiSolana size={15} className="text-primary" />
             </h2>
           </div>
