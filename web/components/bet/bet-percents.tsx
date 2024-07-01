@@ -21,6 +21,7 @@ export function BetPercents({
     const bpercent = (b / total) * 100;
     return { a, b, apercent, bpercent };
   }, [programData?.totalSolA, programData?.totalSolB]);
+  console.log(totals, 'TOTALS');
   return (
     <>
       {programData?.betOver === 1 && (
@@ -42,6 +43,15 @@ export function BetPercents({
               style={{ width: `${formatDecimal(checkNaN(totals.bpercent))}%` }}
               className={`h-2  bg-primary-100 `}
             ></div>
+            {checkNaN(totals.apercent) === 0 &&
+              checkNaN(totals.bpercent) === 0 && (
+                <div
+                  style={{
+                    width: `100%`,
+                  }}
+                  className={`h-2  bg-gray-400 `}
+                ></div>
+              )}
           </div>
 
           <div className="flex justify-between font-semibold pt-4 text-lg">
