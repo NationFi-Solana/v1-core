@@ -13,8 +13,8 @@ export default function Stats() {
       </div>
       <div className="flex justify-between">
         <h3 className="text-gray-300">Market Cap</h3>
-        <h3>
-          {(a + b) / 10 ** 9} <SiSolana className="text-primary" />{' '}
+        <h3 className="flex gap-x-1 items-center">
+          {(a + b) / 10 ** 9} <SiSolana size={15} className="text-primary" />{' '}
         </h3>
       </div>
     </div>
