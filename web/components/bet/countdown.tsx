@@ -12,7 +12,7 @@ export function Countdown({ unixtimestamp }: { unixtimestamp: number }) {
   return (
     <div className="flex justify-between">
       <h2 className="text-gray-400 text-xl">Bets Close In </h2>
-      <h2 className="text-gray-100 text-2xl ">
+      <h2 className=" text-2xl ">
         {days}d<Cln />
         {hours}h<Cln />
         {minutes}m<Cln />
