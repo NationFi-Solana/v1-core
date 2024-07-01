@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 import { useProgram } from '../providers/program-provider';
 import { checkNaN, formatDecimal } from '@/lib/utils/utils';
+import { SiSolana } from 'react-icons/si';
 
 export function BetPercents({
   optiona,
@@ -44,8 +45,14 @@ export function BetPercents({
           </div>
 
           <div className="flex justify-between font-semibold pt-4 text-lg">
-            <h3>{formatDecimal(checkNaN(totals.apercent))}%</h3>
-            <h3>{formatDecimal(checkNaN(totals.bpercent))}%</h3>
+            <h3 className="flex gap-x-1 items-center">
+              {formatDecimal(checkNaN(totals.a / 10 ** 9))}
+              <SiSolana className="text-primary" />
+            </h3>
+            <h3 className="flex gap-x-1 items-center ">
+              {formatDecimal(checkNaN(totals.b / 10 ** 9))}{' '}
+              <SiSolana className="text-primary" />
+            </h3>
           </div>
         </>
       )}

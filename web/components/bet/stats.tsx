@@ -1,5 +1,6 @@
 import { useProgram } from '../providers/program-provider';
 
+import { SiSolana } from 'react-icons/si';
 export default function Stats() {
   const { programData } = useProgram();
   const a = parseFloat(programData?.totalSolA);
@@ -12,7 +13,9 @@ export default function Stats() {
       </div>
       <div className="flex justify-between">
         <h3 className="text-gray-300">Market Cap</h3>
-        <h3>{(a + b) / 10 ** 9}</h3>
+        <h3>
+          {(a + b) / 10 ** 9} <SiSolana className="text-primary" />{' '}
+        </h3>
       </div>
     </div>
   );
