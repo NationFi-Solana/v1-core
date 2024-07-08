@@ -1,6 +1,5 @@
-# test
-
-This project is generated with the [create-solana-dapp](https://github.com/solana-developers/create-solana-dapp) generator.
+# v1-core
+Ticket Number: #1775
 
 ## Getting Started
 
